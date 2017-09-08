@@ -25,4 +25,4 @@ No passo 4, caso o comentário possua mais de 512:
 1. Apresentar uma mensagem indicando que o comentário excedeu o limite de caracteres;
 1. Retornar ao passo anterior no respectivo fluxo.
 ## Pós-condições
-O comentário do usuário deverá ser exibido na página de comentários do exercício.
+O comentário do usuário deverá ser exibido na página de comentários do exercício. Caso seja uma resposta, o comentário deverá estar localizado abaixo do comentário respondido.
