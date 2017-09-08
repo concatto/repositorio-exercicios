@@ -4,16 +4,16 @@
 Permitir que usuários convidados possam entrar na sala e ter acesso aos exercícios através de convites via e-mail.
 
 ## Pré-Condições
-1. O usuário deve ter recebido convite via e-mail.
-1. O usuário deve estar cadastrado e ter feito login em sua conta.
-1. O link do convite para entrar na sala deve estar válido, sendo permitido somente 1 usuário por link.
+* O usuário deve ter recebido convite via e-mail.
+* O usuário deve estar cadastrado e ter feito login em sua conta.
+* O link do convite para entrar na sala deve estar válido, sendo permitido somente 1 usuário por link.
 
 ## Pós-Condições
-1. Após validar o convite da sala, o sistema deve permitir que o usuário possa entrar na sala sem precisar ser convidado novamente.
-1. Após validar o convite da sala, o sistema deve apresentar ao usuário os exercícios disponíveis para resolver e os demais alunos/professores da sala.
+* Após validar o convite da sala, o sistema deve permitir que o usuário possa entrar na sala sem precisar ser convidado novamente.
+* Após validar o convite da sala, o sistema deve apresentar ao usuário os exercícios disponíveis para resolver e os demais alunos/professores da sala.
 
 ## Atores
-1. Usuários em geral.
+* Usuários em geral.
 
 ## Fluxo Principal 
 1. O usuário recebe um link em seu e-mail.
