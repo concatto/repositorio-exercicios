@@ -22,6 +22,7 @@ Permitir que usuários convidados possam entrar na sala e ter acesso aos exercí
 
 ## Fluxo Alternativo
 1. O usuário não estar cadastrado no sistema, assim, será necessário cadastrar-se antes de entar na sala.
-1. O link de convite estar inválido, assim o usuário deverá solicitar ao criador da sala/moderador um novo link.
 
+## Fluxo de Exceção
+1. O link de convite estar inválido, assim o usuário deverá solicitar ao criador da sala/moderador um novo link.
 
