@@ -22,7 +22,7 @@ No passo 4, caso o comentário possua 0 caracteres (vazio):
 1. Apresentar uma mensagem indicando que o comentário não pode ser vazio;
 1. Retornar ao passo anterior no respectivo fluxo.
 
-No passo 4, caso o comentário possua mais de 512:
+No passo 4, caso o comentário possua mais de 512 caracteres:
 1. Apresentar uma mensagem indicando que o comentário excedeu o limite de caracteres;
 1. Retornar ao passo anterior no respectivo fluxo.
 ## Pós-condições
