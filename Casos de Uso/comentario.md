@@ -4,7 +4,7 @@
 Permitir que usuários que tenham completado um exercício comentem sobre as soluções de outros alunos e respondam a outros comentários.
 
 ## Atores
-Usuário
+Usuários.
 ## Pré-condições
 Se o ator for um aluno, o mesmo deve ter resolvido o exercício previamente.
 ## Fluxo principal
@@ -26,4 +26,4 @@ No passo 4, caso o comentário possua mais de 512 caracteres:
 1. Apresentar uma mensagem indicando que o comentário excedeu o limite de caracteres;
 1. Retornar ao passo anterior no respectivo fluxo.
 ## Pós-condições
-O comentário do usuário deverá ser exibido na página de comentários do exercício. Caso seja uma resposta, o comentário deverá estar localizado abaixo do comentário respondido.
+O comentário do usuário deverá ser exibido na página de comentários do exercício. Caso seja uma resposta, o comentário deverá estar localizado abaixo do comentário respondido, estando também indentado em relação ao original.
