@@ -1,31 +1,31 @@
-#Criar Exercício
+# Criar Exercício
 
-##Objetivo
+## Objetivo
 
 O sistema deve permitir que os administradores, moderadores e professores criem exercícios na sala;
 
-##Atores
+## Atores
 
 Administrador, Moderador e Professor;
 
-##Pré-condições
+## Pré-condições
 
 Deve ser classificado como Professor, Moderador ou Administrador na sala que se deseja criar o exercício;
 
-##Fluxo principal
+## Fluxo principal
 
 Informar o nome do exercício, dificuldade, categorias e o enunciado;
 Definir entradas e saídas esperadas;
 Inserir uma ou mais possíveis soluções;
 
-##Fluxos alternativos
+## Fluxos alternativos
 
 Cancelar antes de salvar;
 
-##Fluxos de exceção
+## Fluxos de exceção
 
 Caso a solução não seja equivalente as entradas e saídas esperadas, o sistema deve apresentar um erro alertando o criador do exercício.
 
-##Pós-condições
+## Pós-condições
 
 O Exercício deve aparecer na lista de exercícios disponíveis.
