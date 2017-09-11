@@ -21,18 +21,18 @@
 6. Retorna a lista de exercícios.
 
 ## Fluxos alternativos
-No passo 4, caso a solução do usuário esteja incorreta:
+* No passo 4, caso a solução do usuário esteja incorreta:
 7. Se houver dicas, o sistema oferece as dicas, caso nao houver mais dicas volta ao passo 2 do fluxo principal.
 8. Se aceitar, reduz a pontução do exercício e visualiza a dica.
 9. Retorna ao passo 2 do fluxo principal.
 
 ## Fluxos de exceção
-No passo 2, caso tenha dicas disponveis e o usuário queira visualizar:
+* No passo 2, caso tenha dicas disponveis e o usuário queira visualizar:
 7. O usuário solicita uma dica
 8. O sistema deixa visível a dica e decrementa a pontuação da dica do total do exercício.
 9. Retorna ao passo 2 do fluxo principal.
 
-No passo 3, caso a solução submetida esteja vazia:
+* No passo 3, caso a solução submetida esteja vazia:
 10. O sistema notifica o usuário com uma mensagem.
 11. Retorna ao passo 2 do fluxo principal.
 
