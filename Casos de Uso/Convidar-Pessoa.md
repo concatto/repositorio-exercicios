@@ -16,4 +16,4 @@ Alunos ou Professores devem ter seu cargo mudado para moderador para realizar o 
 1. Caso o envio seja feito com a textbox vazia o sistema deve apresentar uma mensagem indicando que a caixa de email não pode ser vazio;
 1. Caso o email seja maior que 64 caracteres, o sistema deve apresentar uma mensagem indicando que o comentário excedeu o limite de caracteres;
 ## Pós-condições
-Uma mensagem deve aparecer ao usuario informando se o convite foi enviado ou não (caso haja uma excessão).
+Uma mensagem deve aparecer ao usuario informando se o convite foi enviado ou não (caso haja uma exceção).
