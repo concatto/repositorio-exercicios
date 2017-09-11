@@ -17,7 +17,7 @@
 2. O usuário deve desenvolver sua solução na IDE da página.
 3. O usuário deve submeter a sua solução.
 4. O sistema analisa a solução.
-5. O sistema registra a solução como correta, acrescenta a pontução do exercício e visualiza as soluções disponíveis do exercicío.
+5. O sistema registra a solução como correta, acrescenta a pontução e visualiza as soluções disponíveis do exercício.
 6. Retorna a lista de exercícios.
 
 ## Fluxos alternativos
