@@ -17,7 +17,7 @@
 2. O usuário deve desenvolver sua solução na IDE da página.
 3. O usuário deve submeter a sua solução.
 4. O sistema analisa a solução.
-5. O sistema registra a solução como correta, acrescenta a pontução do exercício e visualiza as soluções do professor.
+5. O sistema registra a solução como correta, acrescenta a pontução do exercício e visualiza as soluções disponíveis do exercicío.
 6. Retorna a lista de exercícios.
 
 ## Fluxos alternativos
@@ -26,11 +26,12 @@
 8. Se aceitar, reduz a pontução do exercício e visualiza a dica.
 9. Retorna ao passo 2 do fluxo principal.
 
-## Fluxos de exceção
 * No passo 2, caso tenha dicas disponveis e o usuário queira visualizar:
 7. O usuário solicita uma dica
 8. O sistema deixa visível a dica e decrementa a pontuação da dica do total do exercício.
 9. Retorna ao passo 2 do fluxo principal.
+
+## Fluxos de exceção
 
 * No passo 3, caso a solução submetida esteja vazia:
 10. O sistema notifica o usuário com uma mensagem.
