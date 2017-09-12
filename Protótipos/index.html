@@ -25,12 +25,36 @@
 	<div class="container main-container">
 		<div class="row">
 			<div class="col-xs-9">
-				<div class="row title-row">
-					<div class="col-xs-9">
+				<div class="row title-row centered-row">
+					<div class="col-xs-10">
 						<h2 class="main-title">Exercícios disponíveis</h3>
 					</div>
-					<div class="col-xs-3 filters">
+					<div class="col-xs-2 filters" data-toggle="collapse" data-target="#filter-panel">
 						Filtros <span class="glyphicon glyphicon-triangle-bottom"></span>
+					</div>
+				</div>
+				
+				<div class="panel collapse" id="filter-panel">
+					<div class="panel-body">
+						<form class="form-inline">
+							<div class="form-group">
+								<label class="control-label">Categoria</label>
+								<select class="form-control">
+									<option selected>Todas</option>
+									<option>Básico</option>
+									<option>Sequências</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Status</label>
+								<select class="form-control">
+									<option selected>Todos</option>
+									<option>Finalizado</option>
+									<option>Em andamento</option>
+									<option>Disponível</option>
+								</select>
+							</div>
+						</form>
 					</div>
 				</div>
 				
@@ -50,7 +74,7 @@
 								<span class="glyphicon glyphicon-star"></span>
 							</td>
 							<td>5</td>
-							<td class="text-center"><span class="glyphicon glyphicon-ok"></span></td>
+							<td class="text-center"><span title="Finalizado" class="glyphicon glyphicon-ok"></span></td>
 						</tr>
 						<tr>
 							<td>Preenchimento de Vetor</td>
@@ -59,7 +83,7 @@
 								<span class="glyphicon glyphicon-star"></span>
 							</td>
 							<td>20</td>
-							<td class="text-center"><span class="glyphicon glyphicon-hourglass"></span></td>
+							<td class="text-center"><span title="Em andamento" class="glyphicon glyphicon-hourglass"></span></td>
 						</tr>
 						<tr>
 							<td>Sequência de Fibonacci</td>
@@ -69,7 +93,7 @@
 								<span class="glyphicon glyphicon-star"></span>
 							</td>
 							<td>45</td>
-							<td class="text-center"><span class="glyphicon glyphicon-exclamation-sign"></span></td>
+							<td class="text-center"><span title="Disponível" class="glyphicon glyphicon-exclamation-sign"></span></td>
 						</tr>
 						<tr>
 							<td>Números Perfeitos</td>
@@ -80,7 +104,7 @@
 								<span class="glyphicon glyphicon-star"></span>
 							</td>
 							<td>60</td>
-							<td class="text-center"><span class="glyphicon glyphicon-exclamation-sign"></span></td>
+							<td class="text-center"><span title="Disponível" class="glyphicon glyphicon-exclamation-sign"></span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -92,7 +116,7 @@
 					<div class="input-group-addon">
 						<span class="glyphicon glyphicon-search"></span>
 					</div>
-					<input type="text" class="form-control" placeholder="Buscar"/>
+					<input type="text" class="form-control" placeholder="Buscar membro"/>
 				</div>
 				
 				<div class="panel panel-default member-list">

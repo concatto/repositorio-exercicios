@@ -15,14 +15,20 @@
 	
 }
 
-.title-row {
+.centered-row {
 	display: flex;
 	align-items: center;
+}
+
+.bottom-row {
+	display: flex;
+	align-items: flex-end;
 }
 
 .filters {
 	padding-top: 4px;
 	text-align: right;
+	cursor: pointer;
 }
 
 .filters span {
@@ -52,4 +58,54 @@
 
 .exercise-table th{
 	padding: 8px 10px !important;
+}
+
+#filter-panel .control-label {
+	margin-right: 10px;
+}
+
+#filter-panel .form-group {
+	margin-right: 10px;
+}
+
+.exercise-description {
+	
+}
+
+.exercise-container {
+	padding-top: 70px;
+}
+
+.tags li {
+	margin-right: 6px;
+}
+
+.tags a, .tags a:hover {
+	background-image: none !important;
+	background-color: #484e55 !important;
+	border-color: #202020 !important;
+}
+
+.hbar {
+	width: 100%;
+	height: 1px;
+	background-color: #c8c8c8;
+	margin: 20px 0px;
+}
+
+.no-vmargin {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.code-area {
+	width: 100%;
+}
+
+.code-panel {
+	margin-top: 20px;
+}
+
+.heading-title {
+	margin: 4px 0px;
 }
