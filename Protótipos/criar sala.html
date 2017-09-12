@@ -1,0 +1,73 @@
+<!doctype html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	
+</head>
+
+<html>
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+Clicar
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        
+      </div>
+      <div class="modal-body">
+       <div style="padding:10px 10px 10px 35%"> 
+		<h1> Criar Sala </h1>
+		
+		
+	</div>
+	<div>
+	<form style="padding:10%">
+  <div class="form-group">
+    <label for="inputsm">Nome</label>
+    <input class="form-control input-md" id="inputsm" type="text">
+  </div>
+   <div class="form-group">
+  <label for="comment">Comentario</label>
+  <textarea class="form-control" rows="5" id="comment"></textarea>
+</div>
+
+  <div class="form-group">
+    <label for="inputlg">Membros iniciais</label>
+    <input class="form-control input-md" id="inputlg" type="text">
+	
+  </div>
+  
+  <span class="glyphicon glyphicon-trash"></span>    
+  <span class="glyphicon glyphicon-plus-sign"></span>
+   <select class="selectpicker" data-live-search="true">
+  <option data-tokens="ketchup mustard">Professor</option>
+  <option data-tokens="mustard">Aluno</option>
+  <option data-tokens="frosting">Moderador</option>
+</select>
+
+</form>
+
+
+      </div>
+      <div class="modal-footer">
+		<button type="button" class="btn btn-primary">Criar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+</div>
+</html>
