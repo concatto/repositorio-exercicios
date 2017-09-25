@@ -9,7 +9,7 @@
 
 ## Pré-condições
 1. O usuário deve estar devidamente cadastrado e logado no sistema.
-2. O usuário deve estar devidamente acessado alguma sala que participa.
+2. O usuário deve haver devidamente acessado alguma sala que participa.
 3. O usuário deve ter devidamente acessado um exercício disponível na lista da sala para responder.
 
 ## Fluxo principal
