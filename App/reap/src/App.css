@@ -4,9 +4,10 @@
 
 .App-header {
   background-color: #222;
-  height: 200px;
+  height: 180px;
   padding: 20px;
   color: white;
+  margin-bottom: 28px;
 }
 
 .App-title {
@@ -15,4 +16,16 @@
 
 .App-intro {
   font-size: large;
+  margin-bottom: 24px;
+}
+
+.tabbed-form {
+  border: 1px solid #dddddd;
+  border-top: none;
+  padding: 22px 26px 14px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.main-content {
+  text-align: left;
 }
