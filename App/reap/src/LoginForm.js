@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import LabeledControl from './LabeledControl';
 
 export default class LoginForm extends React.Component {
@@ -17,9 +18,13 @@ export default class LoginForm extends React.Component {
     });
   }
 
+  handleSubmit() {
+    this.props.onLogin(true);
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={() => this.handleSubmit()}>
         <LabeledControl label="Usuário" type="text"
           value={this.state.user}
           onChange={e => this.handleChange("user", e)}
@@ -28,6 +33,7 @@ export default class LoginForm extends React.Component {
           value={this.state.password}
           onChange={e => this.handleChange("password", e)}
         />
+        <Button type="submit">Entrar</Button>
       </form>
     );
   }
