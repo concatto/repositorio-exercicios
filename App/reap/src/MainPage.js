@@ -1,10 +1,12 @@
 import React from 'react';
+import ExerciseList from './ExerciseList';
+import ExerciseDetail from './ExerciseDetail';
 
 class MainPage extends React.Component {
   render() {
     return (
       <div>
-        <h2>Página primária</h2>
+        <ExerciseList />
       </div>
     );
   }
