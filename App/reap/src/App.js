@@ -23,10 +23,9 @@ class App extends React.Component {
     if (this.state.authenticated) {
       return <Redirect push to="/home"/>
     } else {
-      return <WelcomePage onLogin={outcome => this.handleLogin(outcome)}/>
-    }
+      return <WelcomePage onLogin={ (outcome) => {this.handleLogin(outcome)}} />
   }
-      
+
   componentDidMount() {
     this.props.loadExercises();
   }
