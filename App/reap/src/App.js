@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router';
 import WelcomePage from './WelcomePage';
 import MainPage from './MainPage';
 import './App.css';
+import { loadExercises } from './actions';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,6 +26,10 @@ class App extends React.Component {
       return <WelcomePage onLogin={outcome => this.handleLogin(outcome)}/>
     }
   }
+      
+  componentDidMount() {
+    this.props.loadExercises();
+  }
 
   render() {
     return (
@@ -35,4 +41,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return state;
+};
+
+export default connect(mapStateToProps, {
+    loadExercises
+})(App);
