@@ -3,11 +3,11 @@ class Exercises {
     return "exercises";
   }
 
-  getActions(dispatch) {
+  getActions() {
     return {
-      loadAll: dispatch => {
+      loadAll: () => dispatch => {
         console.log(dispatch);
-        console.log("Loading...");
+        dispatch({type: "LOAD_EXERCISES"});
       }
     };
   }
