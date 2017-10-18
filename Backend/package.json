@@ -2,6 +2,7 @@
   "name": "b-reap",
   "version": "1.0.0",
   "description": "Backend para o Repositório de Exercícios de Algoritmos e Programação",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "test"
