@@ -4,7 +4,8 @@ import { Switch, Route, Redirect } from 'react-router';
 import WelcomePage from './WelcomePage';
 import MainPage from './MainPage';
 import './App.css';
-import { loadExercises } from './actions';
+import Exercises from './entities/exercises';
+import { withEntities } from './utils';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,11 +24,12 @@ class App extends React.Component {
     if (this.state.authenticated) {
       return <Redirect push to="/home"/>
     } else {
-      return <WelcomePage onLogin={ (outcome) => {this.handleLogin(outcome)}} />
+      return <WelcomePage onLogin={outcome => {this.handleLogin(outcome)}}/>
+    }
   }
 
   componentDidMount() {
-    this.props.loadExercises();
+    this.props.exercises.loadAll();
   }
 
   render() {
@@ -44,6 +46,4 @@ const mapStateToProps = (state) => {
     return state;
 };
 
-export default connect(mapStateToProps, {
-    loadExercises
-})(App);
+export default connect(mapStateToProps, withEntities(Exercises))(App);
