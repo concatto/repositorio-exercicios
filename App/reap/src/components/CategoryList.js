@@ -6,7 +6,7 @@ export default class CategoryList extends React.Component {
   createCategories() {
     const categories = [];
     this.props.categories.forEach((element) => {
-      categories.push(<Button bsSize="small"> {element} </Button>);
+      categories.push(<Button className="margin-buttons" bsSize="small"> {element} </Button>);
     }, this);
     return categories;
   }
