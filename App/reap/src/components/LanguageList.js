@@ -16,15 +16,12 @@ export default class LanguageList extends React.Component {
 
     createList(){
 
-        const final = [], options = [];
-        let counter = 0;
-        {this.props.languages.forEach( (element) => {
-            options.push(<MenuItem eventKey={counter++}>{element}</MenuItem>);
+        const options = [];
+        {this.props.languages.forEach( (element, i) => {
+            options.push(<MenuItem eventKey={i}>{element}</MenuItem>);
         }, this)}
 
-        final.push(<DropdownButton onSelect={ (e) => this.handleChange(e)}title={this.state.title} id="bg-nested-dropdown"> {options} </DropdownButton>);
-
-        return final;
+        return (<DropdownButton onSelect={ (e) => this.handleChange(e)}title={this.state.title} id="bg-nested-dropdown"> {options} </DropdownButton>);
 
     }
     
