@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, NavItem, Grid, Row, Col } from 'react-bootstrap';
 import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
-import logo from './g-logo.png';
+import logo from '../g-logo.png';
 
 class WelcomePage extends React.Component {
   constructor(props) {

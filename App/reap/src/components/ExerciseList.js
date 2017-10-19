@@ -3,12 +3,6 @@ import {Table} from 'react-bootstrap';
 import Exercise from './Exercise';
 
 export default class ExerciseList extends React.Component {
-
-  constructor(props){
-    super(props);
-
-  }
-
   render (){
     return (
       <Table striped bordered condensed hover >

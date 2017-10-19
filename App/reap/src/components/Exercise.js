@@ -3,18 +3,10 @@ import DifficultyView from './DifficultyView';
 import {Glyphicon} from 'react-bootstrap';
 
 export default class Exercicio extends React.Component {
-  chooseIcon(){
-    switch(this.props.status){
-      case 0:
-        return <Glyphicon glyph="ok" />;
-        break;
-      case 1:
-        return <Glyphicon glyph="time" />;
-        break;
-      case 2:
-        return <Glyphicon glyph="hourglass" />
-        break;
-    }
+  chooseIcon() {
+    const glyphs = ["ok", "time", "hourglass"];
+
+    return <Glyphicon glyph={glyphs[this.props.status]}/>
   }
 
   render (){

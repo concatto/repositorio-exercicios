@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router';
-import WelcomePage from './WelcomePage';
-import MainPage from './MainPage';
+import { Switch, Route } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import WelcomePage from './components/WelcomePage';
+import MainPage from './components/MainPage';
 import './App.css';
 import Exercises from './entities/exercises';
 import { withEntities } from './utils';
@@ -17,14 +18,7 @@ class App extends React.Component {
   handleLogin(outcome) {
     if (outcome === true) {
       this.setState({authenticated: true});
-    }
-  }
-
-  createRedirectableComponent() {
-    if (this.state.authenticated) {
-      return <Redirect push to="/home"/>
-    } else {
-      return <WelcomePage onLogin={outcome => {this.handleLogin(outcome)}}/>
+      this.props.history.push("/home");
     }
   }
 
@@ -32,10 +26,14 @@ class App extends React.Component {
     this.props.exercises.loadAll();
   }
 
+  createWelcomePage() {
+    return <WelcomePage onLogin={outcome => {this.handleLogin(outcome)}}/>;
+  }
+
   render() {
     return (
       <Switch>
-        <Route exact path="/" render={() => this.createRedirectableComponent()}/>
+        <Route exact path="/" render={() => this.createWelcomePage()}/>
         <Route exact path="/home" component={MainPage}/>
       </Switch>
     );
@@ -46,4 +44,6 @@ const mapStateToProps = (state) => {
     return state;
 };
 
-export default connect(mapStateToProps, withEntities(Exercises))(App);
+export default withRouter(
+  connect(mapStateToProps, withEntities(Exercises))(App)
+);
