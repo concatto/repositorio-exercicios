@@ -4,8 +4,11 @@ import {Glyphicon} from 'react-bootstrap';
 export default class DifficultyView extends React.Component {
   createStars(){
     const stars = [];
-    for(let i = 0; i < this.props.difficulty; i++){
-      stars.push(<Glyphicon glyph="star" key={i}/>);
+    for(let i = 0; i < 5; i++){
+      if(i < this.props.difficulty)
+        stars.push(<Glyphicon glyph="star" key={i}/>);
+      else
+        stars.push(<Glyphicon glyph="star-empty" />);
     }
     return stars;
   }

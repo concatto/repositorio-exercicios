@@ -11,11 +11,11 @@ class ExerciseDetailModal extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <ExerciseDetail name={"Exercício #32 - Sequência Fibonacci"} difficulty={4} description={
-          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma"+
-          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma " +
-          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma " +
-          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma "+
-          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma "          
+          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"+
+          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua" +
+          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua" +
+          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"+
+          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"          
           } />
         </Modal.Body>
       </div>
