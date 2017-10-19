@@ -2,6 +2,7 @@ import React from 'react';
 import {Panel} from 'react-bootstrap';
 import DifficultyView from './DifficultyView';
 import CategoryList from './CategoryList';
+import LanguageList from './LanguageList';
 
 export default class ExerciseDetail extends React.Component {
   render(){
@@ -11,8 +12,9 @@ export default class ExerciseDetail extends React.Component {
         <Panel header={this.props.name}>
           {this.props.description}
         </Panel>
-        <DifficultyView difficulty={this.props.difficulty} />
+        <h4>Dificuldade:</h4> <DifficultyView difficulty={this.props.difficulty} />
         <h4>Categorias:</h4> <CategoryList categories={['Loop', 'Recursividade', 'Sequência Matemática']}/>
+        <h4>Linguagens:</h4> <LanguageList languages={['C++', 'Java', 'Python']} />
       </div>
     );
   }
