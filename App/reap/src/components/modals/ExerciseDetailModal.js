@@ -1,15 +1,22 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import ExerciseDetail from '../ExerciseDetail';
 
 class ExerciseDetailModal extends React.Component {
   render() {
     return (
       <div>
         <Modal.Header closeButton>
-          <Modal.Title>Detalhes do exercício</Modal.Title>
+          <Modal.Title>{this.props.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          ...
+          <ExerciseDetail name={"Exercício #32 - Sequência Fibonacci"} description={
+          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma"+
+          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma " +
+          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma " +
+          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma "+
+          "O que é Lorem Ipsum? Lorem Ipsum é simplesmente uma "          
+          } />
         </Modal.Body>
       </div>
     )

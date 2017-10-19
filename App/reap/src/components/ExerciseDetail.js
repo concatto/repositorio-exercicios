@@ -12,7 +12,7 @@ export default class ExerciseDetail extends React.Component {
           {this.props.description}
         </Panel>
         <DifficultyView difficulty={this.props.difficulty} />
-        Categorias: <CategoryList categories={['MUITO FODA', 'Dificil pra caramba', 'paulada']}/>
+        <h4>Categorias:</h4> <CategoryList categories={['Loop', 'Recursividade', 'Sequência Matemática']}/>
       </div>
     );
   }
