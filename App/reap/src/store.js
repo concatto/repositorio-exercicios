@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
+import modalReducer from './reducers/modalReducer';
 
 const middleware = applyMiddleware(thunk, createLogger());
 
@@ -13,4 +14,5 @@ const reducer = (state={}, action) => {
 
 export const store = createStore(combineReducers({
   data: reducer,
+  modal: modalReducer,
 }), middleware);

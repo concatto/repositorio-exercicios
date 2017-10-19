@@ -1,17 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Glyphicon } from 'react-bootstrap';
+import { withEntities } from '../utils';
+import Modal from '../entities/modal';
+import ExerciseDetailModal from './modals/ExerciseDetailModal';
 import DifficultyView from './DifficultyView';
-import {Glyphicon} from 'react-bootstrap';
 
-export default class Exercicio extends React.Component {
+class Exercise extends React.Component {
   chooseIcon() {
     const glyphs = ["ok", "time", "hourglass"];
 
     return <Glyphicon glyph={glyphs[this.props.status]}/>
   }
 
-  render (){
+  render() {
+    console.log(this.props);
+
     return (
-      <tr>
+      <tr onClick={() => this.props.modal.push(ExerciseDetailModal)}>
         <td>{this.props.name}</td>
         <td><DifficultyView difficulty={this.props.difficulty}/></td>
         <td>{this.props.points}</td>
@@ -20,3 +26,7 @@ export default class Exercicio extends React.Component {
     );
   }
 }
+
+export default connect((state) => {
+  return {};
+}, withEntities(Modal))(Exercise);

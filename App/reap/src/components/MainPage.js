@@ -4,12 +4,14 @@ import ExerciseList from './ExerciseList';
 import ExerciseDetail from './ExerciseDetail';
 import NavigationBar from './NavigationBar';
 import SideBar from './SideBar';
+import ModalRoot from './ModalRoot';
 
 class MainPage extends React.Component {
   render() {
     return (
       <div>
         <NavigationBar/>
+        <ModalRoot/>
 
         <Grid className="main-root">
           <Row>
