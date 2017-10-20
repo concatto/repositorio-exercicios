@@ -1,29 +1,24 @@
 import React from 'react';
 import MemberItem from './MemberItem';
-import { FormGroup, ListGroup, FormControl, Button , Panel , PanelGroup} from 'react-bootstrap';
-
+import ReactDOM from 'react-dom'
+import { FormGroup, ListGroup, FormControl, Button , Panel , PanelGroup } from 'react-bootstrap';
+import SearchInput, {createFilter} from './SearchInput'
 
 class SideBar extends React.Component {
+	  constructor (props) {
+    super(props)
+    this.state = {
+      searchTerm: ''
+    }
+    this.searchUpdated = this.searchUpdated.bind(this)
+  }
+	
 	render() {
-		return (
-			<div>
-				<form>
-					<FormGroup className="filter-member">
-						<FormControl type="text" placeholder="Search" />
-					</FormGroup>
-					{' '}
-					<Button bsStyle="primary" type="submit">Submit</Button>
-
-
-				</form>
-
-
-				<ListGroup className="member-list-panel">
-
+		const listgroup = <ListGroup className="member-list-panel">
 				<PanelGroup>
 
 						<Panel header={"Professores"}>
-							<ListGroup>
+							<ListGroup className="professores">
 
 								<MemberItem name="Elieser" online={false}/>
 								<MemberItem name="Marcelo" online={true}/>
@@ -32,7 +27,7 @@ class SideBar extends React.Component {
 						</Panel>
 
 						<Panel header={"Alunos"}>
-							<ListGroup>
+							<ListGroup className="alunos">
 
 								<MemberItem name="Andriel" online={true}/>
 								<MemberItem name="Eriosvaldo" online={true}/>
@@ -40,14 +35,36 @@ class SideBar extends React.Component {
 								<MemberItem name="Rodrigo" online={false}/>
 								<MemberItem name="Samuel" online={false}/>
 
+
 							</ListGroup>
 						</Panel>
 					</PanelGroup>
 				</ListGroup>
+		
+		
+		return (
+			<div>
 
+				<form>
+					<FormGroup className="filter-member">
+					<SearchInput className='search-input' onChange={this.searchUpdated} />
+	
+					</FormGroup>
+					
+					{listgroup}
+
+					</form>
+				
 			</div>
+			
+			
 		);
+
+		
 	}
+			  searchUpdated (term) {
+    this.setState({searchTerm: term})
+  }
 }
 
 export default SideBar;

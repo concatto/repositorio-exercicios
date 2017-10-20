@@ -56,3 +56,19 @@
 
 .margin-buttons {
   margin: 0px 5px 0px 0px !important; }
+  
+ .professores {
+    max-height: 200px;
+    overflow: auto;
+
+ }
+ 
+ .alunos {
+	max-height: 200px;
+    overflow: auto;
+
+ } 
+	 
+
+ 
+ 
