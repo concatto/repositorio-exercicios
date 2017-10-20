@@ -80,3 +80,10 @@
 h1.title-text {
   margin-bottom: 18px;
 }
+
+.text-nonResize {
+  padding-left: 35px;
+  padding-top: 10px;
+  min-height: 350px;
+  resize: vertical;
+}
