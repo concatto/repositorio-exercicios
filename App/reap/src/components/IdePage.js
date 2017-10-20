@@ -77,7 +77,7 @@ export default class IdePage extends React.Component {
 
 					<Panel header={this.insertHeader()} footer={this.insertFooter()}>
 		    	    	<FormGroup>
-		    	    		<FormControl componentClass="textarea" className="textArea-nonResize" />
+		    	    		<FormControl componentClass="textarea" className="text-nonResize" />
 		    	    	</FormGroup>
 			        </Panel>
 		    	</div>
@@ -89,7 +89,7 @@ export default class IdePage extends React.Component {
             		<CategoryList categories={["Dificil", "Sequência", "Numeros"]} />
             		<p>________________________________________</p>
 
-            		<Row>
+            		<Row>	
             			<Col xs={9}>
             				<h2>Dicas: {this.totalTips()} </h2>
             			</Col>
@@ -97,7 +97,6 @@ export default class IdePage extends React.Component {
             				<Button> Dica </Button>
             			</Col>
             		</Row>
-            		
             	</Thumbnail>
             </Col>
           </Row>
