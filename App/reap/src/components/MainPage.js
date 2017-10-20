@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
-import ExerciseList from './ExerciseList';
-import ExerciseDetail from './ExerciseDetail';
+import { Switch, Route } from 'react-router';
+import { Grid } from 'react-bootstrap';
 import NavigationBar from './NavigationBar';
-import SideBar from './SideBar';
 import ModalRoot from './ModalRoot';
+import Lobby from './Lobby';
+import IdePage from './IdePage';
 
 class MainPage extends React.Component {
   render() {
@@ -14,15 +14,10 @@ class MainPage extends React.Component {
         <ModalRoot/>
 
         <Grid className="main-root">
-          <Row>
-            <Col xs={9}>
-              <h3>Exercícios disponíveis</h3>
-              <ExerciseList />
-            </Col>
-            <Col xs={3}>
-              <SideBar/>
-            </Col>
-          </Row>
+          <Switch>
+            <Route exact path="/reap" component={Lobby}/>
+            <Route exact path="/reap/solve" component={IdePage}/>
+          </Switch>
         </Grid>
       </div>
     );

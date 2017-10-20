@@ -18,7 +18,7 @@ class App extends React.Component {
   handleLogin(outcome) {
     if (outcome === true) {
       this.setState({authenticated: true});
-      this.props.history.push("/home");
+      this.props.history.push("/reap");
     }
   }
 
@@ -34,7 +34,7 @@ class App extends React.Component {
     return (
       <Switch>
         <Route exact path="/" render={() => this.createWelcomePage()}/>
-        <Route exact path="/home" component={MainPage}/>
+        <Route path="/reap" component={MainPage}/>
       </Switch>
     );
   }

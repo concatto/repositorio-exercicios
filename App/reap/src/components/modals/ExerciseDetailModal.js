@@ -1,13 +1,16 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import ExerciseDetail from '../ExerciseDetail';
+import ModalFooter from '../ModalFooter';
 
 class ExerciseDetailModal extends React.Component {
   render() {
+    const { onSuccess, onDismiss } = this.props;
+
     return (
       <div>
         <Modal.Header closeButton>
-          <Modal.Title>{this.props.name}</Modal.Title>
+          <Modal.Title>Detalhes do exercício</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ExerciseDetail name={"Exercício #32 - Sequência Fibonacci"} difficulty={4} description={
@@ -15,12 +18,20 @@ class ExerciseDetailModal extends React.Component {
           "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua" +
           "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua" +
           "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"+
-          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"          
+          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"
           } />
         </Modal.Body>
+        <ModalFooter cancel confirm="Resolver"
+          onSuccess={onSuccess}
+          onDismiss={onDismiss}
+        />
       </div>
     )
   }
+};
+
+ExerciseDetailModal.modalProperties = {
+  bsSize: "large"
 };
 
 export default ExerciseDetailModal;

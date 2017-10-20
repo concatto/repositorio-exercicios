@@ -15,8 +15,12 @@ class ModalRoot extends React.Component {
         <Modal key={i} show={modal.shown}
           onExited={() => modalActions.pop()}
           onHide={() => modalActions.close()}
+          {...SpecificModal.modalProperties}
         >
-          <SpecificModal {...modal.params} onSuccess={modal.callback}/>
+          <SpecificModal {...modal.params}
+            onSuccess={modal.callback}
+            onDismiss={() => modalActions.close()}
+          />
         </Modal>
       );
     });

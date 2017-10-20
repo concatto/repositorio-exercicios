@@ -8,7 +8,7 @@ export default class DifficultyView extends React.Component {
       if(i < this.props.difficulty)
         stars.push(<Glyphicon glyph="star" key={i}/>);
       else
-        stars.push(<Glyphicon glyph="star-empty" />);
+        stars.push(<Glyphicon glyph="star-empty" key={i}/>);
     }
     return stars;
   }

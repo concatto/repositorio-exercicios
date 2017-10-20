@@ -4,11 +4,13 @@ import {Button} from 'react-bootstrap';
 export default class CategoryList extends React.Component {
 
   createCategories() {
-    const categories = [];
-    this.props.categories.forEach((element) => {
-      categories.push(<Button className="margin-buttons" bsSize="small"> {element} </Button>);
-    }, this);
-    return categories;
+    return this.props.categories.map((element, i) => {
+      return (
+        <Button className="margin-buttons" bsSize="small" key={i}>
+          {element}
+        </Button>
+      );
+    });
   }
 
   render (){
@@ -16,7 +18,6 @@ export default class CategoryList extends React.Component {
       <div>
         {this.createCategories()}
       </div>
-
     );
   }
 }
