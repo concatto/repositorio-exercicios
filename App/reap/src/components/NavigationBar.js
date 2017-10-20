@@ -8,7 +8,7 @@ class NavigationBar extends React.Component {
       <Navbar fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/home">R.E.A.P.</Link>
+            <Link to="/reap">R.E.A.P.</Link>
           </Navbar.Brand>
         </Navbar.Header>
       </Navbar>
