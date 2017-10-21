@@ -1,89 +1,58 @@
 #root {
-  padding-bottom: 30px;
-}
+  padding-bottom: 30px; }
 
 .App {
-  text-align: center;
-}
+  text-align: center; }
 
 .App-header {
   background: radial-gradient(ellipse at center, #021d02 0%, #021d02 50%, #000000 100%);
   padding: 38px 20px;
   color: white;
-  margin-bottom: 28px;
-}
+  margin-bottom: 28px; }
 
 .App-title {
-  font-size: 4.5em;
-}
+  font-size: 4.5em; }
 
 .App-intro {
   font-size: large;
-  margin-bottom: 24px;
-}
+  margin-bottom: 24px; }
 
 .tabbed-form {
   border: 1px solid #464545;
   border-top: none;
   padding: 22px 26px 26px;
   border-radius: 0px 0px 6px 6px;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .main-content {
-  text-align: left;
-}
+  text-align: left; }
 
 .tabbed-form .btn {
   margin-top: 16px;
-  float: right;
-}
+  float: right; }
 
 .member-list-panel {
-  margin-top: 20px;
-}
+  margin-top: 20px; }
 
 .member-list-panel h4 {
   text-align: center;
-  margin-top: 20px;
-}
+  margin-top: 20px; }
 
 .member-list-panel tr {
-  border: solid;
-}
+  border: solid; }
 
 .online-indicator.offline {
-  background-color: #888888;
-}
+  background-color: #888888; }
 
 .online-indicator.online {
-  background-color: #30ca66;
-}
+  background-color: #30ca66; }
 
 .filter-member {
   margin-top: 20px;
-  text-align: center;
-}
+  text-align: center; }
 
 .main-root {
-  padding-top: 60px;
-}
+  padding-top: 60px; }
 
 .margin-buttons {
-  margin: 0px 5px 0px 0px !important;
-}
-
-.title-text {
-  margin-top: 0px;
-}
-
-h1.title-text {
-  margin-bottom: 18px;
-}
-
-.text-nonResize {
-  padding-left: 35px;
-  padding-top: 10px;
-  min-height: 350px;
-  resize: vertical;
-}
+  margin: 0px 5px 0px 0px !important; }

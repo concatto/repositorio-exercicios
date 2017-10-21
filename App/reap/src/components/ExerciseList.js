@@ -1,13 +1,29 @@
 import React from 'react';
-import {Table} from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Table } from 'react-bootstrap';
 import Exercise from './Exercise';
 
-export default class ExerciseList extends React.Component {
+class ExerciseList extends React.Component {
+  createExerciseComponents() {
+    return Object.values(this.props.exercises).map(ex => {
+      return (
+        <Exercise key={ex.id}
+          id={ex.id}
+          name={ex.name}
+          difficulty={ex.difficulty}
+          points={ex.reward}
+          status={ex.status}
+        />
+      );
+    });
+  }
+
   render (){
     return (
       <Table striped bordered condensed hover >
         <thead>
           <tr>
+            <th>ID</th>
             <th>Nome</th>
             <th>Dificuldade</th>
             <th>Pontos</th>
@@ -15,10 +31,13 @@ export default class ExerciseList extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <Exercise name='super hard problem' difficulty={5} status={1} points={100} />
-          <Exercise name='super easy problem' difficulty={1} status={0} points={20} />
+          {this.createExerciseComponents()}
         </tbody>
       </Table>
     );
   }
 }
+
+export default connect(state => {
+  return {exercises: state.exercises.data};
+})(ExerciseList);

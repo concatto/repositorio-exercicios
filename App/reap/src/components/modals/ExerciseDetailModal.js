@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import ExerciseDetail from '../ExerciseDetail';
 import ModalFooter from '../ModalFooter';
@@ -34,4 +35,6 @@ ExerciseDetailModal.modalProperties = {
   bsSize: "large"
 };
 
-export default ExerciseDetailModal;
+export default connect((state, ownProps) => {
+  return {exercise: state.exercises.data[ownProps.id]}
+})(ExerciseDetailModal);

@@ -23,22 +23,22 @@ export default class TextAreaCode extends React.Component {
 				this.setState({total_Lines: count});
 			}
 			console.log(key);
-		}			
+		}
 	}
 
 	insertFooter() {
 		return (
 			<Row>
-	        	<Col xs={3}>
-	        		{this.props.language}
-	        	</Col>
-	        	<Col xs={3}>
-	        		{this.state.total_Lines}
-	        	</Col>
-	        	<Col xs={3}>
+				<Col xs={3}>
+					{this.props.language}
+				</Col>
+				<Col xs={3}>
+					{this.state.total_Lines}
+				</Col>
+				<Col xs={3}>
 					{this.state.positionX + ":" + this.state.positionY}
-	        	</Col>
-	    	</Row>
+				</Col>
+			</Row>
 		);
 	}
 
@@ -57,18 +57,17 @@ export default class TextAreaCode extends React.Component {
 			</Row>
 		);
 	}
-
+	
 	render() {
 		return (
 			<Panel header={this.insertHeader()} footer={this.insertFooter()}>
-		    	<FormGroup>
-		    		<FormControl
-		    			componentClass="textarea" 
-		    			className="text-nonResize" 
-		    			onKeyPress={(e) => this.countLine(e)} />
-		    	</FormGroup>
-	        </Panel>
+				<FormGroup>
+					<FormControl
+						componentClass="textarea"
+						className="text-nonResize"
+						onKeyPress={(e) => this.countLine(e)} />
+				</FormGroup>
+			</Panel>
 		);
 	}
-
 }

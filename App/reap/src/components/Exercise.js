@@ -9,7 +9,7 @@ import ExerciseStatus from './ExerciseStatus';
 
 class Exercise extends React.Component {
   handleClick() {
-    this.props.modal.push(ExerciseDetailModal, {}, () => {
+    this.props.modal.push(ExerciseDetailModal, {id: this.props.id}, () => {
       this.props.history.push("/reap/solve");
     });
   }
@@ -19,6 +19,7 @@ class Exercise extends React.Component {
 
     return (
       <tr onClick={() => this.handleClick()}>
+        <td>{this.props.id}</td>
         <td>{this.props.name}</td>
         <td><DifficultyView difficulty={this.props.difficulty}/></td>
         <td>{this.props.points}</td>
@@ -28,6 +29,6 @@ class Exercise extends React.Component {
   }
 }
 
-export default withRouter(connect((state) => {
-  return {};
-}, withEntities(Modal))(Exercise));
+export default withRouter(
+  connect(state => ({}), withEntities(Modal))(Exercise)
+);

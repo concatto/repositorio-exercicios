@@ -24,16 +24,21 @@ const pgConfig = {
 
 const db = pgp(pgConfig);
 
+function replyData(query, res) {
+	db.any(query).then(data => {
+		console.log(data);
+		res.status(200).json(data);
+	}).catch(err => {
+		console.log(err);
+		res.status(500).json(err);
+	});
+}
+
 // Router para exercícios
 const exerciseRouter = express.Router();
 
 exerciseRouter.get("/", (req, res) => {
-	db.any(queries.allExercises()).then(data => {
-		console.log(data);
-		res.status(200).json(data);
-	}).catch(err => {
-		res.status(500).json(err);
-	});
+	replyData(queries.allExercises(), res);
 });
 
 console.log("Routers created.");

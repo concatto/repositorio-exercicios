@@ -1,5 +1,5 @@
 module.exports = {
 	allExercises: function() {
-		return "SELECT * FROM exercise";
+		return "SELECT *, 1 as status FROM exercise";
 	}
 };
