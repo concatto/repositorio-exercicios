@@ -7,7 +7,7 @@ import ModalFooter from '../ModalFooter';
 class ExerciseDetailModal extends React.Component {
   render() {
     const { onSuccess, onDismiss, id, exercise } = this.props;
-    const { difficulty, description, name } = exercise;
+    const { difficulty, description, name, reward } = exercise;
 
     return (
       <div>
@@ -19,6 +19,7 @@ class ExerciseDetailModal extends React.Component {
             difficulty={difficulty}
             description={description}
             name={`Exercício #${id} - ${name}`}
+            reward={reward}
           />
         </Modal.Body>
         <ModalFooter cancel confirm="Resolver"

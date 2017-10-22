@@ -4,6 +4,10 @@
   padding-bottom: 30px;
 }
 
+.flex {
+  display: flex;
+}
+
 .App {
   text-align: center;
 }
@@ -82,4 +86,21 @@
 
 .exercise-row {
   cursor: pointer;
+}
+
+.centralize {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.modal .reward span {
+  font-size: 32px;
+  margin: 0px 0px -10px;
+}
+
+.modal .reward h1 {
+  font-size: 90px;
+  margin: 0px;
 }
