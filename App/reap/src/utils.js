@@ -6,7 +6,7 @@ export const withEntities = (...entities) => {
   return dispatch => {
     const actions = {};
     entities.forEach(entity => {
-      actions[entity.getKey()] = bindActionCreators(entity.getActions(), dispatch);
+      actions[entity.key] = bindActionCreators(entity.actions, dispatch);
     });
 
     return actions;

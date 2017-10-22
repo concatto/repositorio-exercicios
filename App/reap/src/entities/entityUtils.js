@@ -2,10 +2,11 @@ import { performRequest } from "../asyncOperations";
 
 export const loadAll = (dispatch, entity, path) => {
   if (!path) {
-    path = entity.getKey();
+    path = entity.key;
   }
 
-  performRequest(dispatch, entity.getActionNames().loadAll, "/api/" + path);
+  console.log(entity);
+  performRequest(dispatch, entity.actionNames.loadAll, "/api/" + path);
 }
 
 export const toObject = (resultSet) => {

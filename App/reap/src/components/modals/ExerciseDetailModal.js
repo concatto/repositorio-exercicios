@@ -6,7 +6,8 @@ import ModalFooter from '../ModalFooter';
 
 class ExerciseDetailModal extends React.Component {
   render() {
-    const { onSuccess, onDismiss } = this.props;
+    const { onSuccess, onDismiss, id, exercise } = this.props;
+    const { difficulty, description, name } = exercise;
 
     return (
       <div>
@@ -14,17 +15,16 @@ class ExerciseDetailModal extends React.Component {
           <Modal.Title>Detalhes do exercício</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ExerciseDetail name={"Exercício #32 - Sequência Fibonacci"} difficulty={4} description={
-          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"+
-          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua" +
-          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua" +
-          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"+
-          "hirtz é bundão e não sabe programar só chupa rola e joga lol pdc vive na lua"
-          } />
+          <ExerciseDetail
+            difficulty={difficulty}
+            description={description}
+            name={`Exercício #${id} - ${name}`}
+          />
         </Modal.Body>
         <ModalFooter cancel confirm="Resolver"
           onSuccess={onSuccess}
           onDismiss={onDismiss}
+          link={"/reap/solve/" + id}
         />
       </div>
     )

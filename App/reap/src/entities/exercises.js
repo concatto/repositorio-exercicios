@@ -1,22 +1,14 @@
 import { loadAll, toObject } from "./entityUtils";
 
-class Exercises {
-  getKey() {
-    return "exercises";
-  }
-
-  getActions() {
-    return {
-      loadAll: () => dispatch => {
-        loadAll(dispatch, this, "exercise");
-      }
-    };
-  }
-
-  getActionNames() {
-    return {
-      loadAll: "LOAD_EXERCISES"
-    };
+const Exercises = {
+  key: "exercises",
+  actions: {
+    loadAll: () => dispatch => {
+      loadAll(dispatch, Exercises, "exercise");
+    }
+  },
+  actionNames: {
+    loadAll: "LOAD_EXERCISES"
   }
 };
 
@@ -24,13 +16,15 @@ const initialState = {
   data: {}
 };
 
-export const reducer = (state=initialState, action) => {
+export const reducer = (state = initialState, action) => {
+  const { loadAll } = Exercises.actionNames;
+
   switch (action.type) {
-    case "LOAD_EXERCISES_SUCCEEDED":
+    case loadAll + "_SUCCEEDED":
       return {data: toObject(action.payload)};
     default:
       return state;
   }
 }
 
-export default new Exercises();
+export default Exercises;

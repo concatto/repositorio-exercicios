@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import modalReducer from './reducers/modalReducer';
+import { reducer as modalReducer} from './entities/modal';
 import { reducer as exerciseReducer } from './entities/exercises';
 
 const middleware = applyMiddleware(thunk, createLogger());

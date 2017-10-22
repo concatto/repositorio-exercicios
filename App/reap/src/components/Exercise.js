@@ -10,7 +10,7 @@ import ExerciseStatus from './ExerciseStatus';
 class Exercise extends React.Component {
   handleClick() {
     this.props.modal.push(ExerciseDetailModal, {id: this.props.id}, () => {
-      this.props.history.push("/reap/solve");
+      this.props.modal.close();
     });
   }
 
@@ -18,7 +18,7 @@ class Exercise extends React.Component {
     console.log(this.props);
 
     return (
-      <tr onClick={() => this.handleClick()}>
+      <tr onClick={() => this.handleClick()} className="exercise-row">
         <td>{this.props.id}</td>
         <td>{this.props.name}</td>
         <td><DifficultyView difficulty={this.props.difficulty}/></td>

@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import Exercise from './Exercise';
+import ExerciseEntity from '../entities/exercises';
+import { withEntities } from '../utils';
 
 class ExerciseList extends React.Component {
   createExerciseComponents() {
-    return Object.values(this.props.exercises).map(ex => {
+    return Object.values(this.props.exerciseData).map(ex => {
       return (
         <Exercise key={ex.id}
           id={ex.id}
@@ -16,6 +18,10 @@ class ExerciseList extends React.Component {
         />
       );
     });
+  }
+
+  componentDidMount() {
+    this.props.exercises.loadAll();
   }
 
   render (){
@@ -39,5 +45,5 @@ class ExerciseList extends React.Component {
 }
 
 export default connect(state => {
-  return {exercises: state.exercises.data};
-})(ExerciseList);
+  return {exerciseData: state.exercises.data};
+}, withEntities(ExerciseEntity))(ExerciseList);
