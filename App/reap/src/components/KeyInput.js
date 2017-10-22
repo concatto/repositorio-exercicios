@@ -1,4 +1,4 @@
-/*import Fuse from '../../node_modules/fuse.js/dist/fuse.js'
+import Fuse from '../../node_modules/fuse.js/dist/fuse.js'
 
 function flatten (array) {
   return array.reduce((flat, toFlatten) => (
@@ -109,4 +109,4 @@ export function createFilter (term, keys, options = {}) {
       })
     })
   }
-}*/
+}

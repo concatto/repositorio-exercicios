@@ -1,8 +1,11 @@
 import React from 'react';
-import MemberItem from './MemberItem';
 import ReactDOM from 'react-dom'
 import { FormGroup, ListGroup, FormControl, Button , Panel , PanelGroup } from 'react-bootstrap';
-import SearchInput, {createFilter} from './SearchInput'
+import SearchInput, {createFilter} from './SearchInput';
+import ListItemTeacher from './ListItemTeacher';
+import ListItemStudent from './ListItemStudent';
+
+const KEYS_TO_FILTERS = ['name']
 
 class SideBar extends React.Component {
 	  constructor (props) {
@@ -14,44 +17,50 @@ class SideBar extends React.Component {
   }
 	
 	render() {
-		const listgroup = <ListGroup className="member-list-panel">
-				<PanelGroup>
-
-						<Panel header={"Professores"}>
-							<ListGroup className="professores">
-
-								<MemberItem name="Elieser" online={false}/>
-								<MemberItem name="Marcelo" online={true}/>
-
-							</ListGroup>
-						</Panel>
-
-						<Panel header={"Alunos"}>
-							<ListGroup className="alunos">
-
-								<MemberItem name="Andriel" online={true}/>
-								<MemberItem name="Eriosvaldo" online={true}/>
-								<MemberItem name="Pedro" online={true}/>
-								<MemberItem name="Rodrigo" online={false}/>
-								<MemberItem name="Samuel" online={false}/>
-
-
-							</ListGroup>
-						</Panel>
-					</PanelGroup>
-				</ListGroup>
-		
+		 const filterTeacher = ListItemTeacher.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+		 const filterStudent = ListItemStudent.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 		
 		return (
+		
 			<div>
 
 				<form>
+					  
 					<FormGroup className="filter-member">
 					<SearchInput className='search-input' onChange={this.searchUpdated} />
-	
+						
+							  <ListGroup className="member-list-panel">
+							  <PanelGroup>
+							  <Panel header={"Professores"}>
+								
+								 {filterTeacher.map(ListItemTeacher => {
+									  return (
+												
+												<div className="teacherid" key={ListItemTeacher.name}>
+													<div className="teacherid">{ListItemTeacher.memberitem}</div>
+												</div>
+																		
+									  )
+									})}
+									
+							</Panel>
+
+							 <Panel header={"Alunos"}>
+							
+								 {filterStudent.map(ListItemStudent => {
+									  return (			
+												<div className="studentid" key={ListItemStudent.name}>
+													<div className="studentname">{ListItemStudent.memberitem}</div>
+												</div>								
+									  )
+									})}
+									
+							</Panel>
+							</PanelGroup>
+							</ListGroup>
+							
 					</FormGroup>
 					
-					{listgroup}
 
 					</form>
 				
