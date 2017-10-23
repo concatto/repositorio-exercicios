@@ -1,5 +1,5 @@
 import React from 'react';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import {EditorState, RichUtils} from 'draft-js';
 import ReactQuill from 'react-quill';
 import { FormGroup, ControlLabel } from 'react-bootstrap';
 import 'react-quill/dist/quill.snow.css';

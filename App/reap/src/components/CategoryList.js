@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Label} from 'react-bootstrap';
+import {Label} from 'react-bootstrap';
 
 export default class CategoryList extends React.Component {
 
