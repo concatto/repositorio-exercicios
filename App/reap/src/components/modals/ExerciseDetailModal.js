@@ -6,7 +6,7 @@ import ModalFooter from '../ModalFooter';
 
 class ExerciseDetailModal extends React.Component {
   render() {
-    const { onSuccess, onDismiss, id, exercise } = this.props;
+    const { onDismiss, id, exercise } = this.props;
     const { difficulty, description, name, reward } = exercise;
 
     return (
@@ -23,7 +23,7 @@ class ExerciseDetailModal extends React.Component {
           />
         </Modal.Body>
         <ModalFooter cancel confirm="Resolver"
-          onSuccess={onSuccess}
+          onSuccess={onDismiss}
           onDismiss={onDismiss}
           link={"/reap/solve/" + id}
         />

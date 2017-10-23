@@ -1,14 +1,14 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
+import {Button, Label} from 'react-bootstrap';
 
 export default class CategoryList extends React.Component {
 
   createCategories() {
     return this.props.categories.map((element, i) => {
       return (
-        <Button className="margin-buttons" bsSize="small" key={i}>
+        <Label className="category-label" key={i}>
           {element}
-        </Button>
+        </Label>
       );
     });
   }

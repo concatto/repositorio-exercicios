@@ -83,6 +83,9 @@
   font-size: 90px;
   margin: 0px; }
 
+.modal .reward.smaller h1 {
+  font-size: 62px; }
+
 .modal .build-error-panel {
   margin: 20px 0px 0px; }
 
@@ -101,3 +104,18 @@
 .ql-editor {
   color: #000000;
   min-height: 200px; }
+
+.progress {
+  width: 100%; }
+
+.modal .progress {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  height: 22px; }
+
+.label.category-label {
+  font-size: 15px;
+  font-weight: normal;
+  padding: 10px 20px 12px;
+  margin-right: 5px;
+  display: inline-block; }

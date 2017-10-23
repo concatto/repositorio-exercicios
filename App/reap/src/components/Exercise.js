@@ -9,9 +9,7 @@ import ExerciseStatus from './ExerciseStatus';
 
 class Exercise extends React.Component {
   handleClick() {
-    this.props.modal.push(ExerciseDetailModal, {id: this.props.id}, () => {
-      this.props.modal.close();
-    });
+    this.props.modal.push(ExerciseDetailModal, {id: this.props.id});
   }
 
   render() {
