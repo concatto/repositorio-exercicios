@@ -24,4 +24,8 @@ class TipOfferModal extends React.Component {
   }
 }
 
+TipOfferModal.modalProperties = {
+  closeable: false
+};
+
 export default TipOfferModal;

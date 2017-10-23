@@ -4,6 +4,9 @@ import {Panel, FormGroup, FormControl, Col, Row, Button} from 'react-bootstrap';
 import BuildErrorModal from './modals/BuildErrorModal';
 import RewardModal from './modals/RewardModal';
 import SuccessModal from './modals/SuccessModal';
+import FailureModal from './modals/FailureModal';
+import TipOfferModal from './modals/TipOfferModal';
+import TipModal from './modals/TipModal';
 import Modal from '../entities/modal';
 import { withEntities } from '../utils';
 
@@ -52,11 +55,29 @@ class TextAreaCode extends React.Component {
 		this.props.modal.push(BuildErrorModal);
 	}
 
-	handleSubmit() {
+	notifySuccess() {
 		this.props.modal.push(SuccessModal, {}, () => {
 			this.props.modal.pop();
 			this.props.modal.push(RewardModal, {});
 		});
+	}
+
+	notifyFailure() {
+		this.props.modal.push(FailureModal, {}, () => {
+			this.props.modal.pop();
+			this.props.modal.push(TipOfferModal, {}, () => {
+				this.props.modal.pop();
+				this.props.modal.push(TipModal, {});
+			});
+		});
+	}
+
+	handleSubmit() {
+		if (Math.random() < 0.5) {
+			this.notifySuccess();
+		} else {
+			this.notifyFailure();
+		}
 	}
 
 	insertHeader() {
