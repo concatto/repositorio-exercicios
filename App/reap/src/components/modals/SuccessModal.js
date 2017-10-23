@@ -22,7 +22,7 @@ class SuccessModal extends React.Component {
           <p>Parabéns! Sua solução foi analisada e obedeceu com êxito todos
             os casos de teste registrados pelo criador do exercício.</p>
           <br/>
-          <TestCases title="#031 - Sequência de Fibonacci" cases={testCases}/>
+          <TestCases title="#031 - Sequência de Fibonacci" cases={testCases} okColumn={true}/>
           <p>Clique em "Continuar" para receber sua merecida recompensa!</p>
         </Modal.Body>
         <ModalFooter confirm="Continuar" onSuccess={onSuccess}/>

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Row, Col, DropdownButton, MenuItem, Glyphicon, Table } from 'react-bootstrap';
+import { Row, Col, DropdownButton, MenuItem, Glyphicon } from 'react-bootstrap';
 import SideBar from './SideBar';
 import LabeledControl from './LabeledControl';
 import RichEditor from './RichEditor';
 import DifficultyView from './DifficultyView';
+import TestCases from './TestCases';
 
 export default class NewExercise extends React.Component {
 
@@ -45,6 +46,13 @@ export default class NewExercise extends React.Component {
   }
 
   render () {
+    const testCases = [
+      {input: "4", output: "3", ok: true},
+      {input: "6", output: "8", ok: false},
+      {input: "8", output: "21", ok: false},
+      {input: "9", output: "34", ok: true},
+    ];
+
     return (
       <Row>
         <Col xs={9}>
@@ -64,34 +72,7 @@ export default class NewExercise extends React.Component {
             <span> <Glyphicon glyph="tag" /> Programação </span>
           </div>
           <br/>
-          <div>
-          <Table className="exercise-table" striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Casos de teste</th>
-                  <th>Entrada</th>
-                  <th>Saida</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>6</td>
-                  <td>7</td>
-                </tr>
-                <tr>
-                  <td>25</td>
-                  <td>30</td>
-                  <td>35</td>
-               </tr>
-              </tbody>
-            </Table>
-          </div>
+          <TestCases title="Casos de teste" cases={testCases} okColumn={false}/>
         </Col>
         <Col xs={3}>
           <SideBar/>
