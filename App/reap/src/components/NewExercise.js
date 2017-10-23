@@ -1,10 +1,9 @@
 import React from 'react';
-import { Row, Col, DropdownButton, MenuItem, FormGroup, ControlLabel } from 'react-bootstrap';
+import { Row, Col, DropdownButton, MenuItem, Glyphicon, Table } from 'react-bootstrap';
 import SideBar from './SideBar';
 import LabeledControl from './LabeledControl';
 import RichEditor from './RichEditor';
 import DifficultyView from './DifficultyView';
-import LanguageList from './LanguageList';
 
 export default class NewExercise extends React.Component {
 
@@ -55,9 +54,44 @@ export default class NewExercise extends React.Component {
             onChange={e => this.handleChange("name", e)}
           />
           <RichEditor label="Enunciado"/>
-          <div>{this.createDifficultySelect()}</div>
+
+          <div> {this.createDifficultySelect()} </div>
           <br/>
-          <LanguageList languages={['C', 'C#', 'C++', 'Java', 'Python', 'JavaScript']} />
+          <div>
+            <b>Tags: </b>
+            <span> <Glyphicon glyph="tag" /> Matematica</span>
+            <span> <Glyphicon glyph="tag" /> Binário </span>
+            <span> <Glyphicon glyph="tag" /> Programação </span>
+          </div>
+          <br/>
+          <div>
+          <Table className="exercise-table" striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Casos de teste</th>
+                  <th>Entrada</th>
+                  <th>Saida</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>7</td>
+                </tr>
+                <tr>
+                  <td>25</td>
+                  <td>30</td>
+                  <td>35</td>
+               </tr>
+              </tbody>
+            </Table>
+          </div>
         </Col>
         <Col xs={3}>
           <SideBar/>

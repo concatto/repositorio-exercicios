@@ -119,3 +119,7 @@
   padding: 10px 20px 12px;
   margin-right: 5px;
   display: inline-block; }
+
+.exercise-table tbody tr {
+  cursor: pointer; }
+
