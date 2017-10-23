@@ -33,7 +33,7 @@ export default class NewExercise extends React.Component {
   }
 
   createDifficultySelect () {
-     const options = this.state.difficulty.map((element, i) => {
+    const options = this.state.difficulty.map((element, i) => {
       return <MenuItem eventKey={i} key={i}><DifficultyView difficulty={element} /></MenuItem>;
     });
 
@@ -47,22 +47,22 @@ export default class NewExercise extends React.Component {
 
   render () {
     return (
-        <Row bsClass="container-fluid">
-          <Col xs={9}>
-					  <h1>Criar Novo Exercicos </h1>
-            <LabeledControl label="Nome" type="text"
-              value={this.state.name}
-              onChange={e => this.handleChange("name", e)}
-            />
-            <RichEditor label="Enunciado"/>
-            <div>{this.createDifficultySelect()}</div>
-            <br/>
-            <LanguageList languages={['C', 'C#', 'C++', 'Java', 'Python', 'JavaScript']} />
-          </Col>
-          <Col xs={3}>
-            <SideBar/>
-          </Col>
-        </Row>
-    ) 
+      <Row>
+        <Col xs={9}>
+          <h1>Criar novo exercício</h1>
+          <LabeledControl label="Nome" type="text"
+            value={this.state.name}
+            onChange={e => this.handleChange("name", e)}
+          />
+          <RichEditor label="Enunciado"/>
+          <div>{this.createDifficultySelect()}</div>
+          <br/>
+          <LanguageList languages={['C', 'C#', 'C++', 'Java', 'Python', 'JavaScript']} />
+        </Col>
+        <Col xs={3}>
+          <SideBar/>
+        </Col>
+      </Row>
+    )
   }
 }

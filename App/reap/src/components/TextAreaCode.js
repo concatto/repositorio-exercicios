@@ -1,7 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Panel, FormGroup, FormControl, Col, Row, Button} from 'react-bootstrap';
+import BuildErrorModal from './modals/BuildErrorModal';
+import RewardModal from './modals/RewardModal';
+import SuccessModal from './modals/SuccessModal';
+import Modal from '../entities/modal';
+import { withEntities } from '../utils';
 
-export default class TextAreaCode extends React.Component {
+class TextAreaCode extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -42,6 +48,17 @@ export default class TextAreaCode extends React.Component {
 		);
 	}
 
+	handleVerify() {
+		this.props.modal.push(BuildErrorModal);
+	}
+
+	handleSubmit() {
+		this.props.modal.push(SuccessModal, {}, () => {
+			this.props.modal.pop();
+			this.props.modal.push(RewardModal, {});
+		});
+	}
+
 	insertHeader() {
 		return (
 			<Row>
@@ -49,15 +66,15 @@ export default class TextAreaCode extends React.Component {
 					<h4>Codigo-Fonte</h4>
 				</Col>
 				<Col xs={3}>
-					<Button>Verificar</Button>
+					<Button bsStyle="info" onClick={() => this.handleVerify()}>Verificar</Button>
 				</Col>
 				<Col xs={3}>
-					<Button bsStyle="success" disabled> Enviar </Button>
+					<Button bsStyle="success" onClick={() => this.handleSubmit()}>Enviar</Button>
 				</Col>
 			</Row>
 		);
 	}
-	
+
 	render() {
 		return (
 			<Panel header={this.insertHeader()} footer={this.insertFooter()}>
@@ -71,3 +88,7 @@ export default class TextAreaCode extends React.Component {
 		);
 	}
 }
+
+export default connect(state => {
+	return {};
+}, withEntities(Modal))(TextAreaCode);

@@ -1,10 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import WelcomePage from './components/WelcomePage';
 import MainPage from './components/MainPage';
-import './App.css';
+import './css/App.css';
+import './css/stylesheets/bootswatch.css';
 
 class App extends React.Component {
   componentDidUpdate(prevProps) {
@@ -39,9 +39,5 @@ class App extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-    return state;
-};
 
 export default withRouter(App);

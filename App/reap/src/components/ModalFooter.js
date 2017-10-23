@@ -12,15 +12,20 @@ export default class ModalFooter extends React.Component {
 
     const content = typeof(confirm) === "string" ? confirm : "Confirmar";
 
+    const buttonProps = {
+      onClick: () => onSuccess(),
+      bsStyle: "success"
+    };
+
     if (link) {
       return (
-        <LinkButton to={link} onClick={() => onSuccess()}>
+        <LinkButton to={link} {...buttonProps}>
           {content}
         </LinkButton>
       );
     } else {
       return (
-        <Button onClick={() => onSuccess()}>
+        <Button {...buttonProps}>
           {content}
         </Button>
       );

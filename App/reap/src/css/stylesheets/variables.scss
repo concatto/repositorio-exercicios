@@ -15,9 +15,9 @@ $gray:                   #464545 !default;
 $gray-light:             #999 !default;   // #999
 $gray-lighter:           #EBEBEB !default; // #eee
 
-$brand-primary:         #375a7f !default;
-$brand-success:         #00bc8c !default;
-$brand-info:            #3498DB !default;
+$brand-primary:         #064806 !default;
+$brand-success:         #1fbb1d !default;
+$brand-info:            #848484 !default;
 $brand-warning:         #F39C12 !default;
 $brand-danger:          #E74C3C !default;
 
@@ -368,13 +368,14 @@ $navbar-collapse-max-height:       340px !default;
 $navbar-default-color:             #fff !default;
 $navbar-default-bg:                $brand-primary !default;
 $navbar-default-border:            transparent !default;
+$navbar-default-bg-darkened:       darken($navbar-default-bg, 4%) !default;
 
 // Navbar links
 $navbar-default-link-color:                #fff !default;
 $navbar-default-link-hover-color:          $brand-success !default;
 $navbar-default-link-hover-bg:             transparent !default;
 $navbar-default-link-active-color:         #fff !default;
-$navbar-default-link-active-bg:            darken($navbar-default-bg, 10%) !default;
+$navbar-default-link-active-bg:            $navbar-default-bg-darkened !default;
 $navbar-default-link-disabled-color:       #ccc !default;
 $navbar-default-link-disabled-bg:          transparent !default;
 
@@ -384,9 +385,9 @@ $navbar-default-brand-hover-color:         $navbar-default-link-hover-color !def
 $navbar-default-brand-hover-bg:            transparent !default;
 
 // Navbar toggle
-$navbar-default-toggle-hover-bg:           darken($navbar-default-bg, 10%) !default;
+$navbar-default-toggle-hover-bg:           $navbar-default-bg-darkened !default;
 $navbar-default-toggle-icon-bar-bg:        #fff !default;
-$navbar-default-toggle-border-color:       darken($navbar-default-bg, 10%) !default;
+$navbar-default-toggle-border-color:       $navbar-default-bg-darkened !default;
 
 
 //=== Inverted navbar

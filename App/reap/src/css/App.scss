@@ -1,4 +1,4 @@
-@import "_variables.scss";
+@import "./stylesheets/variables.scss";
 
 #root {
   padding-bottom: 30px;
@@ -69,7 +69,11 @@
 
 .filter-member {
   margin-top: 20px;
-  text-align:center;
+  text-align: center;
+}
+
+.filter-member .panel-body {
+  text-align: left;
 }
 
 .main-root {
@@ -103,4 +107,29 @@
 .modal .reward h1 {
   font-size: 90px;
   margin: 0px;
+}
+
+.modal .build-error-panel {
+  margin: 20px 0px 0px;
+}
+
+.modal .build-error-panel .panel-body {
+  min-height: 300px;
+}
+
+.modal .build-error-panel .list-group-item {
+  color: lighten(saturate($brand-danger, 30%), 2%);
+}
+
+.modal .build-error-panel .list-group {
+  margin-bottom: 0px;
+}
+
+.quill {
+  background-color: #FFFFFF;
+}
+
+.ql-editor {
+  color: #000000;
+  min-height: 200px;
 }

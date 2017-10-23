@@ -7,8 +7,8 @@ name: "Andriel",
 memberitem: <MemberItem name="Andriel" online={false}/>
 },
 {
-name: "Fernando God",
-memberitem: <MemberItem name="Fernando God" online={true}/>
+name: "Fernando",
+memberitem: <MemberItem name="Fernando" online={true}/>
 },
 {
 name: "Artur",
