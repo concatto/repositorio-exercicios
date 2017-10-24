@@ -1,7 +1,6 @@
 import React from 'react';
 import { ControlLabel, FormGroup} from 'react-bootstrap';
 import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css';
 
 export default class LabeledControl extends React.Component {
   render() {
