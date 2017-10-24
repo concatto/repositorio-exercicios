@@ -169,11 +169,11 @@
   max-height: 200px;
   overflow: auto;
 }
- 
+
 .alunos {
 	max-height: 200px;
   overflow: auto;
-} 
+}
 
 .text-nonResize {
   min-height: 350px;
@@ -184,3 +184,44 @@
   box-sizing: content-box;
   background-color: #FFFFFF;
 }
+
+.container-div {
+  display: inline-block;
+}
+
+.top-margin    { margin-top: 0.8rem !important;    }
+.right-margin  { margin-right: 0.8rem !important;  }
+.bottom-margin { margin-bottom: 0.8rem !important; }
+.left-margin   { margin-left: 0.8rem !important;   }
+
+.no-top-margin    { margin-top: 0 !important;    }
+.no-right-margin  { margin-right: 0 !important;  }
+.no-bottom-margin { margin-bottom: 0 !important; }
+.no-left-margin   { margin-left: 0 !important;   }
+
+.v-margin {
+  @extend .top-margin;
+  @extend .bottom-margin;
+}
+
+.h-margin {
+  @extend .right-margin;
+  @extend .left-margin;
+}
+
+.no-v-margin {
+  @extend .no-top-margin;
+  @extend .no-bottom-margin;
+}
+
+.no-h-margin {
+  @extend .no-right-margin;
+  @extend .no-left-margin;
+}
+
+.margin {
+  @extend .v-margin;
+  @extend .h-margin;
+}
+
+.no-margin { margin: 0 !important; }

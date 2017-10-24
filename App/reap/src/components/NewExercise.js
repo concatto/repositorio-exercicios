@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, DropdownButton, MenuItem, Glyphicon, Button } from 'react-bootstrap';
+import { Row, Col, DropdownButton, MenuItem, Button } from 'react-bootstrap';
 import SideBar from './SideBar';
 import LabeledControl from './LabeledControl';
 import RichEditor from './RichEditor';
 import DifficultyView from './DifficultyView';
 import TestCases from './TestCases';
-import InputNumber from 'rc-input-number';
 import Exercises from '../entities/exercises';
 import { withEntities } from '../utils';
-import 'rc-input-number/assets/index.css';
+import LabeledNumberControl from './LabeledNumberControl';
+import LabeledTagControl from './LabeledTagControl';
+
+
 
 class NewExercise extends React.Component {
 
@@ -31,10 +33,13 @@ class NewExercise extends React.Component {
   }
 
   handleChange(key, e) {
-    if (key==="dificuldade") {
+    if (key==="tags"){
+      this.setState({[key]: e});
+    } else if (key==="dificuldade") {
       this.setState({[key]: e+1 });
       this.setState({"title": <DifficultyView difficulty={e+1} />})
     } else {
+      console.log(e);
       this.setState({[key]: e.target.value });
     }
   }
@@ -74,18 +79,16 @@ class NewExercise extends React.Component {
             value={description}
             onChange={text => this.setState({description: text})}
           />
-
           <div>
-            {this.createDifficultySelect()}
-            <InputNumber value={reward} onChange={value => this.setState({reward: value})}/>
+            <div className="container-div h-margin">
+              {this.createDifficultySelect()}
+            </div>
+            <div className="container-div h-margin">
+              <LabeledNumberControl label="Recompensa" value={reward} onChange={value => this.setState({reward: value})}/>
+            </div>
           </div>
           <br/>
-          <div>
-            <b>Tags: </b>
-            <span> <Glyphicon glyph="tag" /> Matematica</span>
-            <span> <Glyphicon glyph="tag" /> Binário </span>
-            <span> <Glyphicon glyph="tag" /> Programação </span>
-          </div>
+          <LabeledTagControl label="Tags" className="form-control" value={this.state.tags} onChange={chips => this.handleChange("tags",chips)} />
           <br/>
           <TestCases title="Casos de teste" cases={testCases}/>
           <Button onClick={() => this.props.exercises.create(name, dificuldade, reward, description)}>

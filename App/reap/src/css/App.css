@@ -134,3 +134,33 @@
 .main-root .rc-input-number {
   box-sizing: content-box;
   background-color: #FFFFFF; }
+
+.container-div {
+  display: inline-block; }
+
+.top-margin, .v-margin, .margin {
+  margin-top: 0.8rem !important; }
+
+.right-margin, .h-margin, .margin {
+  margin-right: 0.8rem !important; }
+
+.bottom-margin, .v-margin, .margin {
+  margin-bottom: 0.8rem !important; }
+
+.left-margin, .h-margin, .margin {
+  margin-left: 0.8rem !important; }
+
+.no-top-margin, .no-v-margin {
+  margin-top: 0 !important; }
+
+.no-right-margin, .no-h-margin {
+  margin-right: 0 !important; }
+
+.no-bottom-margin, .no-v-margin {
+  margin-bottom: 0 !important; }
+
+.no-left-margin, .no-h-margin {
+  margin-left: 0 !important; }
+
+.no-margin {
+  margin: 0 !important; }
