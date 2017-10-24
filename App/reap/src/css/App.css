@@ -127,14 +127,6 @@
 .exercise-table tbody tr {
   cursor: pointer; }
 
-.professores {
-  max-height: 200px;
-  overflow: auto; }
-
-.alunos {
-  max-height: 200px;
-  overflow: auto; }
-
 .text-nonResize {
   min-height: 350px;
   resize: horizontal; }

@@ -7,70 +7,49 @@ import ListItemStudent from './ListItemStudent';
 const KEYS_TO_FILTERS = ['name']
 
 class SideBar extends React.Component {
-	  constructor (props) {
-    super(props)
-    this.state = {
-      searchTerm: ''
-    }
-    this.searchUpdated = this.searchUpdated.bind(this)
-  }
-
+	constructor (props) {
+		super(props)
+		this.state = {
+		  searchTerm: ''
+		}
+		this.searchUpdated = this.searchUpdated.bind(this)
+	}
 	render() {
-		 const filterTeacher = ListItemTeacher.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-		 const filterStudent = ListItemStudent.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
-
+		const filterTeacher = ListItemTeacher.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+		const filterStudent = ListItemStudent.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 		return (
-
 			<div>
-
 				<form>
-
 					<FormGroup className="filter-member">
 					<SearchInput className='search-input' onChange={this.searchUpdated} />
-
-							  <ListGroup className="member-list-panel">
-							  <PanelGroup>
-							  <Panel header={"Professores"}>
-
-								 {filterTeacher.map(ListItemTeacher => {
-									  return (
-
-												<div className="teacherid" key={ListItemTeacher.name}>
-													<div className="teacherid">{ListItemTeacher.memberitem}</div>
-												</div>
-
-									  )
+						<ListGroup className="member-list-panel">
+							<PanelGroup>
+								<Panel header={"Professores"}>
+									{filterTeacher.map(ListItemTeacher => {
+										return (
+											<div key={ListItemTeacher.name}>
+												{ListItemTeacher.memberitem}
+											</div>
+										)
 									})}
-
-							</Panel>
-
-							 <Panel header={"Alunos"}>
-
-								 {filterStudent.map(ListItemStudent => {
-									  return (
-												<div className="studentid" key={ListItemStudent.name}>
-													<div className="studentname">{ListItemStudent.memberitem}</div>
-												</div>
-									  )
+								</Panel>
+								<Panel header={"Alunos"}>
+									{filterStudent.map(ListItemStudent => {
+											return (
+											<div key={ListItemStudent.name}>
+												{ListItemStudent.memberitem}
+											</div>
+										)
 									})}
-
-							</Panel>
+								</Panel>
 							</PanelGroup>
-							</ListGroup>
-
+						</ListGroup>
 					</FormGroup>
-
-
 					</form>
-
 			</div>
-
-
 		);
-
-
 	}
-			  searchUpdated (term) {
+	searchUpdated (term) {
     this.setState({searchTerm: term})
   }
 }
