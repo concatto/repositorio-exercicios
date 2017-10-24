@@ -118,6 +118,7 @@
   font-weight: normal;
   padding: 10px 20px 12px;
   margin-right: 5px;
+  margin-bottom: 5px;
   display: inline-block; }
 
 .tip-modal strong {
@@ -125,3 +126,19 @@
 
 .exercise-table tbody tr {
   cursor: pointer; }
+
+.professores {
+  max-height: 200px;
+  overflow: auto; }
+
+.alunos {
+  max-height: 200px;
+  overflow: auto; }
+
+.text-nonResize {
+  min-height: 350px;
+  resize: horizontal; }
+
+.main-root .rc-input-number {
+  box-sizing: content-box;
+  background-color: #FFFFFF; }

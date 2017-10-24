@@ -1,14 +1,18 @@
-import { loadAll, toObject } from "./entityUtils";
+import { loadAll, create, toObject } from "./entityUtils";
 
 const Exercises = {
   key: "exercises",
   actions: {
     loadAll: () => dispatch => {
       loadAll(dispatch, Exercises, "exercise");
+    },
+    create: (name, difficulty, reward, description) => dispatch => {
+      create(dispatch, Exercises, "exercise", {name, difficulty, reward, description});
     }
   },
   actionNames: {
-    loadAll: "LOAD_EXERCISES"
+    loadAll: "LOAD_EXERCISES",
+    create: "CREATE_EXERCISE",
   }
 };
 

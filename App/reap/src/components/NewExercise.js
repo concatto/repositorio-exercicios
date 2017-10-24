@@ -1,12 +1,17 @@
 import React from 'react';
-import { Row, Col, DropdownButton, MenuItem, Glyphicon } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Row, Col, DropdownButton, MenuItem, Glyphicon, Button } from 'react-bootstrap';
 import SideBar from './SideBar';
 import LabeledControl from './LabeledControl';
 import RichEditor from './RichEditor';
 import DifficultyView from './DifficultyView';
 import TestCases from './TestCases';
+import InputNumber from 'rc-input-number';
+import Exercises from '../entities/exercises';
+import { withEntities } from '../utils';
+import 'rc-input-number/assets/index.css';
 
-export default class NewExercise extends React.Component {
+class NewExercise extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,10 +20,12 @@ export default class NewExercise extends React.Component {
       name: "",
       enunciado: "",
       dificuldade: -1,
+      reward: 10,
       tags: [],
       tests: [],
       difficulty: [1,2,3,4,5],
-      title: "Dificuldade"
+      title: "Dificuldade",
+      description: ""
     };
     this.onChangeRich = (editorState) => this.setState({editorState});
   }
@@ -61,9 +68,12 @@ export default class NewExercise extends React.Component {
             value={this.state.name}
             onChange={e => this.handleChange("name", e)}
           />
-          <RichEditor label="Enunciado"/>
+          <RichEditor value={this.state.description} label="Enunciado" onChange={text => this.setState({description: text})}/>
 
-          <div> {this.createDifficultySelect()} </div>
+          <div>
+            {this.createDifficultySelect()}
+            <InputNumber value={this.state.reward} onChange={value => this.setState({reward: value})}/>
+          </div>
           <br/>
           <div>
             <b>Tags: </b>
@@ -73,6 +83,9 @@ export default class NewExercise extends React.Component {
           </div>
           <br/>
           <TestCases title="Casos de teste" cases={testCases} okColumn={false}/>
+          <Button onClick={() => this.props.exercises.create(this.state.name, this.state.dificuldade, this.state.reward, this.state.description)}>
+            Criar
+          </Button>
         </Col>
         <Col xs={3}>
           <SideBar/>
@@ -81,3 +94,7 @@ export default class NewExercise extends React.Component {
     )
   }
 }
+
+export default connect(state => {
+  return {};
+}, withEntities(Exercises))(NewExercise);

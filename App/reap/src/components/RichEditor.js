@@ -35,8 +35,8 @@ class RichEditor extends React.Component {
     return (
       <FormGroup>
         <ControlLabel>{label}</ControlLabel>
-        <ReactQuill value={this.state.text}
-          onChange={text => this.setState({text})}
+        <ReactQuill value={this.props.value}
+          onChange={this.props.onChange}
           modules={this.modules}
         />
       </FormGroup>

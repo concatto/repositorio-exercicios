@@ -24,8 +24,8 @@ const pgConfig = {
 
 const db = pgp(pgConfig);
 
-function replyData(query, res) {
-	db.any(query).then(data => {
+function replyData(query, res, params = {}) {
+	db.any(query, params).then(data => {
 		console.log(data);
 		res.status(200).json(data);
 	}).catch(err => {
@@ -41,12 +41,17 @@ exerciseRouter.get("/", (req, res) => {
 	replyData(queries.allExercises(), res);
 });
 
+exerciseRouter.post("/", (req, res) => {
+  console.log(req.body);
+  replyData(queries.createExercise(), res, req.body);
+});
+
 console.log("Routers created.");
 
 var app = express();
+app.use(bodyParser.json({limit: "20mb"}));
 app.use(enableCors);
 app.use("/api/exercise", exerciseRouter);
-//app.use(bodyParser.json({limit: "20mb"}));
 //app.use(express.static("public"));
 
 console.log("Express configured.");

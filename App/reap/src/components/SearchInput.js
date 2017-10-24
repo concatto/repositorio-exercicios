@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { InputGroup, FormControl, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import {createFilter} from './KeyInput'
 
@@ -46,7 +47,10 @@ class Search extends Component {
     inputProps.placeholder = inputProps.placeholder || 'Search'
     return (
       <div className={className}>
-        <input {...inputProps} />
+        <InputGroup>
+          <InputGroup.Addon><Glyphicon glyph="search"/></InputGroup.Addon>
+          <FormControl type="text" {...inputProps}/>
+        </InputGroup>
       </div>
     )
   }

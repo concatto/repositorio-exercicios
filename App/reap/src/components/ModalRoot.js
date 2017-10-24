@@ -10,7 +10,7 @@ class ModalRoot extends React.Component {
 
     const renderedModals = this.props.modalState.stack.map((modal, i) => {
       const SpecificModal = modal.component;
-      const { closeable, ...modalProps } = SpecificModal.modalProperties || {};
+      const { closeable = true, ...modalProps } = SpecificModal.modalProperties || {};
 
       return (
         <Modal key={i} show={modal.shown}
