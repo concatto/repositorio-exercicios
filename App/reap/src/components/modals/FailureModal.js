@@ -22,7 +22,7 @@ class FailureModal extends React.Component {
           <p>Infelizmente, sua solução foi analisada e falhou em 2 dos 4
             casos de teste registrados pelo criador do exercício.</p>
           <br/>
-          <TestCases title="#031 - Sequência de Fibonacci" cases={testCases} okColumn={true}/>
+          <TestCases title="#031 - Sequência de Fibonacci" cases={testCases}/>
         </Modal.Body>
         <ModalFooter confirm="Continuar" onSuccess={onSuccess}/>
       </div>

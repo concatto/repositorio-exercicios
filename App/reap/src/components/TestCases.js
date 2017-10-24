@@ -12,26 +12,34 @@ class TestCases extends React.Component {
 
   createOkValuesCol(testCase) {
     const { okColumn } = this.props;
-    const iconClassName = testCase.ok ? "text-success" : "text-danger";
+
     if (okColumn) {
-      return <td> <Glyphicon glyph={testCase.ok ? "ok" : "remove"} className={iconClassName}/> </td>;
+      return ;
     }
   }
 
   createRows() {
     const { cases } = this.props;
+
     return cases.map((testCase, i) => {
+      const iconClassName = testCase.ok ? "text-success" : "text-danger";
+
       return (
         <tr key={i}>
           <td>{testCase.input}</td>
           <td>{testCase.output}</td>
-          {this.createOkValuesCol(testCase)}
+          {testCase.ok !== undefined &&
+            <td><Glyphicon glyph={testCase.ok ? "ok" : "remove"} className={iconClassName}/></td>
+          }
         </tr>
       );
     });
   }
 
   render() {
+    // Se existe algum elemento cujo atributo ok não é undefined, então possui a coluna ok.
+    const hasOk = this.props.cases.findIndex(v => v.ok !== undefined) >= 0;
+
     return (
       <div>
         <h4>{this.props.title}</h4>
@@ -40,7 +48,9 @@ class TestCases extends React.Component {
             <tr>
               <th>Entrada</th>
               <th>Saída</th>
-              {this.createOkHeaderCol()}
+              {hasOk &&
+                <th>Ok</th>
+              }
             </tr>
           </thead>
           <tbody>

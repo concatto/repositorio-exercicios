@@ -54,25 +54,30 @@ class NewExercise extends React.Component {
 
   render () {
     const testCases = [
-      {input: "4", output: "3", ok: true},
-      {input: "6", output: "8", ok: false},
-      {input: "8", output: "21", ok: false},
-      {input: "9", output: "34", ok: true},
+      {input: "4", output: "3"},
+      {input: "6", output: "8"},
+      {input: "8", output: "21"},
+      {input: "9", output: "34"},
     ];
+
+    const { reward, name, dificuldade, description } = this.state;
 
     return (
       <Row>
         <Col xs={9}>
           <h1>Criar novo exercício</h1>
           <LabeledControl label="Nome" type="text"
-            value={this.state.name}
+            value={name}
             onChange={e => this.handleChange("name", e)}
           />
-          <RichEditor value={this.state.description} label="Enunciado" onChange={text => this.setState({description: text})}/>
+          <RichEditor label="Enunciado"
+            value={description}
+            onChange={text => this.setState({description: text})}
+          />
 
           <div>
             {this.createDifficultySelect()}
-            <InputNumber value={this.state.reward} onChange={value => this.setState({reward: value})}/>
+            <InputNumber value={reward} onChange={value => this.setState({reward: value})}/>
           </div>
           <br/>
           <div>
@@ -82,8 +87,8 @@ class NewExercise extends React.Component {
             <span> <Glyphicon glyph="tag" /> Programação </span>
           </div>
           <br/>
-          <TestCases title="Casos de teste" cases={testCases} okColumn={false}/>
-          <Button onClick={() => this.props.exercises.create(this.state.name, this.state.dificuldade, this.state.reward, this.state.description)}>
+          <TestCases title="Casos de teste" cases={testCases}/>
+          <Button onClick={() => this.props.exercises.create(name, dificuldade, reward, description)}>
             Criar
           </Button>
         </Col>
