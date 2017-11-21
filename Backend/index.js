@@ -5,6 +5,8 @@ const pgp = require("pg-promise")();
 const fs = require("fs");
 const path = require("path");
 const queries = require("./queries.js");
+const authManager = require("./auth.js");
+const auth = authManager.create();
 
 var enableCors = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
@@ -37,8 +39,10 @@ function replyData(query, res, params = {}) {
 // Router para exercícios
 const exerciseRouter = express.Router();
 
-exerciseRouter.get("/", (req, res) => {
-	replyData(queries.allExercises(), res);
+exerciseRouter.get("/", auth.authenticate(), (req, res) => {
+  //console.log(req);
+  res.status(200).end();
+	//replyData(queries.allExercises(), res);
 });
 
 exerciseRouter.post("/", (req, res) => {
@@ -49,10 +53,11 @@ exerciseRouter.post("/", (req, res) => {
 console.log("Routers created.");
 
 var app = express();
+app.use(auth.initialize());
 app.use(bodyParser.json({limit: "20mb"}));
 app.use(enableCors);
 app.use("/api/exercise", exerciseRouter);
-//app.use(express.static("public"));
+app.post("/api/token", authManager.generate);
 
 console.log("Express configured.");
 
