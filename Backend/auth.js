@@ -2,6 +2,7 @@ const passport = require("passport");
 const passportJWT = require("passport-jwt");
 const jwt = require("jsonwebtoken");
 const config = require("./config.js");
+const User = require("./entities/user");
 
 const params = {
   secretOrKey: config.jwtSecret,
@@ -13,7 +14,7 @@ function create() {
     console.log(payload);
     return done(null, {test: "Hello world"});
   });
-  
+
   passport.use(strategy);
   return {
     initialize: () => passport.initialize(),
@@ -21,16 +22,24 @@ function create() {
   };
 }
 
-function generate(req, res) {
-  if (req.body.username && req.body.password) {
-    const token = jwt.sign({username: req.body.username, test: "Hello"}, config.jwtSecret);
-    res.status(200).json({token: token});
-  } else {
-    res.status(401).send("Especifique usuário e senha.");
-  }
+function createToken(id) {
+  return jwt.sign({id: id}, config.jwtSecret);
 }
 
+function generate(req, res) {
+  User.authenticate(req.body).then(id => {
+    console.log("Signing a token for User", id);
+    res.status(200).json({token: createToken(id)});
+  }).catch(err => {
+    res.status(401).send(err);
+  })
+}
+
+const manager = create();
+
 module.exports = {
-  create: create,
-  generate: generate
+  generate: generate,
+  initialize: manager.initialize,
+  authenticate: manager.authenticate,
+  createToken: createToken
 };

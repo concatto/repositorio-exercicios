@@ -5,8 +5,9 @@ const pgp = require("pg-promise")();
 const fs = require("fs");
 const path = require("path");
 const queries = require("./queries.js");
-const authManager = require("./auth.js");
-const auth = authManager.create();
+const auth = require("./auth.js");
+const userRouter = require("./routes/user");
+const exerciseRouter = require("./routes/exercise");
 
 var enableCors = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
@@ -16,48 +17,13 @@ var enableCors = function(req, res, next) {
 	next();
 };
 
-const pgConfig = {
-	host: "localhost",
-	port: 5432,
-	database: "reap",
-	user: "postgres",
-	password: "123456"
-};
-
-const db = pgp(pgConfig);
-
-function replyData(query, res, params = {}) {
-	db.any(query, params).then(data => {
-		console.log(data);
-		res.status(200).json(data);
-	}).catch(err => {
-		console.log(err);
-		res.status(500).json(err);
-	});
-}
-
-// Router para exercícios
-const exerciseRouter = express.Router();
-
-exerciseRouter.get("/", auth.authenticate(), (req, res) => {
-  //console.log(req);
-  res.status(200).end();
-	//replyData(queries.allExercises(), res);
-});
-
-exerciseRouter.post("/", (req, res) => {
-  console.log(req.body);
-  replyData(queries.createExercise(), res, req.body);
-});
-
-console.log("Routers created.");
-
 var app = express();
 app.use(auth.initialize());
 app.use(bodyParser.json({limit: "20mb"}));
 app.use(enableCors);
+app.use("/api/user", userRouter);
 app.use("/api/exercise", exerciseRouter);
-app.post("/api/token", authManager.generate);
+app.post("/api/token", auth.generate);
 
 console.log("Express configured.");
 
