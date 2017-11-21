@@ -11,7 +11,7 @@ module.exports = {
 
     return db.first("id", "password").from("reap_user").where(criteria).then(row => {
       const hash = row ? row.password : "";
-      
+
       return bcrypt.compare(vals.password, hash).then(equal => {
         if (equal) {
           return Promise.resolve(row.id);
@@ -27,6 +27,12 @@ module.exports = {
     return bcrypt.hash(vals.password, saltRounds).then(hash => {
       vals.password = hash;
       return db.insert(vals).into("reap_user").returning("id");
+    });
+  },
+  exists: (params) => {
+    const criteria = _.pick(params, ["id"]);
+    return db.first("id").from("reap_user").where(criteria).then(result => {
+      return Promise.resolve(result !== undefined);
     });
   }
 };

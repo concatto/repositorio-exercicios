@@ -11,8 +11,14 @@ const params = {
 
 function create() {
   const strategy = new passportJWT.Strategy(params, function(payload, done) {
-    console.log(payload);
-    return done(null, {test: "Hello world"});
+    console.log("Token:", payload);
+    User.exists(payload).then(exists => {
+      if (exists) {
+        return done(null, {id: payload.id});
+      } else {
+        return done(null, false, "User no longer exists.");
+      }
+    }).catch(err => done(err));
   });
 
   passport.use(strategy);
@@ -23,16 +29,16 @@ function create() {
 }
 
 function createToken(id) {
+  console.log("Signing a token for User", id);
   return jwt.sign({id: id}, config.jwtSecret);
 }
 
 function generate(req, res) {
   User.authenticate(req.body).then(id => {
-    console.log("Signing a token for User", id);
     res.status(200).json({token: createToken(id)});
   }).catch(err => {
     res.status(401).send(err);
-  })
+  });
 }
 
 const manager = create();
