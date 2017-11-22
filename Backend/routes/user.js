@@ -8,6 +8,10 @@ router.get("/", (req, res) => {
   res.status(200).end();
 });
 
+// name: o nome
+// email: o email
+// username: o nome de usuário
+// password: a senha, em plaintext
 router.post("/", (req, res) => {
   User.register(req.body).then(val => {
     res.status(200).send(val);

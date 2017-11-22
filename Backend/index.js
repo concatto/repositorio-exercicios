@@ -7,6 +7,7 @@ const path = require("path");
 const queries = require("./queries.js");
 const auth = require("./auth.js");
 const userRouter = require("./routes/user");
+const roomRouter = require("./routes/room");
 const exerciseRouter = require("./routes/exercise");
 
 var enableCors = function(req, res, next) {
@@ -22,8 +23,9 @@ app.use(auth.initialize());
 app.use(bodyParser.json({limit: "20mb"}));
 app.use(enableCors);
 app.use("/api/user", userRouter);
+app.use("/api/room", roomRouter);
 app.use("/api/exercise", exerciseRouter);
-app.post("/api/token", auth.generate);
+app.post("/api/authenticate", auth.generate);
 
 console.log("Express configured.");
 
