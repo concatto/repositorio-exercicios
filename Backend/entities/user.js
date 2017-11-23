@@ -36,6 +36,6 @@ module.exports = {
   },
 
   exists(params) {
-    return this.retrieve(params).then(result => result !== undefined);
+    return this.retrieve(params).pluck("id").then(result => result !== undefined);
   },
 };
