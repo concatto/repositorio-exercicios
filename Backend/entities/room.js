@@ -51,7 +51,8 @@ module.exports = {
         const joinVals = {id, room_id: result[0], privilege: 0};
 
         return this.join(joinVals).transacting(trx);
-      }).then(trx.commit).catch(trx.rollback);
+      }).then(trx.commit)
+        .catch(trx.rollback);
     });
   },
 
