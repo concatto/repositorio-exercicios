@@ -14,9 +14,7 @@ module.exports = {
       const hash = row ? row.password : "";
 
       return bcrypt.compare(vals.password, hash).then(equal => {
-        return equal === true
-          ? Promise.resolve(row.id)
-          : Promise.reject("Invalid credentials.");
+        return equal === true ? row.id : false;
       });
     });
   },

@@ -3,15 +3,15 @@ const auth = require("../auth");
 const User = require("../entities/user");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log(req.body);
-  res.status(200).end();
-});
+// router.get("/", (req, res) => {
+//   console.log(req.body);
+//   res.status(200).end();
+// });
 
-// name: o nome
-// email: o email
-// username: o nome de usuário
-// password: a senha, em plaintext
+/**
+ * Registers a new user. Requires a name, an email, a username and a password
+ * (in plaintext).
+ */
 router.post("/", (req, res) => {
   User.register(req.body).then(val => {
     res.status(200).send(val);

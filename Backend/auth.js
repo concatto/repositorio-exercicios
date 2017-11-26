@@ -35,9 +35,13 @@ function createToken(id) {
 
 function generate(req, res) {
   User.authenticate(req.body).then(id => {
-    res.status(200).json({token: createToken(id)});
+    if (id === false) {
+      res.status(401).send("Invalid credentials.");
+    } else {
+      res.status(200).json({token: createToken(id)});
+    }
   }).catch(err => {
-    res.status(401).send(err);
+    res.status(500).send(err);
   });
 }
 
