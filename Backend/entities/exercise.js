@@ -1,18 +1,24 @@
 const db = require("../db");
 const _ = require("lodash/core");
-const Room = require("./room");
 const Util = require("./utility");
+const Membership = require("./membership");
 const Constants = require("../constants");
 const table = "exercise";
 
 module.exports = {
-  retrieveFrom(params) {
+  retrieveFrom(params, cols) {
     const { room_id, id: user_id } = params;
+    cols = cols || ["id", "name", "difficulty", "base_reward", "visible"];
 
-    return Room.retrieveUser(room_id, user_id).then(result => {
+    return Membership.retrieveUser(room_id, user_id, "privilege").then(result => {
       if (result === undefined) return false;
 
-      return db.select("*").from(table).where({room_id});
+      const criteria = {room_id};
+      if (result.privilege === Constants.Student) {
+        criteria.visible = true;
+      }
+
+      return db.select("*").from(table).where(criteria);
     });
   },
 

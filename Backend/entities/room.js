@@ -1,41 +1,33 @@
 const db = require("../db");
+const Exercise = require("./exercise");
+const Membership = require("./membership");
 const _ = require("lodash/core");
 
 const table = "room";
 
 module.exports = {
-  retrieveUser(room_id, user_id, cols) {
-    return this.retrieveUsers({room_id}, cols).where({user_id}).first();
-  },
-
-  retrieveFor(params) {
-    const { id: user_id } = params;
-
-    return db.select("*").from("user_room").where({user_id})
-      .innerJoin(table, {"room.id": "user_room.room_id"});
-  },
-
-  retrieveUsers(params, cols = ["user_id"]) {
-    const { room_id } = params;
-
-    return db.select(cols).from("user_room").where({room_id});
-  },
-
   retrieve(params) {
     const { room_id, id: user_id } = params;
 
-    return this.retrieveUser(room_id, user_id).then(result => {
+    // Check if the user belongs to the room
+    return Membership.retrieveUser(room_id, user_id, "user_id").then(result => {
       if (result === undefined) return false;
 
-      return Promise.all([
-        this.retrieveUsers(params).pluck("user_id"),
-        db.first("*").from(table).where({id: room_id})
-      ]);
+      // Retrieve the members of the room
+      const users = Membership.retrieveUsers(params);
+
+      // Retrieve the exercises of the room
+      const exercises = Exercise.retrieveFrom(params);
+
+      // Retrieve the details about the room
+      const room = db.first("*").from(table).where({id: room_id});
+
+      return Promise.all([users, exercises, room]);
     }).then(result => {
       if (result === false) return false;
 
-      const [users, room] = result;
-      return {...room, users};
+      const [users, exercises, room] = result;
+      return {...room, users, exercises};
     });
   },
 
@@ -55,15 +47,4 @@ module.exports = {
         .catch(trx.rollback);
     });
   },
-
-  join(params) {
-    const vals = _.pick(params, "room_id", "privilege");
-
-    return db.insert({user_id: params.id, ...vals}).into("user_room");
-  },
-
-  leave(params) {
-    // TODO
-    return Promise.reject("NYI");
-  }
 };

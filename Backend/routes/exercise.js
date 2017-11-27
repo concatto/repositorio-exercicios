@@ -11,7 +11,7 @@ const router = express.Router({mergeParams: true});
 
 /**
  * Retrieves all exercises of the current room. The user must be a member of
- * the room.
+ * the room. Students only see visible exercises.
  */
 router.get("/", auth.authenticate(), (req, res) => {
   Exercise.retrieveFrom({...req.params, ...req.user}).then(result => {
