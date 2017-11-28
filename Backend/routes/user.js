@@ -3,10 +3,13 @@ const auth = require("../auth");
 const User = require("../entities/user");
 const router = express.Router();
 
-// router.get("/", (req, res) => {
-//   console.log(req.body);
-//   res.status(200).end();
-// });
+router.get("/", auth.authenticate(), (req, res) => {
+  User.retrieve(req.user).then(result => {
+    res.status(200).json(result);
+  }).catch(err => {
+    res.status(403).send("Stop snooping around!");
+  });
+});
 
 /**
  * Registers a new user. Requires a name, an email, a username and a password

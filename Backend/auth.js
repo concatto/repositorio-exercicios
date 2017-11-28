@@ -28,9 +28,21 @@ function create() {
   };
 }
 
-function createToken(id) {
-  console.log("Signing a token for User", id);
-  return jwt.sign({id: id}, config.jwtSecret);
+function createToken(data, options = {}) {
+  console.log("Signing a token with data:", data);
+  return jwt.sign(data, config.jwtSecret, options);
+}
+
+function verifyToken(token) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, config.jwtSecret, (err, decoded) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(decoded);
+      }
+    });
+  });
 }
 
 function generate(req, res) {
@@ -38,7 +50,7 @@ function generate(req, res) {
     if (id === false) {
       res.status(401).send("Invalid credentials.");
     } else {
-      res.status(200).json({token: createToken(id)});
+      res.status(200).json({token: createToken({id: id})});
     }
   }).catch(err => {
     res.status(500).send(err);
@@ -51,5 +63,6 @@ module.exports = {
   generate: generate,
   initialize: manager.initialize,
   authenticate: manager.authenticate,
-  createToken: createToken
+  createToken: createToken,
+  verifyToken: verifyToken,
 };

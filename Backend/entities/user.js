@@ -28,9 +28,9 @@ module.exports = {
     });
   },
 
-  retrieve(params) {
+  retrieve(params, cols = "*") {
     const criteria = _.pick(params, "id");
-    return db.first("*").from(table).where(criteria);
+    return db.first(cols).from(table).where(criteria);
   },
 
   exists(params) {

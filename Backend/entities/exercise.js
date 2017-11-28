@@ -1,6 +1,5 @@
 const db = require("../db");
 const _ = require("lodash/core");
-const Util = require("./utility");
 const Membership = require("./membership");
 const Constants = require("../constants");
 const table = "exercise";
@@ -31,7 +30,7 @@ module.exports = {
       test_cases = [],
     } = params;
 
-    return Util.isMorePrivilegedThan(Constants.Student, vals.room_id, vals.id).then(res => {
+    return Membership.isMorePrivilegedThan(Constants.Student, vals.room_id, vals.id).then(res => {
       if (res !== true) return false;
 
       vals.creator_id = vals.id;

@@ -48,15 +48,36 @@ router.post("/", auth.authenticate(), (req, res) => {
   });
 });
 
+// /**
+//  * Joins a room. The user will be assigned a privilege level of 3 (Student).
+//  */
+// router.post("/join/:room_id", auth.authenticate(), (req, res) => {
+//   Membership.join({...req.params, ...req.user}).then(result => {
+//     res.status(200).send("Joined room " + req.params.room_id);
+//   }).catch(err => {
+//     res.status(500).send(err);
+//   });
+// });
+// Not so easy!
+
 /**
- * Joins a room. The user will be assigned a privilege level of 3 (Student).
+ * Invites someone to join the room. The person's email and intended privilege
+ * level must be specified.
  */
-router.post("/join/:room_id", auth.authenticate(), (req, res) => {
-  Membership.join({...req.params, ...req.user}).then(result => {
-    res.status(200).send("Joined room " + req.params.room_id);
+router.post("/invite/:room_id", auth.authenticate(), (req, res) => {
+  Membership.invite({...req.params, ...req.body, ...req.user}).then(result => {
+    res.status(200).send("Invited.");
+  }).catch(err => {
+    res.status(500).send(err);
+  })
+});
+
+router.post("/accept", auth.authenticate(), (req, res) => {
+  Membership.acceptInvitation({...req.body, ...req.user}).then(result => {
+    res.status(200).json(result);
   }).catch(err => {
     res.status(500).send(err);
   });
-})
+});
 
 module.exports = router;
