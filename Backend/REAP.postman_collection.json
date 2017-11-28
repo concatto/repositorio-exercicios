@@ -1,0 +1,170 @@
+{
+	"info": {
+		"name": "REAP",
+		"_postman_id": "e4cd5999-5e42-0bb3-959c-989918d8aad6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create REAP user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"unregist\",\n\t\"email\":\"unregistered@reg.com\",\n\t\"password\":\"test123\",\n\t\"name\":\"Unregistered User\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"unregist\",\n\t\"password\":\"test123\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/authenticate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"authenticate"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Verification",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJVbnJlZ2lzdGVyZWQgVXNlciIsInVzZXJuYW1lIjoidW5yZWdpc3QiLCJpYXQiOjE1MTE4NzQ4OTZ9._bHa0miOSR9er4Pl6qawy5Im369A62_8DT3gNxCn8Hw\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/user/verify",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"verify"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get self",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTUxMTg3NTAyOH0.--TKtK2IvBTJ6-oUc1OIoBPrbxUufv95sMIUsI9463g"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get rooms",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTUxMTg3NTAyOH0.--TKtK2IvBTJ6-oUc1OIoBPrbxUufv95sMIUsI9463g"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/room",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"room"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

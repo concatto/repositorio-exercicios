@@ -1,11 +1,11 @@
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
 const jwt = require("jsonwebtoken");
-const config = require("./config.js");
+const keyring = require("./keyring");
 const User = require("./entities/user");
 
 const params = {
-  secretOrKey: config.jwtSecret,
+  secretOrKey: keyring.jwtSecret,
   jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken()
 };
 
@@ -24,33 +24,18 @@ function create() {
   passport.use(strategy);
   return {
     initialize: () => passport.initialize(),
-    authenticate: () => passport.authenticate("jwt", config.jwtConfig)
+    authenticate: () => passport.authenticate("jwt", keyring.jwtConfig)
   };
 }
 
-function createToken(data, options = {}) {
-  console.log("Signing a token with data:", data);
-  return jwt.sign(data, config.jwtSecret, options);
-}
-
-function verifyToken(token) {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, config.jwtSecret, (err, decoded) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(decoded);
-      }
-    });
-  });
-}
-
 function generate(req, res) {
-  User.authenticate(req.body).then(id => {
-    if (id === false) {
+  User.authenticate(req.body).then(result => {
+    if (result === false) {
       res.status(401).send("Invalid credentials.");
+    } else if (result.verified === false) {
+      res.status(403).send("Please verify your account.");
     } else {
-      res.status(200).json({token: createToken({id: id})});
+      res.status(200).json({token: keyring.createToken({id: result.id})});
     }
   }).catch(err => {
     res.status(500).send(err);
@@ -63,6 +48,4 @@ module.exports = {
   generate: generate,
   initialize: manager.initialize,
   authenticate: manager.authenticate,
-  createToken: createToken,
-  verifyToken: verifyToken,
 };

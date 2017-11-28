@@ -1,6 +1,6 @@
 const db = require("../db");
 const _ = require("lodash/core");
-const auth = require("../auth");
+const keyring = require("../keyring");
 const User = require("./user");
 const nodemailer = require("nodemailer");
 const Constants = require("../constants");
@@ -49,42 +49,50 @@ module.exports = {
     const tokenData = _.pick(params, "room_id", "id", "email", "privilege");
 
     return this.isMorePrivilegedThan(Constants.Student, params.room_id, params.id).then(result => {
-      const token = auth.createToken(tokenData, {expiresIn: "7d"});
+      const token = keyring.createToken(tokenData, {expiresIn: "7d"});
 
+      // Gmail account: reap.univali@gmail.com / f72bbd280d
       nodemailer.createTestAccount((err, account) => {
-          // create reusable transporter object using the default SMTP transport
-          let transporter = nodemailer.createTransport({
-              host: 'smtp.ethereal.email',
-              port: 587,
-              secure: false, // true for 465, false for other ports
-              auth: {
-                  user: account.user, // generated ethereal user
-                  pass: account.pass  // generated ethereal password
-              }
-          });
+        console.log(account);
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+          name: "Ethereal",
+          host: 'smtp.ethereal.email',
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: account.user, // generated ethereal user
+            pass: account.pass  // generated ethereal password
+          }
+        });
 
+        transporter.verify((err, success) => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log(success);
           // setup email data with unicode symbols
           let mailOptions = {
-              from: '"R.E.A.P" <reap@reap.com>', // sender address
-              to: 'fernandoconcatto@gmail.com', // list of receivers
-              subject: 'Hello ✔', // Subject line
-              text: 'Hello world? ' + token, // plain text body
-              html: '<b>Hello world?</b>' // html body
+            from: 'sender@example.com', // sender address
+            to: 'fernandoconcatto@gmail.com', // list of receivers
+            subject: 'Hello', // Subject line
+            text: 'Hello world?', // plain text body
+            html: '<b>Hello world?</b>' // html body
           };
 
           // send mail with defined transport object
           transporter.sendMail(mailOptions, (error, info) => {
-              if (error) {
-                  return console.log(error);
-              }
-              console.log('Message sent: %s', info.messageId);
-              // Preview only available when sending through an Ethereal account
-              console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-              // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
-              // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+            if (error) {
+              return console.log(error);
+            }
+            console.log('Message sent: %s', info.messageId);
+            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+            console.log(info);
           });
+        });
+
       });
+
       console.log("Should be in an email:", token);
 
       return true;
@@ -96,7 +104,7 @@ module.exports = {
   acceptInvitation(params) {
     const { token, id } = params;
 
-    return auth.verifyToken(token).then(data => {
+    return keyring.verifyToken(token).then(data => {
       return User.retrieve({id}).then(user => {
         if (user.email !== data.email) return false;
 
