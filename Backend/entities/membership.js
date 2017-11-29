@@ -59,6 +59,9 @@ module.exports = {
       if (result == false) return false;
 
       const [user, room] = result;
+
+      tokenData.roomName = room.name;
+      tokenData.inviter = user.name;
       const token = keyring.createToken(tokenData, {expiresIn: "7d"});
 
       let { destinationUrl, tokenKey = "token" } = params;
@@ -80,5 +83,10 @@ module.exports = {
         return this.join({...data, id});
       });
     });
+  },
+
+  verifyInvitation(params) {
+    // TODO maybe get the updated room and inviter name?
+    return keyring.verifyToken(params.token);
   }
 }

@@ -78,8 +78,23 @@ router.post("/invite/:room_id", auth.authenticate(), (req, res) => {
   })
 });
 
+/**
+ * Accepts a previously sent invitation. The token generated during the invitation
+ * process must be presented to gain access to the room.
+ */
 router.post("/accept", auth.authenticate(), (req, res) => {
   Membership.acceptInvitation({...req.body, ...req.user}).then(result => {
+    res.status(200).json(result);
+  }).catch(err => {
+    res.status(500).send(err);
+  });
+});
+
+/**
+ * Verifies the validity of an invitation token.
+ */
+router.post("/verify", (req, res) => {
+  Membership.verifyInvitation(req.body).then(result => {
     res.status(200).json(result);
   }).catch(err => {
     res.status(500).send(err);

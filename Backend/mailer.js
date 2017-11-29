@@ -13,7 +13,7 @@ module.exports = {
     let mailOptions = {
       from: "R.E.A.P. <reap.univali@gmail.com>",
       to: recipient,
-      subject: "Convite para participação: " + roomName,
+      subject: "[R.E.A.P.] Convite para participar: " + roomName,
       text: "Saudações! Você foi convidado para a sala " + roomName + " por " +
         name + ". Visite " + destinationUrl + " para aceitar este convite.",
       html: "<p>Saudações!</p><p>Estamos enviando este e-mail para notificar" +
