@@ -2,7 +2,7 @@ const db = require("../db");
 const _ = require("lodash/core");
 const keyring = require("../keyring");
 const User = require("./user");
-const nodemailer = require("nodemailer");
+const mailer = require("../mailer");
 const Constants = require("../constants");
 const table = "user_room";
 
@@ -49,54 +49,23 @@ module.exports = {
     const tokenData = _.pick(params, "room_id", "id", "email", "privilege");
 
     return this.isMorePrivilegedThan(Constants.Student, params.room_id, params.id).then(result => {
+      if (result === false) return false;
+
+      const user = User.retrieve({id: params.id});
+      const room = db.first("name").from("room").where({id: params.room_id});
+
+      return Promise.all([user, room]);
+    }).then(result => {
+      if (result == false) return false;
+
+      const [user, room] = result;
       const token = keyring.createToken(tokenData, {expiresIn: "7d"});
 
-      // Gmail account: reap.univali@gmail.com / f72bbd280d
-      nodemailer.createTestAccount((err, account) => {
-        console.log(account);
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-          name: "Ethereal",
-          host: 'smtp.ethereal.email',
-          port: 587,
-          secure: false, // true for 465, false for other ports
-          auth: {
-            user: account.user, // generated ethereal user
-            pass: account.pass  // generated ethereal password
-          }
-        });
+      let { destinationUrl, tokenKey = "token" } = params;
+      destinationUrl += `?${tokenKey}=${token}`;
 
-        transporter.verify((err, success) => {
-          if (err) {
-            return console.log(err);
-          }
-          console.log(success);
-          // setup email data with unicode symbols
-          let mailOptions = {
-            from: 'sender@example.com', // sender address
-            to: 'fernandoconcatto@gmail.com', // list of receivers
-            subject: 'Hello', // Subject line
-            text: 'Hello world?', // plain text body
-            html: '<b>Hello world?</b>' // html body
-          };
-
-          // send mail with defined transport object
-          transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              return console.log(error);
-            }
-            console.log('Message sent: %s', info.messageId);
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-            console.log(info);
-          });
-        });
-
-      });
-
-      console.log("Should be in an email:", token);
-
-      return true;
-    }).catch(console.log);
+      return mailer.sendInvitation(destinationUrl, params.email, user.name, room.name);
+    });
   },
 
   // The user must already be registered to accept an invitation.

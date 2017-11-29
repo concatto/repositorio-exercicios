@@ -32,7 +32,7 @@ module.exports = {
 
       return db.insert(vals).into(table).returning("id");
     }).then(id => {
-      // This token must be presented to verify the user's count. Don't lose it
+      // This token must be presented to verify the user's account. Don't lose it
       const tokenData = {id: id[0], name: vals.name, username: vals.username};
       const token = keyring.createToken(tokenData);
 

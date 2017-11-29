@@ -62,11 +62,17 @@ router.post("/", auth.authenticate(), (req, res) => {
 
 /**
  * Invites someone to join the room. The person's email and intended privilege
- * level must be specified.
+ * level must be specified, as well as the destination URL and token key (which
+ * will be sent in an email. The client must handle the request to the specified
+ * URL by themselves.)
  */
 router.post("/invite/:room_id", auth.authenticate(), (req, res) => {
   Membership.invite({...req.params, ...req.body, ...req.user}).then(result => {
-    res.status(200).send("Invited.");
+    if (result === false) {
+      res.status(400).send("Could not invite.");
+    } else {
+      res.status(200).send("Invited.");
+    }
   }).catch(err => {
     res.status(500).send(err);
   })
