@@ -23,5 +23,23 @@ module.exports = {
     };
 
     return transporter.sendMail(mailOptions);
-  }
+  },
+
+  sendRegistrationConfirmation(destinationUrl, recipient) {
+    let mailOptions = {
+      from: "R.E.A.P. <reap.univali@gmail.com>",
+      to: recipient,
+      subject: "[R.E.A.P.] Confirmação de criação de conta",
+      text: "Saudações! ",
+      html: "<p>Saudações</p><p>Estamos enviando este e-mail para solicitar" +
+        " uma confirmação sobre o registro de uma nova conta em seu nome." +
+        " Para verificar sua conta e acessar o Repositório de Exercícios de" +
+        ` Algoritmos e Programação, siga <a href='${destinationUrl}'>este link.</p>` +
+        "<p>Caso você não tenha interagido com o R.E.A.P. recentemente, considere" +
+        " esta mensagem um engano. Você pode simplesmente ignorá-la; sua segurança" +
+        " não foi comprometida.",
+    };
+
+    return transporter.sendMail(mailOptions);
+  },
 };
