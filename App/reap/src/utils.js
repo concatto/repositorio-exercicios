@@ -1,7 +1,6 @@
 import { bindActionCreators } from 'redux';
 
 export const withEntities = (...entities) => {
-  console.log(entities);
 
   return dispatch => {
     const actions = {};

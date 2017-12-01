@@ -3,8 +3,7 @@ import axios from 'axios';
 const path = "http://localhost:4000";
 
 export const performRequest = (dispatch, method, data, name, url) => {
-  dispatch({type: name + "_STARTED", payload: data});
-
+  dispatch({type: name + "6", payload: data});
   axios({
     method,
     data,
