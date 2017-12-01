@@ -47,7 +47,7 @@ module.exports = {
 
       console.log("Should be in an email, please save somewhere:", token);
       return true;
-    });
+    }).catch(console.log);
   },
 
   verify(params) {
