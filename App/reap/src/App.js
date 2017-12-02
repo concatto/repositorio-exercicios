@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import WelcomePage from './components/WelcomePage';
 import MainPage from './components/MainPage';
+import ConfirmationTokenPage from './components/ConfirmationTokenPage';
 import './css/App.css';
 import './css/stylesheets/bootswatch.css';
 
@@ -35,6 +36,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/" render={() => this.createWelcomePage()}/>
         <Route path="/reap" component={MainPage}/>
+        <Route path="/:token" component={ConfirmationTokenPage} />
       </Switch>
     );
   }
