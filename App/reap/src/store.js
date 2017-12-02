@@ -13,8 +13,21 @@ const reducer = (state={}, action) => {
   }
 }
 
+const __mockInitialUsers = {
+  current: {
+    name: "Tester",
+    privilege: 3
+  },
+  others: []
+};
+
+const __mockUsersReducer = (state = __mockInitialUsers, action) => {
+  return state;
+}
+
 export const store = createStore(combineReducers({
   data: reducer,
   modal: modalReducer,
   exercises: exerciseReducer,
+  users: __mockUsersReducer
 }), middleware);

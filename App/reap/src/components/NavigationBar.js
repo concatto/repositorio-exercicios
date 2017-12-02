@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LinkNavItem from './LinkNavItem';
 import { Navbar, Nav } from 'react-bootstrap';
+import Privileged from './Privileged';
 
 class NavigationBar extends React.Component {
   render() {
@@ -13,9 +14,11 @@ class NavigationBar extends React.Component {
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          <LinkNavItem to="/reap/create">
-            Criar exercício
-          </LinkNavItem>
+          <Privileged administrator>
+            <LinkNavItem to="/reap/create">
+              Criar exercício
+            </LinkNavItem>
+          </Privileged>
         </Nav>
       </Navbar>
     )

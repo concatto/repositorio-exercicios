@@ -6,6 +6,7 @@ import LabeledControl from './LabeledControl';
 import RichEditor from './RichEditor';
 import DifficultyView from './DifficultyView';
 import TestCases from './TestCases';
+import Privileged from './Privileged';
 import Exercises from '../entities/exercises';
 import { withEntities } from '../utils';
 import LabeledNumberControl from './LabeledNumberControl';
@@ -69,35 +70,37 @@ class NewExercise extends React.Component {
 
     return (
       <Row>
-        <Col xs={9}>
-          <h1>Criar novo exercício</h1>
-          <LabeledControl label="Nome" type="text"
-            value={name}
-            onChange={e => this.handleChange("name", e)}
-          />
-          <RichEditor label="Enunciado"
-            value={description}
-            onChange={text => this.setState({description: text})}
-          />
-          <div>
-            <div className="container-div h-margin">
-              {this.createDifficultySelect()}
+        <Privileged teacher withWarning>
+          <Col xs={9}>
+            <h1>Criar novo exercício</h1>
+            <LabeledControl label="Nome" type="text"
+              value={name}
+              onChange={e => this.handleChange("name", e)}
+            />
+            <RichEditor label="Enunciado"
+              value={description}
+              onChange={text => this.setState({description: text})}
+            />
+            <div>
+              <div className="container-div h-margin">
+                {this.createDifficultySelect()}
+              </div>
+              <div className="container-div h-margin">
+                <LabeledNumberControl label="Recompensa" value={reward} onChange={value => this.setState({reward: value})}/>
+              </div>
             </div>
-            <div className="container-div h-margin">
-              <LabeledNumberControl label="Recompensa" value={reward} onChange={value => this.setState({reward: value})}/>
-            </div>
-          </div>
-          <br/>
-          <LabeledTagControl label="Tags" className="form-control" value={this.state.tags} onChange={chips => this.handleChange("tags",chips)} />
-          <br/>
-          <TestCases title="Casos de teste" cases={testCases}/>
-          <Button onClick={() => this.props.exercises.create(name, dificuldade, reward, description)}>
-            Criar
-          </Button>
-        </Col>
-        <Col xs={3}>
-          <SideBar/>
-        </Col>
+            <br/>
+            <LabeledTagControl label="Tags" className="form-control" value={this.state.tags} onChange={chips => this.handleChange("tags",chips)} />
+            <br/>
+            <TestCases title="Casos de teste" cases={testCases}/>
+            <Button onClick={() => this.props.exercises.create(name, dificuldade, reward, description)}>
+              Criar
+            </Button>
+          </Col>
+          <Col xs={3}>
+            <SideBar/>
+          </Col>
+        </Privileged>
       </Row>
     )
   }
