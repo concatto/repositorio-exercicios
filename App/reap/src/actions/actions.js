@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const SUBSCRIPTION_SUCESSESS = "SUBSCRIPTION_SUCESSESS";
+export const SUBSCRIPTION_SUCCESS = "SUBSCRIPTION_SUCCESS";
 export const SUBSCRIPTION_FAIL = "SUBSCRIPTION_FAIL";
 
-export const handleSubscription = (informations, callback) => {
+export const handleSubscription = (informations) => {
 
   const URL = "http://localhost:4000/api/user/";
   const request = axios.post(URL, informations);
@@ -11,16 +11,14 @@ export const handleSubscription = (informations, callback) => {
     return (dispatch) => {
       request.then((data) => {
         dispatch({
-          type: SUBSCRIPTION_SUCESSESS,
+          type: SUBSCRIPTION_SUCCESS,
           payload: true
         });
-        callback(true, data)
       }).catch((err) => {
         dispatch({
           type: SUBSCRIPTION_FAIL,
           payload: false
         });
-        callback(false, err);
       });
 
     }

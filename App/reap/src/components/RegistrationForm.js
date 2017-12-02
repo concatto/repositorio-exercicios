@@ -12,7 +12,7 @@ class RegistrationForm extends React.Component {
       email: "",
       username: "",
       password: "",
-      name: "hale"
+      name: ""
     };
   }
 
@@ -23,15 +23,16 @@ class RegistrationForm extends React.Component {
   }
 
   submitValues() {
-    this.props.handleSubscription(this.state, (isWork, info) => {
-        if (isWork) { alert('foi', info)}
-        else {console.log('deu ruim');}
-    });
+    this.props.handleSubscription(this.state);
   }
 
   render() {
     return (
       <form>
+        <LabeledControl label="Nome" type="text"
+          value={this.state.name}
+          onChange={e => this.handleChange("name", e)}
+        />
         <LabeledControl label="E-mail" type="email"
           value={this.state.email}
           onChange={e => this.handleChange("email", e)}
