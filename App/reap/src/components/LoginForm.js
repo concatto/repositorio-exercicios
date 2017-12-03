@@ -22,9 +22,10 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit(e) {
-    //e.preventDefault();
-    //this.props.authenticate.login()
-    this.props.onLogin(true);
+    const { user, password } = this.state;
+    e.preventDefault();
+    this.props.auth.login(user, password);
+    // this.props.onLogin(true);
   }
 
   render() {
@@ -32,14 +33,14 @@ class LoginForm extends React.Component {
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
         <LabeledControl label="Usuário" type="text"
-          value={this.state.user}
+          value={user}
           onChange={e => this.handleChange("user", e)}
         />
         <LabeledControl label="Senha" type="password"
-          value={this.state.password}
+          value={password}
           onChange={e => this.handleChange("password", e)}
         />
-        <Button type="submit" onClick={() => this.props.authenticate.login(user, password)}>Entrar</Button>
+        <Button type="submit">Entrar</Button>
       </form>
     );
   }
