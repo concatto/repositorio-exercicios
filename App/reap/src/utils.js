@@ -11,3 +11,6 @@ export const withEntities = (...entities) => {
     return actions;
   };
 };
+
+export const NOOP = () => {};
+export const LOG = (...args) => console.log(...args);

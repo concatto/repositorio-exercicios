@@ -1,15 +1,19 @@
 import { performApiRequest, performProtectedRequest } from './entityUtils';
 import { storeItem, TokenKey } from '../browserStorage';
+import { NOOP, LOG } from '../utils';
 
 const actions = {
   login: (username, password) => dispatch => {
-    performApiRequest(dispatch, "post", Login, "login", "authenticate", {username, password}).then(res => {
+    const data = {username, password};
+
+    performApiRequest(dispatch, "post", Login, "login", "authenticate", data).then(res => {
+      storeItem(TokenKey, res.data.token, false);
       dispatch(actions.tryLoggingFromStorage());
-    });
+    }).catch(LOG);
   },
 
   tryLoggingFromStorage: () => dispatch => {
-    performProtectedRequest(dispatch, "get", Login, "loginFromStorage", "user");
+    performProtectedRequest(dispatch, "get", Login, "loginFromStorage", "user").catch(NOOP);
   }
 };
 
@@ -31,7 +35,6 @@ export const reducer = (state = initialState, action) => {
 
   switch (action.type) {
     case login + "_SUCCEEDED":
-      storeItem(TokenKey, action.payload.token, false);
       return state;
     default:
       return state;

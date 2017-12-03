@@ -1,31 +1,10 @@
 import React from 'react';
-import { Nav, NavItem, Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Tab, Tabs } from 'react-bootstrap';
 import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
 import logo from '../g-logo.png';
 
 class WelcomePage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {formKey: 0};
-  }
-
-  handleSelect(formKey) {
-    this.setState({formKey});
-  }
-
-  getForm() {
-    switch (this.state.formKey) {
-      case 0:
-        return <LoginForm onLogin={this.props.onLogin}/>;
-      case 1:
-        return <RegistrationForm/>
-      default:
-        return null;
-    }
-  }
-
   render() {
     return (
       <div className="App">
@@ -40,13 +19,14 @@ class WelcomePage extends React.Component {
         <Grid className="main-content">
           <Row>
             <Col xs={6} xsOffset={3}>
-              <Nav bsStyle="tabs" activeKey={this.state.formKey} onSelect={key => this.handleSelect(key)}>
-                <NavItem eventKey={0}>Entrar</NavItem>
-                <NavItem eventKey={1}>Cadastrar</NavItem>
-              </Nav>
-              <div className="tabbed-form">
-                {this.getForm()}
-              </div>
+              <Tabs animation={false} id="welcome-tabs" defaultActiveKey={1}>
+                <Tab title="Entrar" className="tabbed-form" eventKey={1}>
+                  <LoginForm/>
+                </Tab>
+                <Tab title="Cadastrar" className="tabbed-form" eventKey={2}>
+                  <RegistrationForm/>
+                </Tab>
+              </Tabs>
             </Col>
           </Row>
         </Grid>
