@@ -40,7 +40,7 @@ module.exports = {
         // First, insert the exercise itself
 
         return trx.insert(vals).into(table).returning("id").then(res => {
-          // Second, insert the categories
+          // Second, insert the categories and forward the id
           const exercise_id = res[0];
           categories = categories.map(category_id => {exercise_id, category_id});
 

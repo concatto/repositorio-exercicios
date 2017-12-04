@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import Auth from '../entities/auth';
+import { Button, Checkbox } from 'react-bootstrap';
+import Auth, { States } from '../entities/auth';
 import LabeledControl from './LabeledControl';
 import { withEntities } from '../utils';
 import {connect} from 'react-redux';
@@ -12,6 +12,7 @@ class LoginForm extends React.Component {
     this.state = {
       user: "",
       password: "",
+      persistLogin: true,
     };
   }
 
@@ -22,30 +23,52 @@ class LoginForm extends React.Component {
   }
 
   handleSubmit(e) {
-    const { user, password } = this.state;
     e.preventDefault();
-    this.props.auth.login(user, password);
-    // this.props.onLogin(true);
+    const { user, password, persistLogin } = this.state;
+
+    this.props.auth.login(user, password, persistLogin);
+  }
+
+  handlePersist() {
+    this.setState({persistLogin: !this.state.persistLogin});
   }
 
   render() {
-    const {user, password} = this.state;
+    const { user, password, persistLogin } = this.state;
+    const { logging, failed } = this.props;
+
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
-        <LabeledControl label="Usuário" type="text"
+        {failed &&
+          <p className="text-danger">Credenciais inválidas! Tente novamente.</p>
+        }
+
+        <LabeledControl label="Usuário" type="text" withFeedback
           value={user}
           onChange={e => this.handleChange("user", e)}
+          validationState={failed ? "error" : null}
         />
-        <LabeledControl label="Senha" type="password"
+        <LabeledControl label="Senha" type="password" withFeedback
           value={password}
           onChange={e => this.handleChange("password", e)}
+          validationState={failed ? "error" : null}
         />
-        <Button type="submit">Entrar</Button>
+        <div className="centralize-v padded-top">
+          <Checkbox inline checked={persistLogin} onChange={() => this.handlePersist()}>
+            Permanecer conectado
+          </Checkbox>
+          <Button type="submit" className="no-top-margin flex-right" disabled={logging}>
+            Entrar
+          </Button>
+        </div>
       </form>
     );
   }
 }
 
 export default connect(state => {
-  return {};
+  return {
+    logging: state.auth.loginState === States.Logging,
+    failed: state.auth.loginState === States.Failed
+  };
 }, withEntities(Auth))(LoginForm);

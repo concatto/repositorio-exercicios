@@ -5,6 +5,7 @@ const Room = require("../entities/room");
 const Membership = require("../entities/membership");
 const exerciseRouter = require("./exercise");
 const Constants = require("../constants");
+const { sendError } = require("../utils");
 const router = express.Router();
 
 router.use("/:room_id/exercises", exerciseRouter);
@@ -31,21 +32,17 @@ router.get("/:room_id", auth.authenticate(), (req, res) => {
     } else {
       res.status(200).json(result);
     }
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  }).catch(sendError(res));
 })
 
 /**
  * Creates a new room. The user will automatically become the owner of the
- * newly created room.
+ * newly created room. Currently, just the name of the room is necessary.
  */
 router.post("/", auth.authenticate(), (req, res) => {
   Room.create({...req.body, ...req.user}).then(result => {
     res.status(200).send("Room created.");
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  }).catch(sendError(res));
 });
 
 // /**
@@ -73,9 +70,7 @@ router.post("/invite/:room_id", auth.authenticate(), (req, res) => {
     } else {
       res.status(200).send("Invited.");
     }
-  }).catch(err => {
-    res.status(500).send(err);
-  })
+  }).catch(sendError(res));
 });
 
 /**
@@ -85,9 +80,7 @@ router.post("/invite/:room_id", auth.authenticate(), (req, res) => {
 router.post("/accept", auth.authenticate(), (req, res) => {
   Membership.acceptInvitation({...req.body, ...req.user}).then(result => {
     res.status(200).json(result);
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  }).catch(sendError(res));
 });
 
 /**
@@ -96,9 +89,7 @@ router.post("/accept", auth.authenticate(), (req, res) => {
 router.post("/verify", (req, res) => {
   Membership.verifyInvitation(req.body).then(result => {
     res.status(200).json(result);
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  }).catch(sendError(res));
 });
 
 module.exports = router;

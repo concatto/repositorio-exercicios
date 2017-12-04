@@ -27,7 +27,8 @@ router.get("/", auth.authenticate(), (req, res) => {
 
 /**
  * Creates a new exercise in the current room. The user must be a member of the
- * room and needs to be either its owner, an administrator or a teacher.
+ * room and needs to be either its owner, an administrator or a teacher. You must
+ * specify the exercise's name, difficulty, base reward and description.
  */
 router.post("/", auth.authenticate(), (req, res) => {
   Exercise.create({...req.params, ...req.user, ...req.body}).then(result => {

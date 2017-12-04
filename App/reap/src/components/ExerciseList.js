@@ -13,7 +13,7 @@ class ExerciseList extends React.Component {
           id={ex.id}
           name={ex.name}
           difficulty={ex.difficulty}
-          points={ex.base_reward}
+          points={ex.baseReward}
           status={ex.status || 0}
         />
       );

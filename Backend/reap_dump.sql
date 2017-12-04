@@ -15,26 +15,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: reap; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE reap WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'pt_BR.UTF-8' LC_CTYPE = 'pt_BR.UTF-8';
-
-
-ALTER DATABASE reap OWNER TO postgres;
-
-\connect reap
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -235,7 +215,9 @@ CREATE TABLE reap_user (
     name character varying(255) NOT NULL,
     username character varying(32) NOT NULL,
     email character varying(255) NOT NULL,
-    password character varying(64) NOT NULL
+    password character varying(64) NOT NULL,
+    verified boolean DEFAULT false NOT NULL,
+    registered_at timestamp without time zone DEFAULT now()
 );
 
 
@@ -566,6 +548,7 @@ COPY exercise (id, name, difficulty, base_reward, description, room_id, created_
 5	Cats	999	9999	Testando2	9	2017-11-26 15:00:37.374383	f	2
 13	Cats returning	999	9999	Testando2	9	2017-11-26 15:08:45.527904	f	2
 14	Test privilege	999	9999	Testando2	9	2017-11-27 10:01:36.905554	t	2
+15	Exercício de teste	3	666	Lorem ipsum dolor sit amet	12	2017-12-04 11:24:00.3803	f	2
 \.
 
 
@@ -597,9 +580,15 @@ COPY language_availability (exercise_id, language_id) FROM stdin;
 -- Data for Name: reap_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY reap_user (id, name, username, email, password) FROM stdin;
-2	Fernando Concatto	concatto	fernandoconcatto@gmail.com	$2a$10$BTlqc9isgSLCKIW5TZ8bGuZgdsAu4AdwPbLjs3QGkHK56wog7Xame
-7	William Gosset	student	test@test.com	$2a$10$0o7R/85OxgT3E3dfdD.0ZuPEaiDr9zyUbxnC.xG4l94lFf4pLLRze
+COPY reap_user (id, name, username, email, password, verified, registered_at) FROM stdin;
+2	Fernando Concatto	concatto	fernandoconcatto@gmail.com	$2a$10$BTlqc9isgSLCKIW5TZ8bGuZgdsAu4AdwPbLjs3QGkHK56wog7Xame	t	2017-11-30 08:57:09.222112
+7	William Gosset	student	test@test.com	$2a$10$0o7R/85OxgT3E3dfdD.0ZuPEaiDr9zyUbxnC.xG4l94lFf4pLLRze	t	2017-11-30 08:57:09.222112
+11	Unregistered User	unregist	unregistered@reg.com	$2a$10$deIjhhq7x/LsbysJ.BHBRePXFzHmcZERgzQljXLQihOYUdxrCarK2	t	2017-11-30 08:57:09.222112
+13	Time Keeper	time	nandoconcatto@gmail.com	$2a$10$R5eS0Bvl3kFCO1YOqe/og.MulqFVD6nHqoB7Vqcxx87OmnFp6sbqW	t	2017-11-30 09:17:41.030944
+14	Teste	test	abc@abc.com	$2a$10$n6ruFt9vfeFcplHKpDlFE.duICxteeS/rng5dSNYuQpqal3ZGvBd6	f	2017-12-04 10:58:18.093421
+15	asd	asd	asd@asd.com	$2a$10$G.ZOUzPA26oAPLvIxvQsjOsPgMfIC/2f0ifqBQe4BjGGpjhPxTI0e	f	2017-12-04 11:00:41.408398
+16	dsa	aaa	dsa@dsa.com	$2a$10$7chmXggMMz4LL/DVICo1eejn1kpv1PsMudUPPtViJQpwa5SgRQ41e	f	2017-12-04 11:01:21.53816
+17	qwdhqiwdhqw	teste	abcde@a.com	$2a$10$dj3IiU.GxMl2gyH9qpNyCuKJCAzzDlJJVe3dr..kFnl9bxqBIFEz2	t	2017-12-04 11:09:57.504499
 \.
 
 
@@ -609,6 +598,7 @@ COPY reap_user (id, name, username, email, password) FROM stdin;
 
 COPY room (id, name, creator_id, created_at) FROM stdin;
 9	UNIVALI	2	2017-11-22 10:32:27.609398
+12	LIA	2	2017-12-04 11:19:18.367135
 \.
 
 
@@ -669,6 +659,7 @@ COPY user_relationship (follower_id, following_id) FROM stdin;
 COPY user_room (room_id, user_id, experience, privilege, joined_at) FROM stdin;
 9	2	0	0	2017-11-22 10:32:27.609398
 9	7	0	3	2017-11-26 13:38:21.923344
+12	2	0	0	2017-12-04 11:19:18.367135
 \.
 
 
@@ -690,7 +681,7 @@ SELECT pg_catalog.setval('comment_id_seq', 1, false);
 -- Name: exercise_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('exercise_id_seq', 14, true);
+SELECT pg_catalog.setval('exercise_id_seq', 15, true);
 
 
 --
@@ -704,14 +695,14 @@ SELECT pg_catalog.setval('language_id_seq', 1, false);
 -- Name: reap_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('reap_user_id_seq', 8, true);
+SELECT pg_catalog.setval('reap_user_id_seq', 17, true);
 
 
 --
 -- Name: room_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('room_id_seq', 9, true);
+SELECT pg_catalog.setval('room_id_seq', 12, true);
 
 
 --
@@ -781,6 +772,14 @@ ALTER TABLE ONLY language_availability
 
 ALTER TABLE ONLY language
     ADD CONSTRAINT language_pk PRIMARY KEY (id);
+
+
+--
+-- Name: reap_user reap_user_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY reap_user
+    ADD CONSTRAINT reap_user_email_key UNIQUE (email);
 
 
 --

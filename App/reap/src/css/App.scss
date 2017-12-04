@@ -4,6 +4,10 @@
   padding-bottom: 30px;
 }
 
+.main-root a.list-group-item {
+  color: white;
+}
+
 .flex {
   display: flex;
 }
@@ -113,6 +117,20 @@
   flex-flow: column;
 }
 
+.centralize-h {
+  display: flex;
+  justify-content: center;
+}
+
+.centralize-v {
+  display: flex;
+  align-items: center;
+}
+
+.flex-right {
+  margin-left: auto;
+}
+
 .modal .reward span {
   font-size: 32px;
   margin: 0px 0px -10px;
@@ -203,10 +221,12 @@
   display: inline-block;
 }
 
-.top-margin    { margin-top: $padding-base-vertical !important;    }
-.right-margin  { margin-right: $padding-base-horizontal !important;  }
-.bottom-margin { margin-bottom: $padding-base-vertical !important; }
-.left-margin   { margin-left: $padding-base-horizontal !important;   }
+.padded-top   {padding-top: $padding-base-vertical !important;  }
+
+.top-margin    { margin-top: $padding-base-vertical !important;     }
+.right-margin  { margin-right: $padding-base-horizontal !important; }
+.bottom-margin { margin-bottom: $padding-base-vertical !important;  }
+.left-margin   { margin-left: $padding-base-horizontal !important;  }
 
 .no-top-margin    { margin-top: 0 !important;    }
 .no-right-margin  { margin-right: 0 !important;  }

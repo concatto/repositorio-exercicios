@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"unregist\",\n\t\"email\":\"unregistered@reg.com\",\n\t\"password\":\"test123\",\n\t\"name\":\"Unregistered User\"\n}"
+					"raw": "{\n  \"username\":\"time\",\n  \"email\":\"nandoconcatto@gmail.com\",\n  \"password\":\"lia123\",\n  \"name\":\"Time Keeper\"\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:4000/api/user",
@@ -35,7 +35,7 @@
 						"user"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -51,7 +51,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"unregist\",\n\t\"password\":\"test123\"\n}"
+					"raw": "{\n  \"username\":\"time\",\n  \"password\":\"lia123\"\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:4000/api/authenticate",
@@ -68,7 +68,7 @@
 						"authenticate"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -84,7 +84,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJVbnJlZ2lzdGVyZWQgVXNlciIsInVzZXJuYW1lIjoidW5yZWdpc3QiLCJpYXQiOjE1MTE4NzQ4OTZ9._bHa0miOSR9er4Pl6qawy5Im369A62_8DT3gNxCn8Hw\"\n}"
+					"raw": "{\n  \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsIm5hbWUiOiJUaW1lIEtlZXBlciIsInVzZXJuYW1lIjoidGltZSIsImlhdCI6MTUxMjA0MDY2MSwiZXhwIjoxNTEyMTI3MDYxfQ.a0CMjhJAUoSI-2A-wVrVgycNcj5P9EJYpFzbh-zpTDk\"\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:4000/api/user/verify",
@@ -102,7 +102,7 @@
 						"verify"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -160,6 +160,121 @@
 					"path": [
 						"api",
 						"room"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Invitation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTExOTI2MjY5fQ.ZO8sVRs_fIgKSTuoFjA3K-My_f4tcZWOzdyKd8Sc35E"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"fernandoconcatto@gmail.com\",\n\t\"privilege\":3,\n\t\"destinationUrl\":\"127.0.0.1:4000/test\",\n\t\"tokenKey\":\"token\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/room/invite/9",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"room",
+						"invite",
+						"9"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create room",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTEyMzkzMTg1fQ.cBjY9SodZxKdQlfgJcjvFcySax01cCYWl6-N6sG1u8o"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"LIA\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/room",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"room"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create exercise",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTEyMzkzMTg1fQ.cBjY9SodZxKdQlfgJcjvFcySax01cCYWl6-N6sG1u8o"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Exercício de teste\",\n\t\"base_reward\": 666,\n\t\"description\": \"Lorem ipsum dolor sit amet\",\n\t\"difficulty\": 3\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:4000/api/room/12/exercises",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"room",
+						"12",
+						"exercises"
 					]
 				},
 				"description": ""

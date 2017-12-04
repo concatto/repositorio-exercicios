@@ -13,7 +13,7 @@ class RoomsPage extends React.Component {
 
   createItems() {
     return this.props.roomData.map((room, i) => (
-      <LinkGroupItem key={i} to={`/reap/room/${room.room_id}`}>
+      <LinkGroupItem key={i} to={`/reap/room/${room.roomId}`}>
         <h3 className="no-top-margin">{room.name}</h3>
         <span>Seu privilégio nesta sala: {room.privilege}</span>
       </LinkGroupItem>

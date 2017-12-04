@@ -46,7 +46,7 @@ module.exports = {
         // Then, join the newly created room with highest privilege
         const joinVals = {id, room_id: result[0], privilege: 0};
 
-        return this.join(joinVals).transacting(trx);
+        return Membership.join(joinVals).transacting(trx);
       }).then(trx.commit)
         .catch(trx.rollback);
     });

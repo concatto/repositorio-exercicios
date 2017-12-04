@@ -20,7 +20,7 @@ class Lobby extends React.Component {
       <Row>
         <Privileged withWarning student>
           <Col xs={9}>
-            <h3>Exercícios disponíveis</h3>
+            <h3>Exercícios disponíveis - {this.props.roomName}</h3>
             <ExerciseList />
           </Col>
           <Col xs={3}>
@@ -33,5 +33,5 @@ class Lobby extends React.Component {
 };
 
 export default withRouter(connect(state => {
-  return {};
+  return {roomName: state.room.name};
 }, withEntities(Rooms))(Lobby));

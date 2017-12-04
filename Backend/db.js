@@ -1,3 +1,5 @@
+const humps = require("humps");
+
 const knex = require("knex")({
   client: "postgres",
   connection: {
@@ -5,6 +7,9 @@ const knex = require("knex")({
     user: "postgres",
     password: "123456",
     database: "reap"
+  },
+  postProcessResponse: result => {
+    return humps.camelizeKeys(result);
   }
 });
 

@@ -2,6 +2,9 @@
 #root {
   padding-bottom: 30px; }
 
+.main-root a.list-group-item {
+  color: white; }
+
 .flex {
   display: flex; }
 
@@ -87,6 +90,17 @@
   align-items: center;
   flex-flow: column; }
 
+.centralize-h {
+  display: flex;
+  justify-content: center; }
+
+.centralize-v {
+  display: flex;
+  align-items: center; }
+
+.flex-right {
+  margin-left: auto; }
+
 .modal .reward span {
   font-size: 32px;
   margin: 0px 0px -10px; }
@@ -157,6 +171,9 @@
 
 .container-div {
   display: inline-block; }
+
+.padded-top {
+  padding-top: 10px !important; }
 
 .top-margin, .v-margin, .margin {
   margin-top: 10px !important; }
