@@ -1,11 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Grid, Row, Col, Tab, Tabs } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
 import logo from '../g-logo.png';
 
 class WelcomePage extends React.Component {
   render() {
+    if (this.props.authenticated === true) {
+      return <Redirect to="/reap" push/>
+    }
+
     return (
       <div className="App">
         <header className="App-header">
@@ -35,4 +41,6 @@ class WelcomePage extends React.Component {
   }
 }
 
-export default WelcomePage;
+export default connect(state => {
+  return {authenticated: state.auth.authenticated};
+})(WelcomePage);

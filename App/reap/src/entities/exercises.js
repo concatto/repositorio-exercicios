@@ -1,4 +1,5 @@
-import { loadAll, create, toObject } from "./entityUtils";
+import { loadAll, create } from "./entityUtils";
+import { toObject } from '../utils';
 
 const Exercises = {
   key: "exercises",

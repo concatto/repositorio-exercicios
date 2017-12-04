@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LinkNavItem from './LinkNavItem';
 import { Navbar, Nav } from 'react-bootstrap';
@@ -20,9 +21,18 @@ class NavigationBar extends React.Component {
             </LinkNavItem>
           </Privileged>
         </Nav>
+        <Navbar.Collapse className="right-margin">
+          {this.props.name &&
+            <Navbar.Text pullRight>
+              Boas vindas, {this.props.name}
+            </Navbar.Text>
+          }
+        </Navbar.Collapse>
       </Navbar>
     )
   }
 }
 
-export default NavigationBar;
+export default connect(state => {
+  return {name: state.auth.user ? state.auth.user.name : undefined};
+})(NavigationBar);

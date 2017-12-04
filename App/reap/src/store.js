@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
+import { reducer as authReducer } from './entities/auth';
+import { reducer as roomReducer } from './entities/rooms';
 import { reducer as modalReducer } from './entities/modal';
-import { reducer as loginReducer } from './entities/login';
 import { reducer as exerciseReducer } from './entities/exercises';
 
 const middleware = applyMiddleware(thunk, createLogger());
@@ -31,5 +32,6 @@ export const store = createStore(combineReducers({
   modal: modalReducer,
   exercises: exerciseReducer,
   users: __mockUsersReducer,
-  login: loginReducer,
+  auth: authReducer,
+  room: roomReducer,
 }), middleware);

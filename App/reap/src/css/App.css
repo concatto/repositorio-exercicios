@@ -8,6 +8,17 @@
 .App {
   text-align: center; }
 
+.full {
+  width: 100vw;
+  height: 100vh; }
+
+.loading .sk-spinner {
+  color: #999; }
+
+.loading.full .sk-spinner {
+  width: 82px;
+  height: 82px; }
+
 .App-header {
   background: radial-gradient(ellipse at center, #021d02 0%, #021d02 50%, #000000 100%);
   padding: 38px 20px;
@@ -148,16 +159,16 @@
   display: inline-block; }
 
 .top-margin, .v-margin, .margin {
-  margin-top: 0.8rem !important; }
+  margin-top: 10px !important; }
 
 .right-margin, .h-margin, .margin {
-  margin-right: 0.8rem !important; }
+  margin-right: 15px !important; }
 
 .bottom-margin, .v-margin, .margin {
-  margin-bottom: 0.8rem !important; }
+  margin-bottom: 10px !important; }
 
 .left-margin, .h-margin, .margin {
-  margin-left: 0.8rem !important; }
+  margin-left: 15px !important; }
 
 .no-top-margin, .no-v-margin {
   margin-top: 0 !important; }

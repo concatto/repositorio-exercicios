@@ -12,11 +12,11 @@ module.exports = {
     const vals = _.pick(params, "username", "password");
     const criteria = {username: vals.username};
 
-    return db.first("id", "password", "verified").from(table).where(criteria).then(row => {
+    return db.first("*").from(table).where(criteria).then(row => {
       if (row === undefined) return false;
 
       return bcrypt.compare(vals.password, row.password).then(equal => {
-        return equal === true ? _.pick(row, "id", "verified") : false;
+        return equal === true ? row : false;
       });
     });
   },

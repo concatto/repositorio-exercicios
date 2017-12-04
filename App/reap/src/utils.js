@@ -1,7 +1,14 @@
 import { bindActionCreators } from 'redux';
 
-export const withEntities = (...entities) => {
+export const toObject = (array, key = "id") => {
+  const obj = {};
+  array.forEach(record => {
+    obj[record[key]] = record;
+  });
+  return obj;
+}
 
+export const withEntities = (...entities) => {
   return dispatch => {
     const actions = {};
     entities.forEach(entity => {

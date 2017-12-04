@@ -6,6 +6,7 @@ import ModalRoot from './ModalRoot';
 import Lobby from './Lobby';
 import IdePage from './IdePage';
 import NewExercise from './NewExercise';
+import RoomsPage from './RoomsPage';
 
 class MainPage extends React.Component {
   render() {
@@ -16,9 +17,10 @@ class MainPage extends React.Component {
 
         <Grid className="main-root">
           <Switch>
-            <Route exact path="/reap" component={Lobby}/>
             <Route exact path="/reap/create" component={NewExercise}/>
             <Route exact path="/reap/solve/:id" component={IdePage}/>
+            <Route exact path="/reap/room/:id" component={Lobby}/>
+            <Route path="/reap" component={RoomsPage}/>
           </Switch>
         </Grid>
       </div>

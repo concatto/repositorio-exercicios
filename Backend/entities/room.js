@@ -8,10 +8,14 @@ const table = "room";
 module.exports = {
   retrieve(params) {
     const { room_id, id: user_id } = params;
+    const cols = ["user_id", "privilege", "experience", "joined_at"];
 
     // Check if the user belongs to the room
-    return Membership.retrieveUser(room_id, user_id, "user_id").then(result => {
+    return Membership.retrieveUser(room_id, user_id, cols).then(result => {
       if (result === undefined) return false;
+
+      // Forward the membership status of the user within the room
+      const membership = Promise.resolve(result);
 
       // Retrieve the members of the room
       const users = Membership.retrieveUsers(params);
@@ -22,12 +26,12 @@ module.exports = {
       // Retrieve the details about the room
       const room = db.first("*").from(table).where({id: room_id});
 
-      return Promise.all([users, exercises, room]);
+      return Promise.all([membership, users, exercises, room]);
     }).then(result => {
       if (result === false) return false;
 
-      const [users, exercises, room] = result;
-      return {...room, users, exercises};
+      const [membership, users, exercises, room] = result;
+      return {...room, users, exercises, membership};
     });
   },
 

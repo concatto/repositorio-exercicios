@@ -13,20 +13,16 @@ class ExerciseList extends React.Component {
           id={ex.id}
           name={ex.name}
           difficulty={ex.difficulty}
-          points={ex.reward}
-          status={ex.status}
+          points={ex.base_reward}
+          status={ex.status || 0}
         />
       );
     });
   }
 
-  componentDidMount() {
-    this.props.exercises.loadAll();
-  }
-
   render (){
     return (
-      <Table striped bordered condensed hover >
+      <Table striped bordered condensed hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -45,5 +41,5 @@ class ExerciseList extends React.Component {
 }
 
 export default connect(state => {
-  return {exerciseData: state.exercises.data};
-}, withEntities(ExerciseEntity))(ExerciseList);
+  return {exerciseData: state.room.exercises || []};
+})(ExerciseList);

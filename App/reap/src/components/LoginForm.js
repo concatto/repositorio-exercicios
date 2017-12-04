@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import Login from '../entities/login';
+import Auth from '../entities/auth';
 import LabeledControl from './LabeledControl';
 import { withEntities } from '../utils';
 import {connect} from 'react-redux';
@@ -48,4 +48,4 @@ class LoginForm extends React.Component {
 
 export default connect(state => {
   return {};
-}, withEntities(Login))(LoginForm);
+}, withEntities(Auth))(LoginForm);

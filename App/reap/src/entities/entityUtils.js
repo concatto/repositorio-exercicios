@@ -1,12 +1,16 @@
-import { performRequest } from "../asyncOperations";
+import { performRequest, failed } from "../asyncOperations";
 import { retrieveItem, TokenKey } from "../browserStorage";
 
-export const loadAll = (dispatch, entity, path) => {
-  performApiRequest(dispatch, "get", entity, "loadAll", path);
+export const load = (dispatch, entity, path, restricted = true) => {
+  return chooseAndPerformRequest(dispatch, "get", entity, "load", path, {}, {}, restricted);
 }
 
-export const create = (dispatch, entity, path, data) => {
-  performApiRequest(dispatch, "post", entity, "create", path, data);
+export const loadAll = (dispatch, entity, path, restricted = true) => {
+  return chooseAndPerformRequest(dispatch, "get", entity, "loadAll", path, {}, {}, restricted);
+}
+
+export const create = (dispatch, entity, path, data, restricted = true) => {
+  return chooseAndPerformRequest(dispatch, "post", entity, "create", path, data, {}, restricted);
 }
 
 /**
@@ -30,15 +34,21 @@ export const performApiRequest = (dispatch, method, entity, actionName, path, da
 // Same as performApiRequest(), but with Authorization.
 export const performProtectedRequest = (dispatch, method, entity, actionName, path, data = {}, headers = {}) => {
   const token = retrieveItem(TokenKey);
-  headers["Authorization"] = `Bearer ${token}`;
 
+  if (token === null) {
+    const name = entity.actionNames[actionName];
+
+    dispatch({type: failed(name)});
+    return Promise.reject("Token is null");
+  }
+
+  headers["Authorization"] = `Bearer ${token}`;
   return performApiRequest(dispatch, method, entity, actionName, path, data, headers);
 }
 
-export const toObject = (resultSet) => {
-  const obj = {};
-  resultSet.forEach(record => {
-    obj[record.id] = record;
-  });
-  return obj;
+
+const chooseAndPerformRequest = (dispatch, method, entity, actionName, path, data, headers, restricted = true) => {
+  const func = restricted ? performProtectedRequest : performApiRequest;
+
+  return func(dispatch, method, entity, actionName, path, data, headers);
 }

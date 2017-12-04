@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { withEntities } from './utils';
-import Login from './entities/login';
+import Auth from './entities/auth';
+import Loading from './components/Loading';
 import MainPage from './components/MainPage';
 import WelcomePage from './components/WelcomePage';
 import ConfirmationTokenPage from './components/ConfirmationTokenPage';
@@ -19,19 +20,8 @@ class App extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
-  }
-
-  // handleLogin(outcome) {
-  //   if (outcome === true) {
-  //     this.setState({authenticated: true});
-  //     this.props.history.push("/reap");
-  //   }
-  // }
-
-  createWelcomePage() {
-    return <WelcomePage onLogin={outcome => {this.handleLogin(outcome)}}/>;
   }
 
   componentWillMount() {
@@ -39,9 +29,14 @@ class App extends React.Component {
   }
 
   render() {
+    const { authenticated } = this.props.authData;
+    if (authenticated === undefined) {
+      return <Loading full/>
+    }
+
     return (
       <Switch>
-        <Route exact path="/" render={() => this.createWelcomePage()}/>
+        <Route exact path="/" component={WelcomePage}/>
         <Route path="/reap" component={MainPage}/>
         <Route path="/:token" component={ConfirmationTokenPage} />
       </Switch>
@@ -50,7 +45,7 @@ class App extends React.Component {
 }
 
 const Connected = connect(state => {
-  return {};
-}, withEntities(Login))(App);
+  return {authData: state.auth};
+}, withEntities(Auth))(App);
 
 export default withRouter(Connected);

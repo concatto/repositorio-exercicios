@@ -1,17 +1,26 @@
 const express = require("express");
 const auth = require("../auth");
 const User = require("../entities/user");
+const pick = require("lodash/pick");
+const Membership = require("../entities/membership");
+const { sendError } = require("../utils");
 const router = express.Router();
 
 /**
  * Retrieves information about yourself.
  */
 router.get("/", auth.authenticate(), (req, res) => {
-  User.retrieve(req.user).then(result => {
-    res.status(200).json(result);
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  Promise.all([
+    User.retrieve(req.user),
+    Membership.retrieveRoomsFor(req.user)
+  ]).then(results => {
+    let [user, rooms] = results;
+
+    user = pick(user, "id", "name", "username", "registered_at", "email");
+    user.rooms = rooms;
+
+    res.status(200).json(user);
+  }).catch(sendError(res));
 });
 
 /**
@@ -25,9 +34,7 @@ router.post("/", (req, res) => {
     } else {
       res.status(400).send("Already exists.");
     }
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  }).catch(sendError(res));
 });
 
 /**
@@ -36,9 +43,7 @@ router.post("/", (req, res) => {
 router.post("/verify", (req, res) => {
   User.verify(req.body).then(result => {
     res.status(200).send(result);
-  }).catch(err => {
-    res.status(500).send(err);
-  })
+  }).catch(sendError(res))
 });
 
 module.exports = router;
