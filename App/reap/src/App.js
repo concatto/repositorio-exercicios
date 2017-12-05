@@ -38,7 +38,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/" component={WelcomePage}/>
         <Route path="/reap" component={MainPage}/>
-        <Route path="/:token" component={ConfirmationTokenPage} />
+        <Route path="/confirmation" component={ConfirmationTokenPage} />
       </Switch>
     );
   }

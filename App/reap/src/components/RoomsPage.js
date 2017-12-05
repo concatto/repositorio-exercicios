@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, ListGroup } from 'react-bootstrap';
+import { Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { withEntities } from '../utils';
 import Rooms from '../entities/rooms';
 import Privileged from './Privileged';
@@ -9,6 +9,11 @@ import LinkGroupItem from './LinkGroupItem';
 class RoomsPage extends React.Component {
   componentDidMount() {
     this.props.rooms.clear();
+  }
+    
+  handleCreateRoom() {
+    const name = prompt("Digite o nome da sala:");
+    this.props.rooms.create(name);
   }
 
   createItems() {
@@ -29,6 +34,9 @@ class RoomsPage extends React.Component {
             <ListGroup>
               {this.createItems()}
             </ListGroup>
+            <Button bsStyle="primary" onClick={() => this.handleCreateRoom()}>
+              Criar sala
+            </Button>
           </Col>
         </Privileged>
       </Row>

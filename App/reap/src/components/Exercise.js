@@ -9,19 +9,19 @@ import ExerciseStatus from './ExerciseStatus';
 
 class Exercise extends React.Component {
   handleClick() {
-    this.props.modal.push(ExerciseDetailModal, {id: this.props.id});
+    this.props.modal.push(ExerciseDetailModal, {exercise: this.props.exercise});
   }
 
   render() {
-    console.log(this.props);
+    const { id, name, difficulty, baseReward, status = 0 } = this.props.exercise;
 
     return (
       <tr onClick={() => this.handleClick()} className="exercise-row">
-        <td>{this.props.id}</td>
-        <td>{this.props.name}</td>
-        <td><DifficultyView difficulty={this.props.difficulty}/></td>
-        <td>{this.props.points}</td>
-        <td><ExerciseStatus status={this.props.status}/></td>
+        <td>{id}</td>
+        <td>{name}</td>
+        <td><DifficultyView difficulty={difficulty}/></td>
+        <td>{baseReward}</td>
+        <td><ExerciseStatus status={status}/></td>
       </tr>
     );
   }

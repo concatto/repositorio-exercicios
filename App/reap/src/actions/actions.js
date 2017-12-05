@@ -27,7 +27,7 @@ export const handleSubscription = (informations) => {
 
 export const handleConfirmationToken = (information, callback) => {
 
-  const URL = "http://localhost:3000/api/user/verify";
+  const URL = "http://localhost:4000/api/user/verify";
   const request = axios.post(URL, information)
 
   return (dispatch) => {
@@ -42,7 +42,7 @@ export const handleConfirmationToken = (information, callback) => {
         type: CONFIRMATION_FAIL,
         payload: false
       });
-      callback(err);
+      callback(false);
     })
   }
 }

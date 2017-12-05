@@ -23,7 +23,12 @@ class RegistrationForm extends React.Component {
   }
 
   submitValues() {
-    this.props.handleSubscription(this.state);
+    const redirectionData = {
+        destinationUrl: "http://localhost:3000/confirmation",
+        tokenKey: "token"
+    };
+      
+    this.props.handleSubscription({...this.state, ...redirectionData});
   }
 
   render() {

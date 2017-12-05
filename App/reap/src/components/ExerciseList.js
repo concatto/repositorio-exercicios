@@ -9,13 +9,7 @@ class ExerciseList extends React.Component {
   createExerciseComponents() {
     return Object.values(this.props.exerciseData).map(ex => {
       return (
-        <Exercise key={ex.id}
-          id={ex.id}
-          name={ex.name}
-          difficulty={ex.difficulty}
-          points={ex.baseReward}
-          status={ex.status || 0}
-        />
+        <Exercise key={ex.id} exercise={ex}/>
       );
     });
   }

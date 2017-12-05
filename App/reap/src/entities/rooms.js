@@ -10,10 +10,14 @@ const Rooms = {
     },
     clear: () => dispatch => {
       dispatch({type: "CLEAR_ROOMS"});
+    },
+    create: (name) => dispatch => {
+      create(dispatch, Rooms, "room", {name});
     }
   },
   actionNames: {
     load: "LOAD_ROOM",
+    create: "CREATE_ROOM"
   }
 };
 

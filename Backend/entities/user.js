@@ -38,6 +38,7 @@ module.exports = {
 
       return db.insert(vals).into(table).returning("id");
     }).then(id => {
+      console.log("Before creating token:", id);
       // This token must be presented to verify the user's account. Don't lose it
       const tokenData = {id: id[0], name: vals.name, username: vals.username};
       const token = keyring.createToken(tokenData, {expiresIn: "1d"});

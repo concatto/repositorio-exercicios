@@ -6,8 +6,8 @@ import ModalFooter from '../ModalFooter';
 
 class ExerciseDetailModal extends React.Component {
   render() {
-    const { onDismiss, id, exercise } = this.props;
-    const { difficulty, description, name, reward } = exercise;
+    const { onDismiss, exercise } = this.props;
+    const { difficulty, description, name, baseReward, id } = exercise;
 
     return (
       <div>
@@ -19,7 +19,7 @@ class ExerciseDetailModal extends React.Component {
             difficulty={difficulty}
             description={description}
             name={`Exercício #${id} - ${name}`}
-            reward={reward}
+            reward={baseReward}
           />
         </Modal.Body>
         <ModalFooter cancel confirm="Resolver"
@@ -37,5 +37,5 @@ ExerciseDetailModal.modalProperties = {
 };
 
 export default connect((state, ownProps) => {
-  return {exercise: state.exercises.data[ownProps.id]}
+  return {};
 })(ExerciseDetailModal);
