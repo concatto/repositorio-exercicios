@@ -1,0 +1,29 @@
+Projeto R.E.A.P.
+
+
+--- API
+
+- As vezes é utilizado ponto e vírgula e as vezes não, manter um padrão.
+- Em rotas onde é criado um novo recurso, utilizar código 201 em vez de 200 (criar usuário)
+- Definição de objetos inline as vezes é utilizado espaçamento entre as chaves e as vezes não, exemplo:
+{username: vals.username};
+const { username, email } = vals;
+- Uso de vírgula em último membro de objeto, sendo que não é necessário (utils.js)
+- Aparentemente está sendo usado algum tipo de ORM ou abstração agora, porém há um arquivo chamado queries.js com queries cruas. Se por acaso não estiver sendo mais utilizado, acreditamos que seria interessante remover esses arquivos para não causar confusão.
+- Talvez repensar a organização das pastas, existem muitos arquivos jogados no root do projeto
+- Existe um arquivo chamado config.js que não está sendo utilizado, com um comentário dizendo que pode ser útil algum dia. Acreditamos então que por enquanto talvez ele nem deveria existir.
+- Algumas configurações poderiam ser movidas para uma pasta config separada, por exemplo db.js e algumas definições do mailer.js
+- mailer.js: O conteúdo de alguns e-mails está sendo utilizado strings simples ("") e template strings (``)`ao mesmo tempo. Uma boa opção é utilizar apenas template strings, já que facilita a interpolação / concatenação.
+
+
+--- Front-end
+
+- O mesmo problema da API da utilização de ponto e vírgula (as vezes usa, as vezes não usa)
+- Questão de espaçamento onde há ausência de um padrão, por exemplo este parâmetro com valor default: state={} - enquanto que em outros lugares há um espaçamento
+- Não possuímos experiência com Redux, apenas com o Vuex, mas considerando essa experiência, achamos meio estranho ter um arquivo da store.js e as actions separadas na pasta actions, a não ser que essas actions não tenham nada a ver com a store (fica a dúvida)
+- Seria interessante separar as imagens numa pasta própria (assets, images, etc.)
+- Há um inicio.html dentro da pasta src que aparenta estar inutilizado, tanto que há um index.html na pasta public. Se realmente estiver inutilizado, é interessante remover este arquivo.
+- Arquivo src/entities/entityUtils.js: Há comentários no formato de documentação (@param, essas coisas), não sei se foi algo que vocês fizeram ou faz parte de algum modelo do React, mas se foi vocês, seria interessante aplicar o mesmo tipo de documentação em todos métodos pertinentes.
+- Há dois arquivos App de estilo (em css padrão e sass), por qual motivo? Não seria interessante unir os dois em um só, utilizando dos benefícios do sass?
+- Há também um arquivo chamado index.css com apenas um seletor para o body, é realmente necessário um arquivo apenas para isso?
+- Pasta components, achamos um pouco massivo vários componentes na mesma pasta. Será que daria para separar em algumas pastas componentes que são relativos?
