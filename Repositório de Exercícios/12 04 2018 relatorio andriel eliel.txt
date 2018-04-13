@@ -1,0 +1,7 @@
+[BACK] = Adicionar 2 exercicios ao Banco de Dados
+
+1) Criado exercicio onde o aluno criará uma função para resolver fatorial.
+
+2) Criado exercicio onde o aluno declarará um vetor e retornará a soma de todos os elementos do mesmo
+
+Informação adicional: Em ambos os exercicios está definida sua recompensa, dificuldade, dicas e casos de teste
