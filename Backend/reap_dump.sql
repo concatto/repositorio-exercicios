@@ -1058,6 +1058,24 @@ ALTER TABLE ONLY user_room
 
 INSERT INTO reap_user(id, name, username, email, password, verified)
 	VALUES (1001, 'REAP', 'reap', 'test@test.test', '$2a$10$y9N3cJ/tDngQFwuwskm7f./5Y8mFOp4W0d.eOBUMgF8pcrP/0qDt.', true);
+	
+INSERT INTO language(id, name) VALUES (1, 'C++');
+INSERT INTO language(id, name) VALUES (2, 'C');
+INSERT INTO category(id, name, room_id) VALUES (1, 'Matematica', 9);
+INSERT INTO category(id, name, room_id) VALUES (2, 'Vetores', 9);
+INSERT INTO exercise(id, name, difficulty, base_reward, description, room_id, created_at, visible, creator_id)
+			 VALUES (1001, 'Fatorial', 2, 10, 'Crie uma função que receba um número inteiro menor que 100, e retorne como resultado o seu fatorial!', 9, localtimestamp, true, 1001);	
+INSERT INTO exercise_category(exercise_id, category_id) VALUES (1001, 1);
+INSERT INTO language_availability(exercise_id, language_id) VALUES (1001, 1);
+INSERT INTO language_availability(exercise_id, language_id) VALUES (1001, 2);
+INSERT INTO tip(id, content, exercise_id, penalty) VALUES (1, 'Exemplo: 5! == 1x2x3x4x5 = 120', 1001, 3);
+INSERT INTO tip(id, content, exercise_id, penalty) VALUES (2, 'Fórmula matemática do fatorial: n(n-1)', 1001, 4);
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (100, 1001, '5', '120');
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (101, 1001, '6', '720');
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (102, 1001, '7', '5040');
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (103, 1001, '8', '40320');
+
+	
 
 -- *** >===< *** >===< *** END TEST DATA *** >===< *** >===< *** --
 
