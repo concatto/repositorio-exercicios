@@ -27,6 +27,8 @@ module.exports = {
 
     return bcrypt.hash(vals.password, saltRounds).then(hash => {
       vals.password = hash;
+        
+      console.log(hash);
 
       return db.select("*").from(table).where({username}).orWhere({email});
     }).then(rows => {

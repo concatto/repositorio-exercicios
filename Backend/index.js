@@ -8,6 +8,10 @@ const auth = require("./auth.js");
 const userRouter = require("./routes/user");
 const roomRouter = require("./routes/room");
 
+//const __user = require("./entities/user");
+
+//__user.register({password: "123", email: "test@test.com", username: "tester"});
+
 var enableCors = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -32,3 +36,5 @@ console.log("Server created.");
 server.listen(port, () => {
 	console.log("Now listening on port " + port + ". Good luck.");
 });
+
+

@@ -1053,6 +1053,13 @@ ALTER TABLE ONLY user_room
 ALTER TABLE ONLY user_room
     ADD CONSTRAINT user_room_user FOREIGN KEY (user_id) REFERENCES reap_user(id);
 
+	
+-- *** >===< *** >===< *** TEST DATA *** >===< *** >===< *** --
+
+INSERT INTO reap_user(id, name, username, email, password, verified)
+	VALUES (1001, 'REAP', 'reap', 'test@test.test', '$2a$10$y9N3cJ/tDngQFwuwskm7f./5Y8mFOp4W0d.eOBUMgF8pcrP/0qDt.', true);
+
+-- *** >===< *** >===< *** END TEST DATA *** >===< *** >===< *** --
 
 --
 -- PostgreSQL database dump complete
