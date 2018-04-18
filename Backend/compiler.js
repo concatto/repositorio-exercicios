@@ -36,21 +36,42 @@ const compile = (code, extension) => {
     })
 }
 
-const compileAndRun = (code, extension) => {
-    _compile(code, extension).then(fileName => {
-         console.log(fileName)
+const compileAndRun = (code, extension, testCase) => {
+    _compile(code, extension)
+    .then(fileName => {
+         //console.log(fileName);
         exec(`${fileName}.o`, (err, stdout, stderr) => {
             console.log(stdout);
             console.log(stderr);
+            
+            testCase.forEach(value => {
+              //preencher coisa aqui
+            })
+          
             fs.unlink(`${fileName}.${extension}`);
             fs.unlink(`${fileName}.o`);
         })
+       
     }).catch(stderr => {
         //do something with stderr
     })
 }
 
-compileAndRun(`#include <iostream> \n int main(){std::cout<<"Hello, world!"<<std::endl; return 1;}`, 'cpp');
+const compareCaseTest = (testCase, result) => {
+  //arrumar função comapare test
+    if (testCase == result) {
+      console.log("deu certo!", testCase)
+      return true;
+    }
+    else {
+      console.log("nap deu")
+      return false;
+    }
+}
+
+
+//verificar qual entrada do caso de test
+compileAndRun(`#include <iostream> \n int main(){std::cout<<"Sua Mae"; return 1;}`, 'cpp', [{in: 5, out: 120}]);
 
 module.exports =
     {
