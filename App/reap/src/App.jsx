@@ -12,12 +12,6 @@ import './css/App.css';
 import './css/stylesheets/bootswatch.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {verifying: true};
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);
@@ -31,21 +25,21 @@ class App extends React.Component {
   render() {
     const { authenticated } = this.props.authData;
     if (authenticated === undefined) {
-      return <Loading full/>
+      return <Loading full/>;
     }
 
     return (
       <Switch>
         <Route exact path="/" component={WelcomePage}/>
         <Route path="/reap" component={MainPage}/>
-        <Route path="/confirmation" component={ConfirmationTokenPage} />
+        <Route path="/confirmation" component={ConfirmationTokenPage}/>
       </Switch>
     );
   }
 }
 
 const Connected = connect(state => {
-  return {authData: state.auth};
+  return { authData: state.auth };
 }, withEntities(Auth))(App);
 
 export default withRouter(Connected);

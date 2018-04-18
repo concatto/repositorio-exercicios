@@ -9,7 +9,7 @@ import logo from '../g-logo.png';
 class WelcomePage extends React.Component {
   render() {
     if (this.props.authenticated === true) {
-      return <Redirect to="/reap" push/>
+      return <Redirect to="/reap" push/>;
     }
 
     return (
@@ -42,5 +42,5 @@ class WelcomePage extends React.Component {
 }
 
 export default connect(state => {
-  return {authenticated: state.auth.authenticated};
+  return { authenticated: state.auth.authenticated };
 })(WelcomePage);
