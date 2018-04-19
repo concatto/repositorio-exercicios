@@ -44,30 +44,43 @@ const compileAndRun = (code, extension, testCase) => {
     .then(fileName => {
         console.log(fileName);
         //add .o
-        testCase.forEach(value => {
-            exec(`${fileName} ${value.in}`, (err, stdout, stderr) => {
-                if (!compareCaseTest(stdout, value.out)) {
-                    //return false | "string" ??                    
-                    return;
-                }
-            })
+  
+        exec(`${fileName}`, (err, stdout, stderr) => {
+            if (err || stderr) {
+                //return false | "string" ??                    
+                return;
+            }
+            return stdout;
         })
-        deleteFiles(fileName, extension);
+        
     }).catch(stderr => {
         //do something with stderr
     })
 }
 
-const compareCaseTest = (result, caseTestOut) => {
+const compareCaseTest = (code, extension, testCase) => {
+    
+    _compile(code, extension)
+    .then(fileName => {
+        console.log(fileName);
+        //add .o
+        testCase.forEach(value => {
+            exec(`${fileName} ${value.in}`, (err, stdout, stderr) => {
+                if (err) { return err; }
+                if (stderr) { return stderr; }
 
-    if (caseTestOut == result) {
-      console.log("deu certo!", testCaseOut)
-      return true;
-    }
-    else {
-      console.log("na1 deo")
-      return false;
-    }
+                if (caseTestOut != result) {
+                  return false;
+                }
+            })
+        })
+
+        deleteFiles(fileName, extension);
+        return true;
+
+    }).catch(stderr => {
+        //do something with stderr
+    })
 }
 
 const deleteFiles = (fileName, extension) => {
@@ -78,9 +91,9 @@ const deleteFiles = (fileName, extension) => {
 
 //verificar qual entrada do caso de test
 
-compileAndRun(`#include <iostream> \nint main(){std::cout<<"5"; return 1;}`, 'cpp', [{in: 5, out: 7}]);
+//compileAndRun(`#include <iostream> \nint main(){std::cout<<"5"; return 1;}`, 'cpp', [{in: 5, out: 7}]);
 
-//compile(`#include <iostream> \n int main(){std::cout<<"5"; return 1;}`, 'cpp');
+compile(`#include <iostream> \n int main(){std::cout<<"5"; return 1;}`, 'cpp');
 
 module.exports =
     {
