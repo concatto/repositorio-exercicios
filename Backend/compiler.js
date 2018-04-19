@@ -12,10 +12,10 @@ const _compile = (code, extension) => {
     })
 
     if ('c' === extension || 'cpp' === extension) {
-       
+        //if C gcc --Wall file.c -o program.o
         return new Promise((resolve, reject) => {
             //add .o
-            console.log(`g++ --std=c++11 ${fileName}.${extension} -o ${fileName}`)
+            
             exec(`g++ --std=c++11 ${fileName}.${extension} -o ${fileName}`, (err, stdout, stderr) => {
                 if (err || stderr) {
                     console.log(stderr);
