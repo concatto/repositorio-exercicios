@@ -33,5 +33,5 @@ class ConfirmationTokenPage extends React.Component {
     return null;
   }
 }
-//talvez nem precise do connect
-export default connect(null, {handleConfirmationToken})(ConfirmationTokenPage);
+// talvez nem precise do connect
+export default connect(null, { handleConfirmationToken })(ConfirmationTokenPage);

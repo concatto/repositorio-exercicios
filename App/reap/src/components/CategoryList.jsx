@@ -1,5 +1,5 @@
 import React from 'react';
-import {Label} from 'react-bootstrap';
+import { Label } from 'react-bootstrap';
 
 export default class CategoryList extends React.Component {
 
@@ -13,7 +13,7 @@ export default class CategoryList extends React.Component {
     });
   }
 
-  render (){
+  render() {
     return (
       <div>
         {this.createCategories()}
