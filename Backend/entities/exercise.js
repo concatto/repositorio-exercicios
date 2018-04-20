@@ -5,6 +5,11 @@ const Constants = require("../constants");
 const table = "exercise";
 
 module.exports = {
+  retrieveCaseTestsById(params) {
+    const { room_id, id: exercise_id } = params;
+    return db.select("*").from("test_case").where({exercise_id});
+  },
+
   retrieveFrom(params, cols) {
     const { room_id, id: user_id } = params;
     cols = cols || ["id", "name", "difficulty", "base_reward", "visible"];

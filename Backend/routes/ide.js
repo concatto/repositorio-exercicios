@@ -1,0 +1,36 @@
+const express = require("express");
+const auth = require("../auth");
+const { sendError } = require("../utils");
+const compiler = require("../compiler");
+const Exercise = require("../entities/exercise");
+const router = express.Router();
+
+router.post("/compile", auth.authenticate(), (req, res) => {
+  
+  compiler.compile(req.body.code, req.body.extension).then(result => {
+      res.status(200).send(result);
+  }).catch(err => {
+    res.status(500).send(err);
+  });
+  
+});
+
+router.post("/run", auth.authenticate(), (req, res) => {
+
+  compiler.compileAndRun(req.body.code, req.body.extension).then(result => {
+      res.status(200).send(result);
+  }).catch(err => {
+    res.status(500).send(err);
+  });
+  
+});
+
+router.post("/runTests", auth.authenticate(), (req, res) => {
+      
+  compiler.compareCaseTest(req.body.code, req.body.extension, Exercise.retrieveCaseTestsById({ ...req.params })).then(result => {
+      res.status(200).send(result);
+  }).catch(err => {
+    res.status(500).send(err);
+  });
+  
+});

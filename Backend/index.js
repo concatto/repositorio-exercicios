@@ -7,6 +7,7 @@ const queries = require("./queries.js");
 const auth = require("./auth.js");
 const userRouter = require("./routes/user");
 const roomRouter = require("./routes/room");
+const ideRouter = require("./routes/ide");
 
 //const __user = require("./entities/user");
 
@@ -26,7 +27,9 @@ app.use(bodyParser.json({limit: "20mb"}));
 app.use(enableCors);
 app.use("/api/user", userRouter);
 app.use("/api/room", roomRouter);
+app.use("api/ide", ideRouter);
 app.post("/api/authenticate", auth.generate);
+
 
 console.log("Express configured.");
 
