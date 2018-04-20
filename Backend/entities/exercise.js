@@ -58,5 +58,9 @@ module.exports = {
         });
       });
     });
+  },
+
+  retrieveCases(exercise_id) {
+    return db.select("*").from("test_case").where({exercise_id});
   }
 };

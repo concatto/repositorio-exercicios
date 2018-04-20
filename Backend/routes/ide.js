@@ -6,7 +6,6 @@ const Exercise = require("../entities/exercise");
 const router = express.Router();
 
 router.post("/compile", auth.authenticate(), (req, res) => {
-  
   compiler.compile(req.body.code, req.body.extension).then(result => {
       res.status(200).send(result);
   }).catch(err => {
@@ -25,12 +24,14 @@ router.post("/run", auth.authenticate(), (req, res) => {
   
 });
 
-router.post("/runTests", auth.authenticate(), (req, res) => {
-      
-  compiler.compareCaseTest(req.body.code, req.body.extension, Exercise.retrieveCaseTestsById({ ...req.params })).then(result => {
-      res.status(200).send(result);
-  }).catch(err => {
-    res.status(500).send(err);
+router.post("/runTests", (req, res) => {
+  Exercise.retrieveCases(req.body.exercise_id).then(testCases => {
+    return compiler.compareCaseTest(req.body.code, req.body.extension, testCases).then(result => {
+        res.status(200).send(result);
+    }).catch(err => {
+      res.status(500).send(err);
+    });
   });
-  
 });
+
+module.exports = router;

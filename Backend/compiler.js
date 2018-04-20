@@ -1,10 +1,10 @@
 const fs = require("fs");
-const { exec } = require("child_process");
+const { exec, spawn } = require("child_process");
 const uuid = require('uuid');
 var Promise = require('promise');
+const Exercise = require("./entities/exercise");
 
-const _compile = (code, extension) => {
-
+const invokeCompiler = (code, extension) => {
     const fileName = uuid();
 
     fs.writeFile(`${fileName}.${extension}`, code, (err) => {
@@ -28,69 +28,69 @@ const _compile = (code, extension) => {
     }
 }
 
-const compile = (code, extension) => {
-
-    _compile(code, extension)
-    .then( fileName => {
-        //add .o
-        deleteFiles(fileName, extension);
-    }).catch(stderr => {
-        //do something with stderr
-    })
-}
-
-const compileAndRun = (code, extension, testCase) => {
-    _compile(code, extension)
-    .then(fileName => {
-        //console.log(fileName);
-        //add .o
-  
-        exec(`${fileName}.o`, (err, stdout, stderr) => {
+module.exports = {
+    compile(code, extension) {
+        return invokeCompiler(code, extension).then(fileName => {
+            //add .o
             deleteFiles(fileName, extension);
-            if (stderr) {
-                //return false | "string" ??    
-                console.log("deu erro");               
-                return;
-            }
-            console.log(stdout);
-            return stdout;
-        })
-        
-    }).catch(stderr => {
-        //do something with stderr
-    })
-}
+        });
+    },
 
-const compareCaseTest = (code, extension, testCase) => {
+    /*compileAndRun(code, extension) {
+        invokeCompiler(code, extension).then(fileName => {
+            //console.log(fileName);
+            //add .o
     
-    _compile(code, extension)
-    .then(fileName => {
-        //console.log(fileName);
-        //add .o
-        testCase.forEach(value => {
-            exec(`${fileName} ${value.in}`, (err, stdout, stderr) => {
-                if (stderr) { return stderr; }
-                if (caseTestOut != result) {
-                  console.log("errou!")
-                    //return false;
+            exec(`${fileName}.o`, (err, stdout, stderr) => {
+                this.deleteFiles(fileName, extension);
+                if (stderr) {
+                    //return false | "string" ??    
+                    console.log("deu erro");               
+                    return;
                 }
+                console.log(stdout);
+                return stdout;
             })
+            
+        }).catch(stderr => {
+            //do something with stderr
         })
+    },*/
 
-        deleteFiles(fileName, extension);
-        console.log("CASO DE TESTE ACEITO!");
-        return true;
+    compareCaseTest(code, extension, testCases) {
+        return invokeCompiler(code, extension).then(fileName => {
+            //console.log(fileName);
+            //add .o
+            const promises = testCases.map(testCase => new Promise((resolve, reject) => {
+                const process = spawn(`${fileName}.o`);
 
-    }).catch(stderr => {
-        //do something with stderr
-    })
+                process.stdout.on('data', output => {
+                    output = output.toString();
+                    console.log(output);
+                    
+                    //console.log("Comparing", output, "with", testCase.output);
+                    resolve({
+                        testCase,
+                        output,
+                        result: output === testCase.output
+                    });
+                });
+
+                process.stdin.write(testCase.input + "\n");
+            }));
+
+            return Promise.all(promises).then(result => {
+                console.log(result);
+                this.deleteFiles(fileName, extension);
+            });
+        });
+    },
+
+    deleteFiles(fileName, extension) {
+        fs.unlink(`${fileName}.${extension}`);
+        fs.unlink(`${fileName}.o`);
+    },
 }
-
-const deleteFiles = (fileName, extension) => {
-    fs.unlink(`${fileName}.${extension}`);
-    fs.unlink(`${fileName}.o`);
-}
-
 
 //verificar qual entrada do caso de test
 
@@ -98,11 +98,6 @@ const deleteFiles = (fileName, extension) => {
 
 //compile(`#include <iostream> \n int main(){std::cout<<"5"; return 1;}`, 'cpp');
 
-compareCaseTest(`#include <iostream> \nint main(){std::cout<<"7"; return 1;}`, 'cpp', [{in: 5, out: 7}]);
+//compareCaseTest(`#include <iostream> \nint main(){std::cout<<"7"; return 1;}`, 'cpp', [{in: 6, out: 7}]);
 
 //console.log(process.platform);
-
-module.exports =
-    {
-        compile
-    }
