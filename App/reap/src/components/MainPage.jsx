@@ -18,7 +18,7 @@ class MainPage extends React.Component {
         <Grid className="main-root">
           <Switch>
             <Route exact path="/reap/create" component={NewExercise}/>
-            <Route exact path="/reap/solve/:id" component={IdePage}/>
+            <Route exact path="/reap/room/:roomId/solve/:id" component={IdePage}/>
             <Route exact path="/reap/room/:id" component={Lobby}/>
             <Route path="/reap" component={RoomsPage}/>
           </Switch>

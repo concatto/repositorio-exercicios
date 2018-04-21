@@ -6,7 +6,7 @@ import ModalFooter from '../ModalFooter';
 
 class ExerciseDetailModal extends React.Component {
   render() {
-    const { onDismiss, exercise } = this.props;
+    const { onDismiss, exercise, roomId } = this.props;
     const { difficulty, description, name, baseReward, id } = exercise;
 
     return (
@@ -22,20 +22,22 @@ class ExerciseDetailModal extends React.Component {
             reward={baseReward}
           />
         </Modal.Body>
-        <ModalFooter cancel confirm="Resolver"
+        <ModalFooter
+          cancel
+          confirm="Resolver"
           onSuccess={onDismiss}
           onDismiss={onDismiss}
-          link={"/reap/solve/" + id}
+          link={`/reap/room/${roomId}/solve/${id}`}
         />
       </div>
-    )
+    );
   }
-};
+}
 
 ExerciseDetailModal.modalProperties = {
-  bsSize: "large"
+  bsSize: 'large',
 };
 
-export default connect((state, ownProps) => {
-  return {};
+export default connect(state => {
+  return {roomId: state.room.id};
 })(ExerciseDetailModal);

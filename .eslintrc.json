@@ -32,6 +32,14 @@
         "arrow-body-style": "off",
         "react/prefer-stateless-function": "off",
         "no-tabs": "off",
-        "no-plusplus": "off"
+        "no-plusplus": "off",
+        "object-curly-spacing": "off",
+        "react/jsx-boolean-value": ["error", "never"],
+        "react/no-array-index-key": "off",
+        "indent": ["error", 2],
+        "prefer-template": "off",
+        "object-curly-newline": "off",
+        "prefer-promise-reject-errors": "off",
+        "no-param-reassign": "off"
     }
 }

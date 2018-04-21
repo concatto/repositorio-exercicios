@@ -10,9 +10,9 @@ class RoomsPage extends React.Component {
   componentDidMount() {
     this.props.rooms.clear();
   }
-    
+
   handleCreateRoom() {
-    const name = prompt("Digite o nome da sala:");
+    const name = prompt('Digite o nome da sala:');
     this.props.rooms.create(name);
   }
 
@@ -42,11 +42,11 @@ class RoomsPage extends React.Component {
       </Row>
     );
   }
-};
+}
 
 export default connect(state => {
   return {
     authenticated: state.auth.authenticated,
-    roomData: state.auth.user ? state.auth.user.rooms : []
+    roomData: state.auth.user ? state.auth.user.rooms : [],
   };
 }, withEntities(Rooms))(RoomsPage);

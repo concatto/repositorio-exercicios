@@ -14,7 +14,7 @@ class ExerciseList extends React.Component {
     });
   }
 
-  render (){
+  render() {
     return (
       <Table striped bordered condensed hover>
         <thead>

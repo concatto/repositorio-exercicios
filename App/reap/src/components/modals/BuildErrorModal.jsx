@@ -4,10 +4,7 @@ import ModalFooter from '../ModalFooter';
 
 class BuildErrorModal extends React.Component {
   mapErrorsToItems() {
-    const errors = [
-      "Linha 10: variável \"a\" não foi declarada",
-      "Linha 20: era esperado \";\"",
-    ];
+    const { errors = [] } = this.props;
 
     return errors.map((err, i) => {
       return (
@@ -19,6 +16,7 @@ class BuildErrorModal extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { onDismiss } = this.props;
 
     return (
@@ -29,7 +27,7 @@ class BuildErrorModal extends React.Component {
         <Modal.Body>
           <p>Sua solução foi analisada e os seguintes erros foram encontrados:</p>
           <Panel header="Erros" className="build-error-panel">
-            <ListGroup>
+            <ListGroup className="error-list">
               {this.mapErrorsToItems()}
             </ListGroup>
           </Panel>
@@ -41,7 +39,7 @@ class BuildErrorModal extends React.Component {
 }
 
 BuildErrorModal.modalProperties = {
-  bsSize: "large"
+  bsSize: 'large',
 };
 
 export default BuildErrorModal;

@@ -1,17 +1,5 @@
-import { performRequest, failed } from "../asyncOperations";
-import { retrieveItem, TokenKey } from "../browserStorage";
-
-export const load = (dispatch, entity, path, restricted = true) => {
-  return chooseAndPerformRequest(dispatch, "get", entity, "load", path, {}, {}, restricted);
-}
-
-export const loadAll = (dispatch, entity, path, restricted = true) => {
-  return chooseAndPerformRequest(dispatch, "get", entity, "loadAll", path, {}, {}, restricted);
-}
-
-export const create = (dispatch, entity, path, data, restricted = true) => {
-  return chooseAndPerformRequest(dispatch, "post", entity, "create", path, data, {}, restricted);
-}
+import { performRequest, failed } from '../asyncOperations';
+import { retrieveItem, TokenKey } from '../browserStorage';
 
 /**
  * Performs an API request using an entity.
@@ -23,32 +11,55 @@ export const create = (dispatch, entity, path, data, restricted = true) => {
  * @param {Object} [data={}] the data to be sent
  * @param {Object} [headers={}] the headers to be sent
  */
-export const performApiRequest = (dispatch, method, entity, actionName, path, data = {}, headers = {}) => {
-  if (!path) {
-    path = entity.key;
-  }
-
-  return performRequest(dispatch, method, data, entity.actionNames[actionName], "/api/" + path, headers);
-}
+export const performApiRequest = (dispatch, options) => {
+  return performRequest(dispatch, {
+    method: options.method || 'get',
+    data: options.data || {},
+    headers: options.headers || {},
+    url: '/api/' + (options.path || options.entity.key),
+    name: options.entity.actionNames[options.actionName],
+  });
+};
 
 // Same as performApiRequest(), but with Authorization.
-export const performProtectedRequest = (dispatch, method, entity, actionName, path, data = {}, headers = {}) => {
+export const performProtectedRequest = (dispatch, options) => {
   const token = retrieveItem(TokenKey);
 
   if (token === null) {
-    const name = entity.actionNames[actionName];
+    const name = options.entity.actionNames[options.actionName];
 
     dispatch({type: failed(name)});
-    return Promise.reject("Token is null");
+    return Promise.reject('Token is null');
   }
 
-  headers["Authorization"] = `Bearer ${token}`;
-  return performApiRequest(dispatch, method, entity, actionName, path, data, headers);
-}
+  const headers = {...options.headers, Authorization: `Bearer ${token}`};
+  return performApiRequest(dispatch, {...options, headers});
+};
 
 
-const chooseAndPerformRequest = (dispatch, method, entity, actionName, path, data, headers, restricted = true) => {
-  const func = restricted ? performProtectedRequest : performApiRequest;
+const chooseAndPerformRequest = (dispatch, options, restricted = true) => {
+  if (restricted === true) {
+    return performProtectedRequest(dispatch, options);
+  }
 
-  return func(dispatch, method, entity, actionName, path, data, headers);
-}
+  return performApiRequest(dispatch, options);
+};
+
+export const createOptions = (method, entity, actionName, path, data, headers) => ({
+  method, entity, actionName, path, data, headers,
+});
+
+export const load = (dispatch, entity, path, restricted = true) => {
+  const options = createOptions('get', entity, 'load', path, {}, {});
+  return chooseAndPerformRequest(dispatch, options, restricted);
+};
+
+export const loadAll = (dispatch, entity, path, restricted = true) => {
+  const options = createOptions('get', entity, 'loadAll', path, {}, {});
+  return chooseAndPerformRequest(dispatch, options, restricted);
+};
+
+export const create = (dispatch, entity, path, data, restricted = true) => {
+  const options = createOptions('post', entity, 'create', path, data, {});
+  return chooseAndPerformRequest(dispatch, options, restricted);
+};

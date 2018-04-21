@@ -122,6 +122,12 @@
   justify-content: center;
 }
 
+.error-list {
+  font-family: monospace;
+  white-space: pre;
+  font-size: 12px;
+}
+
 .centralize-v {
   display: flex;
   align-items: center;

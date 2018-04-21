@@ -1,14 +1,14 @@
-const db = require("../db");
-const Exercise = require("./exercise");
-const Membership = require("./membership");
-const _ = require("lodash/core");
+const db = require('../db');
+const Exercise = require('./exercise');
+const Membership = require('./membership');
+const _ = require('lodash/core');
 
-const table = "room";
+const table = 'room';
 
 module.exports = {
   retrieve(params) {
     const { room_id, id: user_id } = params;
-    const cols = ["user_id", "privilege", "experience", "joined_at"];
+    const cols = ['user_id', 'privilege', 'experience', 'joined_at'];
 
     // Check if the user belongs to the room
     return Membership.retrieveUser(room_id, user_id, cols).then(result => {
@@ -24,7 +24,7 @@ module.exports = {
       const exercises = Exercise.retrieveFrom(params);
 
       // Retrieve the details about the room
-      const room = db.first("*").from(table).where({id: room_id});
+      const room = db.first('*').from(table).where({id: room_id});
 
       return Promise.all([membership, users, exercises, room]);
     }).then(result => {
@@ -42,12 +42,14 @@ module.exports = {
       const vals = {creator_id: id, name};
 
       // First, create the room
-      return db.insert(vals).into(table).returning("id").transacting(trx).then(result => {
-        // Then, join the newly created room with highest privilege
-        const joinVals = {id, room_id: result[0], privilege: 0};
+      return db.insert(vals).into(table).returning('id').transacting(trx)
+        .then(result => {
+          // Then, join the newly created room with highest privilege
+          const joinVals = {id, room_id: result[0], privilege: 0};
 
-        return Membership.join(joinVals).transacting(trx);
-      }).then(trx.commit)
+          return Membership.join(joinVals).transacting(trx);
+        })
+        .then(trx.commit)
         .catch(trx.rollback);
     });
   },

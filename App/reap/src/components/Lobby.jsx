@@ -21,7 +21,7 @@ class Lobby extends React.Component {
         <Privileged withWarning student>
           <Col xs={9}>
             <h3>Exercícios disponíveis - {this.props.roomName}</h3>
-            <ExerciseList />
+            <ExerciseList/>
           </Col>
           <Col xs={3}>
             <SideBar/>

@@ -8,6 +8,7 @@ import FailureModal from './modals/FailureModal';
 import TipOfferModal from './modals/TipOfferModal';
 import TipModal from './modals/TipModal';
 import Modal from '../entities/modal';
+import Exercises from '../entities/exercises';
 import { withEntities } from '../utils';
 
 class TextAreaCode extends React.Component {
@@ -18,9 +19,21 @@ class TextAreaCode extends React.Component {
       total_Lines: 1,
       positionX: 0,
       positionY: 0,
+      code: '',
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.output && nextProps.output) {
+      if (nextProps.output.failed === true) {
+        const errors = nextProps.output.errors.split('\n').filter(val => val !== '');
+
+        this.props.modal.push(BuildErrorModal, {errors});
+      } else {
+        alert('Ok!');
+      }
+    }
+  }
 
   countLine(e) {
     const key = e.which || e.keyCode || e.charCode;
@@ -37,22 +50,25 @@ class TextAreaCode extends React.Component {
 
   insertFooter() {
     return (
-  <Row>
-  <Col xs={3}>
-      {this.props.language}
-    </Col>
-  <Col xs={3}>
-  {this.state.total_Lines}
-    </Col>
-  <Col xs={3}>
-      {`${this.state.positionX}:${this.state.positionY}`}
-    </Col>
-</Row>
+      <Row>
+        <Col xs={3}>
+          {this.props.language}
+        </Col>
+        <Col xs={3}>
+          {this.state.total_Lines}
+        </Col>
+        <Col xs={3}>
+          {`${this.state.positionX}:${this.state.positionY}`}
+        </Col>
+      </Row>
     );
   }
 
   handleVerify() {
-    this.props.modal.push(BuildErrorModal);
+    const { exercises, room } = this.props;
+
+    exercises.check(room, this.state.code, 'cpp');
+    // this.props.modal.push(BuildErrorModal);
   }
 
   notifySuccess() {
@@ -82,35 +98,37 @@ class TextAreaCode extends React.Component {
 
   insertHeader() {
     return (
-  <Row>
-  <Col xs={3}>
-  <h4>Codigo-Fonte</h4>
-</Col>
-  <Col xs={3}>
-  <Button bsStyle="info" onClick={() => this.handleVerify()}>Verificar</Button>
-    </Col>
-  <Col xs={3}>
-  <Button bsStyle="success" onClick={() => this.handleSubmit()}>Enviar</Button>
-    </Col>
-   </Row>
+      <Row>
+        <Col xs={3}>
+          <h4>Codigo-Fonte</h4>
+        </Col>
+        <Col xs={3}>
+          <Button bsStyle="info" onClick={() => this.handleVerify()}>Verificar</Button>
+        </Col>
+        <Col xs={3}>
+          <Button bsStyle="success" onClick={() => this.handleSubmit()}>Enviar</Button>
+        </Col>
+      </Row>
     );
   }
 
   render() {
     return (
-  <Panel header={this.insertHeader()} footer={this.insertFooter()}>
-  <FormGroup>
-  <FormControl
-  componentClass="textarea"
-  className="text-nonResize"
-  onKeyPress={e => this.countLine(e)}
-					/>
-</FormGroup>
-   </Panel>
+      <Panel header={this.insertHeader()} footer={this.insertFooter()}>
+        <FormGroup>
+          <FormControl
+            componentClass="textarea"
+            className="text-nonResize"
+            onKeyPress={e => this.countLine(e)}
+            onChange={e => this.setState({code: e.target.value})}
+            value={this.state.code}
+          />
+        </FormGroup>
+      </Panel>
     );
   }
 }
 
 export default connect(state => {
-  return {};
-}, withEntities(Modal))(TextAreaCode);
+  return {output: state.exercises.output};
+}, withEntities(Modal, Exercises))(TextAreaCode);

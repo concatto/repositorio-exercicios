@@ -1,48 +1,46 @@
 import axios from 'axios';
 
-export const SUBSCRIPTION_SUCCESS = "SUBSCRIPTION_SUCCESS";
-export const SUBSCRIPTION_FAIL = "SUBSCRIPTION_FAIL";
-export const CONFIRMATION_SUCCESS = "CONFIRMATION_SUCCESS";
-export const CONFIRMATION_FAIL = "CONFIRMATION_FAIL";
+export const SUBSCRIPTION_SUCCESS = 'SUBSCRIPTION_SUCCESS';
+export const SUBSCRIPTION_FAIL = 'SUBSCRIPTION_FAIL';
+export const CONFIRMATION_SUCCESS = 'CONFIRMATION_SUCCESS';
+export const CONFIRMATION_FAIL = 'CONFIRMATION_FAIL';
 
-export const handleSubscription = (informations) => {
-
-  const URL = "http://localhost:4000/api/user/";
+export const handleSubscription = informations => {
+  const URL = 'http://localhost:4000/api/user/';
   const request = axios.post(URL, informations);
 
-    return (dispatch) => {
-      request.then((data) => {
-        dispatch({
-          type: SUBSCRIPTION_SUCCESS,
-          payload: true
-        });
-      }).catch((err) => {
-        dispatch({
-          type: SUBSCRIPTION_FAIL,
-          payload: false
-        });
+  return dispatch => {
+    request.then(data => {
+      dispatch({
+        type: SUBSCRIPTION_SUCCESS,
+        payload: true,
       });
-    }
-}
+    }).catch(err => {
+      dispatch({
+        type: SUBSCRIPTION_FAIL,
+        payload: false,
+      });
+    });
+  };
+};
 
 export const handleConfirmationToken = (information, callback) => {
+  const URL = 'http://localhost:4000/api/user/verify';
+  const request = axios.post(URL, information);
 
-  const URL = "http://localhost:4000/api/user/verify";
-  const request = axios.post(URL, information)
-
-  return (dispatch) => {
-    request.then((data) => {
+  return dispatch => {
+    request.then(data => {
       dispatch({
         type: CONFIRMATION_SUCCESS,
-        payload: true
+        payload: true,
       });
       callback(true);
-    }).catch((err) => {
+    }).catch(err => {
       dispatch({
         type: CONFIRMATION_FAIL,
-        payload: false
+        payload: false,
       });
       callback(false);
-    })
-  }
-}
+    });
+  };
+};

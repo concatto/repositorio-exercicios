@@ -27,6 +27,4 @@ class Exercise extends React.Component {
   }
 }
 
-export default withRouter(
-  connect(state => ({}), withEntities(Modal))(Exercise)
-);
+export default withRouter(connect(state => ({}), withEntities(Modal))(Exercise));

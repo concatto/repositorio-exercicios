@@ -1,42 +1,42 @@
-import { load, create } from "./entityUtils";
-import { succeeded, started, failed } from "../asyncOperations";
+import { load, create } from './entityUtils';
+import { succeeded, started, failed } from '../asyncOperations';
 import { toObject } from '../utils';
 
 const Rooms = {
-  key: "rooms",
+  key: 'rooms',
   actions: {
-    load: (roomId) => dispatch => {
+    load: roomId => dispatch => {
       load(dispatch, Rooms, `room/${roomId}`, true);
     },
     clear: () => dispatch => {
-      dispatch({type: "CLEAR_ROOMS"});
+      dispatch({type: 'CLEAR_ROOMS'});
     },
-    create: (name) => dispatch => {
-      create(dispatch, Rooms, "room", {name});
-    }
+    create: name => dispatch => {
+      create(dispatch, Rooms, 'room', {name});
+    },
   },
   actionNames: {
-    load: "LOAD_ROOM",
-    create: "CREATE_ROOM"
-  }
+    load: 'LOAD_ROOM',
+    create: 'CREATE_ROOM',
+  },
 };
 
 const initialState = {};
 
 export const reducer = (state = initialState, action) => {
-  const { load } = Rooms.actionNames;
+  const { load: loadRoom } = Rooms.actionNames;
 
   switch (action.type) {
-    case started(load):
-      return {busy: true};
-    case succeeded(load):
-      return action.payload;
-    case failed(load):
-    case "CLEAR_ROOMS":
-      return initialState;
-    default:
-      return state;
+  case started(loadRoom):
+    return {busy: true};
+  case succeeded(loadRoom):
+    return action.payload;
+  case failed(loadRoom):
+  case 'CLEAR_ROOMS':
+    return initialState;
+  default:
+    return state;
   }
-}
+};
 
 export default Rooms;

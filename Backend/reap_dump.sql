@@ -1059,6 +1059,7 @@ ALTER TABLE ONLY user_room
 INSERT INTO reap_user(id, name, username, email, password, verified)
 	VALUES (1001, 'REAP', 'reap', 'test@test.test', '$2a$10$y9N3cJ/tDngQFwuwskm7f./5Y8mFOp4W0d.eOBUMgF8pcrP/0qDt.', true);
 	
+    INSERT INTO user_room(room_id, user_id) VALUES (9, 1001);
 INSERT INTO language(id, name) VALUES (1, 'C++');
 INSERT INTO language(id, name) VALUES (2, 'C');
 INSERT INTO category(id, name, room_id) VALUES (1, 'Matematica', 9);
