@@ -64,13 +64,6 @@ class TextAreaCode extends React.Component {
     );
   }
 
-  handleVerify() {
-    const { exercises, room } = this.props;
-
-    exercises.check(room, this.state.code, 'cpp');
-    // this.props.modal.push(BuildErrorModal);
-  }
-
   notifySuccess() {
     this.props.modal.push(SuccessModal, {}, () => {
       this.props.modal.pop();
@@ -88,12 +81,23 @@ class TextAreaCode extends React.Component {
     });
   }
 
+  handleVerify() {
+    const { exercises, room } = this.props;
+
+    exercises.check(room, this.state.code, 'cpp');
+    // this.props.modal.push(BuildErrorModal);
+  }
+
   handleSubmit() {
-    if (Math.random() < 0.5) {
-      this.notifySuccess();
-    } else {
-      this.notifyFailure();
-    }
+    const { exercises, room, exercise } = this.props;
+    console.log(exercise);
+    exercises.execute(room, exercise.id, this.state.code, 'cpp');
+
+    // if (Math.random() < 0.5) {
+    //   this.notifySuccess();
+    // } else {
+    //   this.notifyFailure();
+    // }
   }
 
   insertHeader() {

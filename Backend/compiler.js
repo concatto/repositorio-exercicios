@@ -3,10 +3,16 @@ const { exec, spawn } = require('child_process');
 const uuid = require('uuid');
 const Exercise = require('./entities/exercise');
 
+const makePath = (fileName, extension) => (
+  `${__dirname}/${fileName}.${extension}`
+);
+
 const invokeCompiler = (code, extension) => {
   const fileName = uuid();
 
-  fs.writeFile(`${fileName}.${extension}`, code, err => {
+  const sourceFile = makePath(fileName, extension);
+
+  fs.writeFile(sourceFile, code, err => {
     if (err) return console.log(err);
   });
 
@@ -15,17 +21,19 @@ const invokeCompiler = (code, extension) => {
     return new Promise((resolve, reject) => {
       // add .o
 
-      exec(`g++ --std=c++11 ${fileName}.${extension} -o ${fileName}.o`, (err, stdout, stderr) => {
+      const outFile = makePath(fileName, 'o');
+
+      exec(`g++ --std=c++11 ${sourceFile} -o ${outFile}`, (err, stdout, stderr) => {
         if (err && err.signal !== null) {
           console.log('rejected');
-          fs.unlink(`${fileName}.${extension}`);
+          fs.unlink(sourceFile);
           reject(err);
         }
 
         if (stderr) {
-          resolve({fileName, failed: true, errors: stderr});
+          resolve({sourceFile, outFile, failed: true, errors: stderr});
         } else {
-          resolve({fileName, failed: false});
+          resolve({sourceFile, outFile, failed: false});
         }
       });
     });
@@ -63,11 +71,17 @@ module.exports = {
   // },
 
   compareCaseTest(code, extension, testCases) {
-    return invokeCompiler(code, extension).then(fileName => {
+    return invokeCompiler(code, extension).then(result => {
+      if (result.failed === true) {
+        // Check this part later
+        throw new Error('failed!');
+      }
+
       // console.log(fileName);
       // add .o
+      // Map every case into an execution of the program.
       const promises = testCases.map(testCase => new Promise((resolve, reject) => {
-        const process = spawn(`${fileName}.o`);
+        const process = spawn(result.outFile);
 
         process.stdout.on('data', output => {
           output = output.toString();
@@ -77,23 +91,29 @@ module.exports = {
           resolve({
             testCase,
             output,
-            result: output === testCase.output,
+            passed: output === testCase.output,
           });
+        });
+
+        process.on('close', (returnCode, signal) => {
+          resolve({returnCode, signal, failed: true});
         });
 
         process.stdin.write(testCase.input + '\n');
       }));
 
-      return Promise.all(promises).then(result => {
-        console.log(result);
-        this.deleteFiles(fileName, extension);
+      return Promise.all(promises).then(outputs => {
+        console.log(outputs);
+        // this.deleteFiles(fileName, extension);
+
+        return outputs;
       });
     });
   },
 
   deleteFiles(fileName, extension) {
-    fs.unlink(`${fileName}.${extension}`);
-    fs.unlink(`${fileName}.o`);
+    fs.unlink(makePath(fileName, extension));
+    fs.unlink(makePath(fileName, 'o'));
   },
 };
 

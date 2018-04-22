@@ -1,5 +1,6 @@
 const express = require('express');
 const auth = require('../auth');
+const { sendError } = require('../utils');
 const Exercise = require('../entities/exercise');
 const compiler = require('../compiler');
 const Constants = require('../constants');
@@ -22,9 +23,7 @@ router.get('/', auth.authenticate(), (req, res) => {
     } else {
       res.status(200).json(result);
     }
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  }).catch(sendError(res));
 });
 
 /**
@@ -39,17 +38,30 @@ router.post('/', auth.authenticate(), (req, res) => {
     } else {
       res.status(200).json(result);
     }
-  }).catch(err => {
-    res.status(500).send(err);
-  });
+  }).catch(sendError(res));
 });
 
-
+/**
+ * Checks the submitted program for lexical, syntactic and semantic errors,
+ * using the native compiler of the language. Any user may invoke this method;
+ * it requires the source code and the extension of the file as parameters.
+ */
 router.post('/compile', auth.authenticate(), (req, res) => {
   compiler.compile(req.body.code, req.body.extension).then(result => {
     res.status(200).send(result);
-  }).catch(err => {
-    res.status(500).send(err);
+  }).catch(sendError(res));
+});
+
+/**
+ * Compiles and then executes the specified program, comparing against the
+ * stored test cases. Requires the program and the extension.
+ */
+router.post('/execute/:exercise_id', (req, res) => {
+  Exercise.retrieveCases(req.params.exercise_id).then(testCases => {
+    console.log(testCases);
+    return compiler.compareCaseTest(req.body.code, req.body.extension, testCases).then(result => {
+      res.status(200).send(result);
+    }).catch(sendError(res));
   });
 });
 

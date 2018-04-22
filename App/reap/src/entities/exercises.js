@@ -8,6 +8,17 @@ const inRoom = roomId => `room/${roomId}/exercises`;
 const Exercises = {
   key: 'exercises',
   actions: {
+    execute: (roomId, exerciseId, source, language) => dispatch => {
+      const url = inRoom(roomId) + `/execute/${exerciseId}`;
+
+      const options = createOptions('post', Exercises, 'execute', url, {
+        code: source,
+        extension: language,
+      });
+
+      performProtectedRequest(dispatch, options);
+    },
+
     check: (roomId, source, language) => dispatch => {
       const url = inRoom(roomId) + '/compile';
 
@@ -28,6 +39,7 @@ const Exercises = {
     },
   },
   actionNames: {
+    execute: 'EXECUTE_EXERCISE',
     check: 'CHECK_EXERCISE',
     loadAll: 'LOAD_EXERCISES',
     create: 'CREATE_EXERCISE',
