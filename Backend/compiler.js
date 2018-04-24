@@ -4,7 +4,7 @@ const uuid = require('uuid');
 const Exercise = require('./entities/exercise');
 
 const makePath = (fileName, extension) => (
-  `${__dirname}/${fileName}.${extension}`
+  `${__dirname}/programs/${fileName}.${extension}`
 );
 
 const invokeCompiler = (code, extension) => {
@@ -95,8 +95,9 @@ module.exports = {
           });
         });
 
+        // Finished before answering!
         process.on('close', (returnCode, signal) => {
-          resolve({returnCode, signal, failed: true});
+          resolve({testCase, returnCode, signal, failed: true});
         });
 
         process.stdin.write(testCase.input + '\n');

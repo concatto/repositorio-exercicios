@@ -37,7 +37,7 @@ class IdePage extends React.Component {
             <Row>
               <Col xs={3}>
                 <h6>Pontos</h6>
-                {this.props.exercise.reward}
+                {this.props.exercise.baseReward}
               </Col>
               <Col xs={7}>
                 <h2> {this.props.exercise.name} </h2>
