@@ -4,7 +4,7 @@ const uuid = require('uuid');
 const Exercise = require('./entities/exercise');
 
 const makePath = (fileName, extension) => (
-  `${__dirname}/programs/${fileName}.${extension}`
+  `${__dirname}\\programs\\${fileName}.${extension}`
 );
 
 const invokeCompiler = (code, extension) => {
@@ -12,29 +12,34 @@ const invokeCompiler = (code, extension) => {
 
   const sourceFile = makePath(fileName, extension);
 
-  fs.writeFile(sourceFile, code, err => {
-    if (err) return console.log(err);
-  });
-
   if (extension === 'c' || extension === 'cpp') {
     // if C gcc --Wall file.c -o program.o
     return new Promise((resolve, reject) => {
-      // add .o
+      
+      fs.writeFile(sourceFile, code, err => {
+        if (err) return console.log(err);
 
-      const outFile = makePath(fileName, 'o');
+        // add .o
 
-      exec(`g++ --std=c++11 ${sourceFile} -o ${outFile}`, (err, stdout, stderr) => {
-        if (err && err.signal !== null) {
-          console.log('rejected');
-          fs.unlink(sourceFile);
-          reject(err);
-        }
+        const outFile = makePath(fileName, 'o');
+        const command = `g++ --std=c++11 ${sourceFile} -o ${outFile}`;
+        console.log(command);
 
-        if (stderr) {
-          resolve({sourceFile, outFile, failed: true, errors: stderr});
-        } else {
-          resolve({sourceFile, outFile, failed: false});
-        }
+        exec(command, (err, stdout, stderr) => {
+          console.log("Err: ", err);
+          console.log("Stderr: ", stderr);
+          if (err && err.signal !== null) {
+            console.log('rejected');
+            fs.unlink(sourceFile);
+            reject(err);
+          }
+
+          if (stderr) {
+            resolve({sourceFile, outFile, failed: true, errors: stderr});
+          } else {
+            resolve({sourceFile, outFile, failed: false});
+          }
+        });
       });
     });
   }
@@ -74,7 +79,7 @@ module.exports = {
     return invokeCompiler(code, extension).then(result => {
       if (result.failed === true) {
         // Check this part later
-        throw new Error('failed!');
+        throw new Error(result.errors);
       }
 
       // console.log(fileName);
