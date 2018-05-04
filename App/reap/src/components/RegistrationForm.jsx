@@ -22,7 +22,8 @@ class RegistrationForm extends React.Component {
     });
   }
 
-  submitValues() {
+  submitValues(e) {
+    e.preventDefault();
     const redirectionData = {
         destinationUrl: "http://localhost:3000/confirmation",
         tokenKey: "token"
@@ -32,8 +33,10 @@ class RegistrationForm extends React.Component {
   }
 
   render() {
+    if(this.props.registrationStatus)
+        alert("Email de confirmação enviado, meu camarada!");
     return (
-      <form>
+      <form onSubmit={this.submitValues.bind(this)}>
         <LabeledControl label="Nome" type="text"
           value={this.state.name}
           onChange={e => this.handleChange("name", e)}
@@ -50,11 +53,16 @@ class RegistrationForm extends React.Component {
           value={this.state.password}
           onChange={e => this.handleChange("password", e)}
         />
-        <Button type="submit" onClick={() => {this.submitValues()}}> Cadastrar </Button>
+        <Button type="submit"> Cadastrar </Button>
       </form>
     );
   }
 }
 
+const mapStateToProps = state => {
+    return {
+        registrationStatus: state.registrationReducer.registrationStatus
+    }
+}
 
-export default connect(null, {handleSubscription})(RegistrationForm);
+export default connect(mapStateToProps, {handleSubscription})(RegistrationForm);
