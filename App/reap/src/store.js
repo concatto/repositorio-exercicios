@@ -35,5 +35,5 @@ export const store = createStore(combineReducers({
   users: __mockUsersReducer,
   auth: authReducer,
   room: roomReducer,
-  registrationReducer: registrationReducer,
+  registration: registrationReducer,
 }), middleware);

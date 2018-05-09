@@ -61,7 +61,7 @@ class RegistrationForm extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        registrationStatus: state.registrationReducer.registrationStatus
+        registrationStatus: state.registration.registrationStatus
     }
 }
 
