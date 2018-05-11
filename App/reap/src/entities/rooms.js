@@ -1,4 +1,4 @@
-import { load, create } from './entityUtils';
+import { loadAll, load, create } from './entityUtils';
 import { succeeded, started, failed } from '../asyncOperations';
 import { toObject } from '../utils';
 
@@ -8,12 +8,16 @@ const Rooms = {
     load: roomId => dispatch => {
       load(dispatch, Rooms, `room/${roomId}`, true);
     },
+    loadAll: () => dispatch => {
+      loadAll(dispatch, Rooms, 'room');
+    },
     clear: () => dispatch => {
       dispatch({type: 'CLEAR_ROOMS'});
     },
     create: name => dispatch => {
       create(dispatch, Rooms, 'room', {name});
     },
+    
   },
   actionNames: {
     load: 'LOAD_ROOM',
