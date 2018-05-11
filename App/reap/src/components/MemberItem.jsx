@@ -7,7 +7,7 @@ export default class MemberItem extends React.Component {
 	render(){
 		const {name, online = false} = this.props;
 		return (
-			<ListGroupItem>{name} <UserSettings exercise="teste"/> <OnlineIndicator online={online}/></ListGroupItem>
+			<ListGroupItem>{name} <UserSettings user={this.props.user}/> <OnlineIndicator online={online}/></ListGroupItem>
 		)
 	}
 }

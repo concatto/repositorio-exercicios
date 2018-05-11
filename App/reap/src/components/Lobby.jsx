@@ -15,16 +15,19 @@ class Lobby extends React.Component {
     rooms.load(match.params.id);
   }
 
+    
   render() {
+       
     return (
       <Row>
         <Privileged withWarning student>
           <Col xs={9}>
             <h3>Exercícios disponíveis - {this.props.roomName}</h3>
-            <ExerciseList/>
+
+            <ExerciseList/> 
           </Col>
           <Col xs={3}>
-            <SideBar/>
+            <SideBar users={this.props.users}/>
           </Col>
         </Privileged>
       </Row>
@@ -33,5 +36,5 @@ class Lobby extends React.Component {
 };
 
 export default withRouter(connect(state => {
-  return {roomName: state.room.name};
+  return {roomName: state.room.name, users: state.room.users};
 }, withEntities(Rooms))(Lobby));

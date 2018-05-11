@@ -15,7 +15,7 @@ class UserSettings extends React.Component {
     
     handleClick(e) {
         e.preventDefault();
-        this.props.modal.push(UserSettingsModal, {exercise: this.props.exercise});
+        this.props.modal.push(UserSettingsModal, {user: this.props.user});
     }
     
    render() {

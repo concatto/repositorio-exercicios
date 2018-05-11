@@ -44,3 +44,22 @@ export const handleConfirmationToken = (information, callback) => {
     });
   };
 };
+
+export const handleChangePrivegies = informations => {
+    const URL = 'http://localhost/api/';
+    const request = axios.post(URL, informations);
+
+    return dispatch => {
+        request.then ( data => {
+            dispatch({
+                type: CONFIRMATION_SUCCESS,
+                payload: true
+            });
+        }).catch(err => {
+            dispatch({
+               type: CONFIRMATION_FAIL,
+                payload: false
+            });
+        })
+    }
+}

@@ -5,8 +5,8 @@ import { Modal } from 'react-bootstrap';
 
 class UserSettingsModal extends React.Component {
   render() {
-    const { onDismiss, exercise, roomId } = this.props;
-    const { difficulty, description, name, baseReward, id } = exercise;
+    const { onDismiss, user, roomId } = this.props;
+    const { id, name, experience, privilege, joined_at } = user;
 
     return (
       <div>
@@ -14,7 +14,10 @@ class UserSettingsModal extends React.Component {
           <Modal.Title> Configuração de Usuario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          
+            <div> 
+                <h3> Nome: {name} </h3> 
+                <h4> Privilégio atual: {privilege} </h4> 
+            </div>
         </Modal.Body>
       </div>
     );
