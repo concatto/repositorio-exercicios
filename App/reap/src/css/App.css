@@ -253,3 +253,6 @@
   outline: none;
   padding: 5px;
   width: 80px; }
+
+#select{height: 50px;width: 200px;border-radius: 10px;font-size: 20px;color: black;background-color: rgb(96, 96, 96);text-align: center;border: none;}
+#userSettingButton{margin-left: 30px;padding: 10px 14px 10px 14px;font-size: 20px;color: black;border-radius: 10px;background-color: rgb(0, 116, 27);border: none}
