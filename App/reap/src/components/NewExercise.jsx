@@ -97,7 +97,7 @@ class NewExercise extends React.Component {
             </Button>
           </Col>
           <Col xs={3}>
-            <SideBar/>
+            <SideBar users={this.props.users}/>
           </Col>
         </Privileged>
       </Row>
@@ -106,5 +106,5 @@ class NewExercise extends React.Component {
 }
 
 export default connect(state => {
-  return {roomId: state.room.id};
+  return {roomId: state.room.id, users: state.room.users};
 }, withEntities(Exercises))(NewExercise);
