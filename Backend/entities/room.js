@@ -53,4 +53,9 @@ module.exports = {
         .catch(trx.rollback);
     });
   },
+  
+  teste(params)
+  {
+	  const {room_id} = params;
+  }
 };

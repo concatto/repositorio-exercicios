@@ -4,6 +4,7 @@ export const SUBSCRIPTION_SUCCESS = 'SUBSCRIPTION_SUCCEEDED';
 export const SUBSCRIPTION_FAIL = 'SUBSCRIPTION_FAILED';
 export const CONFIRMATION_SUCCESS = 'CONFIRMATION_SUCCESS';
 export const CONFIRMATION_FAIL = 'CONFIRMATION_FAIL';
+export const INVITE_TESTE = 'INVITE_TESTE';
 
 export const handleSubscription = informations => {
   const URL = 'http://localhost:4000/api/user/';
@@ -63,3 +64,19 @@ export const handleChangePrivegies = informations => {
         })
     }
 }
+/*
+export const getInvitable = (roomId) => {
+	const URL = `'http://localhost/api/room/${roomId}/teste`;
+	const request = axios.get(URL);
+	return dispatch => {
+		request.then(data => {
+			dispatch({
+				type: INVITE_TESTE,
+				payload: data
+			});
+		}).catch(err => {
+			console.log("deu pau men");
+			console.log(err);
+		})
+	}
+}*/

@@ -17,24 +17,32 @@ const Rooms = {
     create: name => dispatch => {
       create(dispatch, Rooms, 'room', {name});
     },
+	getInviteable: roomId => dispatch => {
+		load(dispatch, Rooms, `room/${roomId}/teste`);
+	},
     
   },
   actionNames: {
     load: 'LOAD_ROOM',
     create: 'CREATE_ROOM',
+	teste: 'teste'
   },
 };
 
 const initialState = {};
 
 export const reducer = (state = initialState, action) => {
-  const { load: loadRoom } = Rooms.actionNames;
+  const { load: loadRoom, teste } = Rooms.actionNames;
 
   switch (action.type) {
   case started(loadRoom):
     return {busy: true};
   case succeeded(loadRoom):
     return action.payload;
+  case succeeded(teste):
+	console.log("aqui é o log do teste")
+	console.log(action.payload);
+	return action.payload;
   case failed(loadRoom):
   case 'CLEAR_ROOMS':
     return initialState;
