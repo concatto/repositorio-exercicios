@@ -34,8 +34,8 @@ const Exercises = {
       loadAll(dispatch, Exercises, inRoom(roomId));
     },
 
-    create: (roomId, name, difficulty, reward, description) => dispatch => {
-      create(dispatch, Exercises, inRoom(roomId), {name, difficulty, reward, description});
+    create: (roomId, name, difficulty, reward, description, tags, testCase) => dispatch => {
+      create(dispatch, Exercises, inRoom(roomId), {name, difficulty, reward, description, tags, testCase});
     },
   },
   actionNames: {
