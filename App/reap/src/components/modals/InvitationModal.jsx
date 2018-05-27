@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { withEntities } from '../../utils';
 import ModalFooter from '../ModalFooter';
 import Privileged from '../Privileged';
@@ -22,7 +22,8 @@ class InvitationModal extends React.Component
 		const { onDismiss, name } = this.props;
 		
 		return (
-		  <div>
+		  <div className="static-modal">
+		  <Modal.Dialog>
 			<Privileged withWarning>
 			  <Modal.Header closeButton>
 				<Modal.Title>Convidar um usuário</Modal.Title>
@@ -32,8 +33,11 @@ class InvitationModal extends React.Component
 					value={name}
 				  />
 			  </Modal.Body>
-				<button>convidar</button>
+			  <Modal.Footer>
+				<Button onClick={() => this.props.onSubmit("hi there")}> deu</Button>
+			  </Modal.Footer>
 			</Privileged>
+			</Modal.Dialog>
 		  </div>
 		)
 	}

@@ -15,11 +15,8 @@ class Lobby extends React.Component {
     constructor(props)
     {
         super(props);
-		const room = this.props.user.rooms.find(r => r.id === 9);
-		console.log("FURAGGGGGGGGGGGGG");
-		console.log(room.privilege);
         this.state = {
-            isDisabled: (room.privilege <= 3) ? false : true,
+            isDisabled: (props.privilege <= 3) ? false : true,
 			isModalOpen: false
         }
     }
@@ -35,6 +32,14 @@ class Lobby extends React.Component {
 			isModalOpen: true
 		});
   }
+  
+  handleInvite(e)
+  {
+	  console.log(e);
+	  this.setState({
+		 isModalOpen: false 
+	  });
+  }
     
   render() {
     return (
@@ -49,7 +54,7 @@ class Lobby extends React.Component {
             <SideBar users={this.props.users}/>
               <Button bsStyle="primary" disabled={this.state.isDisabled} onClick={this.handleInviteButtonClick.bind(this)}>Convidar</Button>
             </Col>
-            <InvitationModal isOpen={this.state.isModalOpen} />
+            <InvitationModal isOpen={this.state.isModalOpen} onSubmit={this.handleInvite.bind(this)} />
         </Privileged>
       </Row>
     );
@@ -57,7 +62,7 @@ class Lobby extends React.Component {
 };
 
 export default withRouter(connect(state => {
-    console.log("aduioshduoashdasoidaso")
-    console.log(state);
-  return {roomName: state.room.name, users: state.room.users, user: state.auth.user, roomId: state.room.id};
+	console.log("is it called after?");
+	console.log(state);
+  return {roomName: state.room.name, users: state.room.users, user: state.auth.user, privilege: state.users.current.privilege};
 }, withEntities(Rooms))(Lobby));
