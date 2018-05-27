@@ -7,6 +7,7 @@ import Privileged from './Privileged';
 import SideBar from './SideBar';
 import { withEntities } from '../utils';
 import Rooms from '../entities/rooms';
+import InvitationModal from './modals/InvitationModal';
 
 class Lobby extends React.Component {
     
@@ -18,7 +19,8 @@ class Lobby extends React.Component {
 		console.log("FURAGGGGGGGGGGGGG");
 		console.log(room.privilege);
         this.state = {
-            isDisabled: (room.privilege <= 2) ? false : true
+            isDisabled: (room.privilege <= 3) ? false : true,
+			isModalOpen: false
         }
     }
   componentDidMount() {
@@ -27,6 +29,12 @@ class Lobby extends React.Component {
     rooms.load(match.params.id);
   }
 
+  handleInviteButtonClick()
+  {
+		this.setState({
+			isModalOpen: true
+		});
+  }
     
   render() {
     return (
@@ -39,9 +47,9 @@ class Lobby extends React.Component {
           </Col>
           <Col xs={3}>
             <SideBar users={this.props.users}/>
-              <Button bsStyle="primary" disabled={this.state.isDisabled}>Convidar</Button>
+              <Button bsStyle="primary" disabled={this.state.isDisabled} onClick={this.handleInviteButtonClick.bind(this)}>Convidar</Button>
             </Col>
-            
+            <InvitationModal isOpen={this.state.isModalOpen} />
         </Privileged>
       </Row>
     );
