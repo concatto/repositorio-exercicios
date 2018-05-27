@@ -40,7 +40,7 @@ class NewExercise extends React.Component {
       this.setState({[key]: e+1 });
       this.setState({"title": <DifficultyView difficulty={e+1} />})
     } else {
-      console.log(e);
+      //console.log(e);
       this.setState({[key]: e.target.value });
     }
   }
@@ -58,15 +58,14 @@ class NewExercise extends React.Component {
 
   }
 
-  render () {
-    const testCases = [
-      {input: "4", output: "3"},
-      {input: "6", output: "8"},
-      {input: "8", output: "21"},
-      {input: "9", output: "34"},
-    ];
+  handleTestCase(tests) {
+    this.setState({tests}, () => {console.log(this.state.tags)});
+  }
 
-    const { reward, name, dificuldade, description } = this.state;
+  render () {
+
+    const { reward, name, dificuldade, description, tags, tests} = this.state;
+    const { roomId } = this.props;
 
     return (
       <Row>
@@ -92,9 +91,9 @@ class NewExercise extends React.Component {
             <br/>
             <LabeledTagControl label="Tags" className="form-control" value={this.state.tags} onChange={chips => this.handleChange("tags",chips)} />
             <br/>
-            <TestCases title="Casos de teste" cases={testCases}/>
-            <Button onClick={() => this.props.exercises.create(name, dificuldade, reward, description)}>
-              Criar
+            <TestCases title="Casos de teste" handleTestCase={this.handleTestCase.bind(this)}/>
+            <Button onClick={() => this.props.exercises.create(roomId, name, dificuldade, reward, description, tags, tests)}>
+              Criar Exercicio
             </Button>
           </Col>
           <Col xs={3}>
@@ -107,5 +106,5 @@ class NewExercise extends React.Component {
 }
 
 export default connect(state => {
-  return {};
+  return {roomId: state.room.id};
 }, withEntities(Exercises))(NewExercise);
