@@ -36,6 +36,10 @@ router.get('/:room_id', auth.authenticate(), (req, res) => {
   }).catch(sendError(res));
 });
 
+router.get('/:room_id/teste', auth.authenticate(), (req, res) => {
+	
+});
+
 /**
  * Creates a new room. The user will automatically become the owner of the
  * newly created room. Currently, just the name of the room is necessary.

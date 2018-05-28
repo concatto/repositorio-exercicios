@@ -19,6 +19,8 @@ class Lobby extends React.Component {
             isDisabled: (props.privilege <= 3) ? false : true,
 			isModalOpen: false
         }
+		console.log("props = ")
+		console.log(this.props);
     }
   componentDidMount() {
     const { rooms, match } = this.props;
@@ -54,7 +56,7 @@ class Lobby extends React.Component {
             <SideBar users={this.props.users}/>
               <Button bsStyle="primary" disabled={this.state.isDisabled} onClick={this.handleInviteButtonClick.bind(this)}>Convidar</Button>
             </Col>
-            <InvitationModal isOpen={this.state.isModalOpen} onSubmit={this.handleInvite.bind(this)} />
+            <InvitationModal isOpen={this.state.isModalOpen} getInviteable={this.props.rooms.getInviteable} roomId={this.props.match.params.id} onSubmit={this.handleInvite.bind(this)} />
         </Privileged>
       </Row>
     );

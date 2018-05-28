@@ -5,17 +5,18 @@ import { withEntities } from '../../utils';
 import ModalFooter from '../ModalFooter';
 import Privileged from '../Privileged';
 import LabeledControl from '../LabeledControl';
+//import {getInvitable} from '../../actions/actions'
 
 class InvitationModal extends React.Component
 {
 	constructor(props)
 	{
 		super(props);
+		//this.props.getInvitable(9);
 	}
 	
 	render()
 	{
-		
 		if(!this.props.isOpen){
 		  return null;
 		}
@@ -43,4 +44,11 @@ class InvitationModal extends React.Component
 	}
 }
 
-export default connect(null, null)(InvitationModal);
+const mapStateToProps = state =>
+{
+	return {
+		something: state
+	}
+}
+
+export default connect(mapStateToProps, null)(InvitationModal);

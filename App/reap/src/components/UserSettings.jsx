@@ -20,7 +20,7 @@ class UserSettings extends React.Component {
     
    render() {
        return (
-           <a href="#" onClick={this.handleClick.bind(this)} class="glyphicon glyphicon-wrench" ></a>
+           <a href="#" onClick={this.handleClick.bind(this)} className="glyphicon glyphicon-wrench" ></a>
        )
    };
     
