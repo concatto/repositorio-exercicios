@@ -19,7 +19,7 @@ class SideBar extends React.Component {
 	render() {
 
         const result = this.props.users;
-        console.log(result);
+        //console.log(result);
 
 
 		const filterTeacher = ListItemTeacher.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))

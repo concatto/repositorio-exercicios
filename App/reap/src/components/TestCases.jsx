@@ -49,6 +49,7 @@ class TestCases extends React.Component {
       //tratador implemetar depois...
       if (testCase.input == undefined || testCase.output == undefined) {
         this.setState({verify: 1})
+        
       }
     })
 

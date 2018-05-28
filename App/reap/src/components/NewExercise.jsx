@@ -58,8 +58,8 @@ class NewExercise extends React.Component {
 
   }
 
-  handleTestCase(tests) {
-    this.setState({tests}, () => {console.log(this.state.tags)});
+  handleTestCase(tests) {//, () => {console.log(this.state.tags)
+    this.setState({tests});
   }
 
   render () {
