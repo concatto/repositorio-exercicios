@@ -39,6 +39,26 @@ module.exports = {
     // TODO check if the user already belongs to the room.
     return db.insert({user_id: params.id, ...vals}).into(table);
   },
+    
+  inviteAll(params){
+      const vals = _.pick(params, "room_id", "id", "invitations");
+      
+      const inviteVals = vals.invitations.map(function(value, index, arr) {
+          arr[index].email = db.select("email").from("reap_user").where({"username": value.username})
+      });
+
+      return inviteVals.forEach(function(value) {
+          const result = {
+              room_id: vals.room_id,
+              id: vals.id,
+              email: value.email,
+              privilege: value.privilege,
+              destinationUrl: params.destinationUrl,
+              tokenKey: params.tokenKey
+          }
+          invite(result);
+      });
+  },
 
   leave(params) {
     // TODO

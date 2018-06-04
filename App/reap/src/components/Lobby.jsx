@@ -8,10 +8,9 @@ import SideBar from './SideBar';
 import { withEntities } from '../utils';
 import Rooms from '../entities/rooms';
 import InvitationModal from './modals/InvitationModal';
+import LabeledTagControl from './LabeledTagControl';
 
 class Lobby extends React.Component {
-    
-    
     constructor(props)
     {
         super(props);
@@ -19,8 +18,6 @@ class Lobby extends React.Component {
             isDisabled: (props.privilege <= 3) ? false : true,
 			isModalOpen: false
         }
-		console.log("props = ")
-		console.log(this.props);
     }
   componentDidMount() {
     const { rooms, match } = this.props;
@@ -44,7 +41,7 @@ class Lobby extends React.Component {
   }
     
   render() {
-    return (
+	return (
       <Row>
         <Privileged withWarning student>
           <Col xs={9}>
@@ -64,7 +61,5 @@ class Lobby extends React.Component {
 };
 
 export default withRouter(connect(state => {
-	console.log("is it called after?");
-	console.log(state);
   return {roomName: state.room.name, users: state.room.users, user: state.auth.user, privilege: state.users.current.privilege};
 }, withEntities(Rooms))(Lobby));

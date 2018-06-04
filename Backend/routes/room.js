@@ -78,6 +78,16 @@ router.post('/invite/:room_id', auth.authenticate(), (req, res) => {
   }).catch(sendError(res));
 });
 
+router.post('/inviteAll/:room_id', auth.authenticate(), (req, res) => {
+    Membership.invite({...req.params, ...req.body, ...req.user}).then(result => {
+        if (result === false) {
+            res.status(400).send('Could not invite.');
+        } else {
+            res.status(200).send('Invited.');
+        }
+    }).catch(sendError(res));
+});
+
 /**
  * Accepts a previously sent invitation. The token generated during the invitation
  * process must be presented to gain access to the room.
