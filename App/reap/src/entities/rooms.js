@@ -14,13 +14,13 @@ const Rooms = {
     clear: () => dispatch => {
       dispatch({type: 'CLEAR_ROOMS'});
     },
-    create: name => dispatch => {
-      create(dispatch, Rooms, 'room', {name});
+    create: (name, invitations) => dispatch => {
+      create(dispatch, Rooms, 'room', {name, invitations});
     },
 	getInviteable: roomId => dispatch => {
 		load(dispatch, Rooms, `room/${roomId}/teste`);
 	},
-    
+
   },
   actionNames: {
     load: 'LOAD_ROOM',
