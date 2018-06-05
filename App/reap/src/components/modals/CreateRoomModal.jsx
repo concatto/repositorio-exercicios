@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { withEntities } from '../../utils';
 import ModalFooter from '../ModalFooter';
 import Privileged from '../Privileged';
 import Rooms from '../../entities/rooms';
 import LabeledControl from '../LabeledControl';
-import LabeledTagControl from '../LabeledTagControl';
+import LabeledUserControl from '../LabeledUserControl';
+
 
 class CreateRoomModal extends React.Component {
 
@@ -16,12 +17,10 @@ class CreateRoomModal extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       name: "",
       invitations: []
     };
-
   }
 
   onCreate() {
@@ -34,17 +33,47 @@ class CreateRoomModal extends React.Component {
     }
   }
 
-  handleChange(key, e) {
+  handlePrivilegeChange = (e, i) => {
+    const items = this.state.invitations;
+    items[i].privilege = e+1;
+    this.setState(prevState => ({
+      invitations: [...items]
+    }));
+  }
+
+  handleUsernameChange = (e, i) => {
+    const items = this.state.invitations;
+    items[i].username = e.target.value;
+    this.setState(prevState => ({
+      invitations: [...items]
+    }));
+  }
+
+  handleChange = (key, e) => {
     this.setState({[key]: e.target.value });
   }
 
-  handleUserChange(key, e) {
+  handleUserChange = (key, e) => {
     this.setState({[key]: e});
   }
 
+  handleClickButton = () => {
+    let newElement = { key:this.state.invitations.length+1, username: '', privilege: -1 };
+    this.setState(prevState => ({
+      invitations: [...prevState.invitations, newElement]
+    }));
+  }
+
   render() {
-    const { onDismiss, name } = this.props;
-    const inputPropsEdit = {placeholder: "Add usuário"};
+    const previlegies = ['Administrador', 'Professor', 'Estudante'];
+    const { onDismiss } = this.props;
+    const { name, invitations } = this.state;
+
+    const invites = this.state.invitations.map((element, i) => {
+      const id = "bg-nested-dropdown user-invite"+i;
+      return <LabeledUserControl eventKey={i} key={i} value={element} id={id} previlegies={previlegies}
+        usernameChange={this.handleUsernameChange} privilegeChange={this.handlePrivilegeChange} />;
+    });
 
     return (
       <div>
@@ -57,12 +86,11 @@ class CreateRoomModal extends React.Component {
               value={name}
               onChange={e => this.handleChange("name", e)}
             />
-            <LabeledTagControl label="Usuários convidados"
-              className="form-control"
-              inputProps={inputPropsEdit}
-              value={this.state.invitations}
-              onChange={chips => this.handleUserChange("invitations",chips)}
-            />
+            <Button bsStyle="primary" onClick={() => this.handleClickButton()}block>
+              Adicionar usuário
+            </Button>
+            <br/>
+            {invites}
           </Modal.Body>
           <ModalFooter cancel confirm="Criar"
             onSuccess={() => this.onCreate()}
