@@ -53,7 +53,7 @@ class Lobby extends React.Component {
             <SideBar users={this.props.users}/>
               <Button bsStyle="primary" disabled={this.state.isDisabled} onClick={this.handleInviteButtonClick.bind(this)}>Convidar</Button>
             </Col>
-            <InvitationModal isOpen={this.state.isModalOpen} getInviteable={this.props.rooms.getInviteable} roomId={this.props.match.params.id} onSubmit={this.handleInvite.bind(this)} />
+            <InvitationModal isOpen={this.state.isModalOpen} roomId={this.props.match.params.id} privilege={this.props.privilege} onSubmit={this.handleInvite.bind(this)} />
         </Privileged>
       </Row>
     );
