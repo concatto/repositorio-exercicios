@@ -22,10 +22,12 @@ nodemailer.createTestAccount((err, account) => {
 
 const testCallback = (err, info) => {
   if (err) {
-    return console.log(err);
+    console.log(err);
+    return err;
   }
   console.log('Message sent: %s', info.messageId);
   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  return 'Message sent';
 };
 
 module.exports = {

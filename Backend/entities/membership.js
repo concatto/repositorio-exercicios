@@ -41,22 +41,23 @@ module.exports = {
   },
     
   inviteAll(params){
-      const vals = _.pick(params, "room_id", "id", "invitations");
-      
+      console.log('teste2');
+      const vals = _.pick(params, "room_id", "id", "invitations", "destinationUrl", "tokenKey");
+    
       const inviteVals = vals.invitations.map(function(value, index, arr) {
           arr[index].email = db.select("email").from("reap_user").where({"username": value.username})
       });
 
-      return inviteVals.forEach(function(value) {
+      return inviteVals.map(function(value, index, arr) {          
           const result = {
               room_id: vals.room_id,
               id: vals.id,
               email: value.email,
               privilege: value.privilege,
-              destinationUrl: params.destinationUrl,
-              tokenKey: params.tokenKey
+              destinationUrl: vals.destinationUrl,
+              tokenKey: vals.tokenKey
           }
-          invite(result);
+          arr[index].msg = invite(result);
       });
   },
 
