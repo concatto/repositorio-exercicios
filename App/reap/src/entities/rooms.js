@@ -1,4 +1,4 @@
-import { loadAll, load, create } from './entityUtils';
+import { loadAll, load, create, invite } from './entityUtils';
 import { succeeded, started, failed } from '../asyncOperations';
 import { toObject } from '../utils';
 
@@ -16,12 +16,15 @@ const Rooms = {
     },
     create: (name, invitations, destinationUrl, tokenKey) => dispatch => {
       create(dispatch, Rooms, 'room', {name, invitations, destinationUrl, tokenKey});
-    }
-
+    },
+	invite: (data) => dispatch => {
+      invite(dispatch, Rooms, `room/inviteAll/${data.roomId}`, data);
+	}
   },
   actionNames: {
     load: 'LOAD_ROOM',
-    create: 'CREATE_ROOM'
+    create: 'CREATE_ROOM',
+	invite: 'INVITE'
   },
 };
 

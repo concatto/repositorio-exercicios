@@ -32,13 +32,18 @@ class Lobby extends React.Component {
 		});
   }
   
-  handleInvite(e)
+  handleInvite(invitations)
   {
+	  const { rooms, match } = this.props;
 	  this.setState({
 		 isModalOpen: false 
 	  });
-      if(e.length > 0){
-          // dispatch action
+      if(invitations.length > 0){
+          const data = {
+			  invitations,
+			  roomId: match.params.id
+		  }
+		  rooms.invite(data);
       }
   }
     

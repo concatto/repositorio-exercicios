@@ -36,10 +36,6 @@ router.get('/:room_id', auth.authenticate(), (req, res) => {
   }).catch(sendError(res));
 });
 
-router.get('/:room_id/teste', auth.authenticate(), (req, res) => {
-	
-});
-
 /**
  * Creates a new room. The user will automatically become the owner of the
  * newly created room. Currently, just the name of the room is necessary.
@@ -79,6 +75,7 @@ router.post('/invite/:room_id', auth.authenticate(), (req, res) => {
 });
 
 router.post('/inviteAll/:room_id', auth.authenticate(), (req, res) => {
+	console.log(req.body);
     Membership.invite({...req.params, ...req.body, ...req.user}).then(result => {
         if (result === false) {
             res.status(400).send('Could not invite.');

@@ -63,3 +63,10 @@ export const create = (dispatch, entity, path, data, restricted = true) => {
   const options = createOptions('post', entity, 'create', path, data, {});
   return chooseAndPerformRequest(dispatch, options, restricted);
 };
+
+export const invite = (dispatch, entity, path, data, restricted = true) => {
+		  console.log('WAIT A MINUTEEEEEEEEEEE');
+	  console.log(data);
+	const options = createOptions('post', entity, 'inviteAll', path, data, {});
+	return chooseAndPerformRequest(dispatch, options, restricted);
+};
