@@ -11,8 +11,7 @@ import Exercises from '../entities/exercises';
 import { withEntities } from '../utils';
 import LabeledNumberControl from './LabeledNumberControl';
 import LabeledTagControl from './LabeledTagControl';
-
-
+import  { Redirect } from 'react-router-dom'
 
 class NewExercise extends React.Component {
 
@@ -43,6 +42,15 @@ class NewExercise extends React.Component {
       //console.log(e);
       this.setState({[key]: e.target.value });
     }
+  }
+
+  createExercise() {
+    const { reward, name, dificuldade, description, tags, tests} = this.state;
+    const { roomId } = this.props;
+
+    this.props.exercises.create(roomId, name, dificuldade, reward, description, tags, tests);
+
+    this.props.history.push(`/reap/room/${roomId}`);
   }
 
   createDifficultySelect () {
@@ -92,7 +100,7 @@ class NewExercise extends React.Component {
             <LabeledTagControl label="Tags" className="form-control" value={this.state.tags} onChange={chips => this.handleChange("tags",chips)} />
             <br/>
             <TestCases title="Casos de teste" handleTestCase={this.handleTestCase.bind(this)}/>
-            <Button onClick={() => this.props.exercises.create(roomId, name, dificuldade, reward, description, tags, tests)}>
+            <Button onClick={() => this.createExercise()}>
               Criar Exercicio
             </Button>
           </Col>
