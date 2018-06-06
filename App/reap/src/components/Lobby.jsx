@@ -34,10 +34,12 @@ class Lobby extends React.Component {
   
   handleInvite(e)
   {
-	  console.log(e);
 	  this.setState({
 		 isModalOpen: false 
 	  });
+      if(e.length > 0){
+          // dispatch action
+      }
   }
     
   render() {

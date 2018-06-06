@@ -4,7 +4,8 @@ export const SUBSCRIPTION_SUCCESS = 'SUBSCRIPTION_SUCCEEDED';
 export const SUBSCRIPTION_FAIL = 'SUBSCRIPTION_FAILED';
 export const CONFIRMATION_SUCCESS = 'CONFIRMATION_SUCCESS';
 export const CONFIRMATION_FAIL = 'CONFIRMATION_FAIL';
-export const INVITE_TESTE = 'INVITE_TESTE';
+export const INVITE_SUCCESS = 'INVITE_SUCCESS';
+export const INVITE_FAIL = 'INVITE_FAIL';
 
 export const handleSubscription = informations => {
   const URL = 'http://localhost:4000/api/user/';
@@ -24,6 +25,25 @@ export const handleSubscription = informations => {
     });
   };
 };
+
+export const handleInvite = (information, callback) => {
+    const URL = `http://localhost:4000/api/room/inviteAll/${information.room_id}`;
+    const request = axios.post(URL, information);
+    
+    return dispatch => {
+        request.then(data => {
+            dispatch({
+                type: INVITE_SUCCESS,
+                payload: data.invited
+            });
+        }).catch(err => {
+           dispatch({
+              type: INVITE_FAIL,
+               payload: err.reason
+           });
+        });
+    }
+}
 
 export const handleConfirmationToken = (information, callback) => {
   const URL = 'http://localhost:4000/api/user/verify';

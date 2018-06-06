@@ -12,9 +12,17 @@ class InvitationModal extends React.Component
 	constructor(props)
 	{
 		super(props);
-		//props.getInviteable(9);
+		let possiblePrivileges = ['Estudante'];
+        
+        if(props.privilege < 2) // 2 is professor
+        {
+            possiblePrivileges.push('Professor');
+            possiblePrivileges.push('Administrador');
+        }
+        
 		this.state = {
-			invitations: []
+			invitations: [],
+            possiblePrivileges: possiblePrivileges
 		};
 	}
 	
@@ -25,6 +33,13 @@ class InvitationModal extends React.Component
 		  invitations: [...items]
 		}));
 	}
+    
+      handleClickButton = () => {
+    let newElement = { key:this.state.invitations.length+1, username: '', privilege: -1 };
+    this.setState(prevState => ({
+      invitations: [...prevState.invitations, newElement]
+    }));
+  }
 
   handleUsernameChange = (e, i) => {
     const items = this.state.invitations;
@@ -46,7 +61,7 @@ class InvitationModal extends React.Component
 		
 		const invites = this.state.invitations.map((element, i) => {
 		  const id = "bg-nested-dropdown user-invite"+i;
-		  return <LabeledUserControl eventKey={i} key={i} value={element} id={id} privileges
+		  return <LabeledUserControl eventKey={i} key={i} value={element} id={id} previlegies={this.state.possiblePrivileges}
 			usernameChange={this.handleUsernameChange} privilegeChange={this.handlePrivilegeChange} />;
 		});
 		
