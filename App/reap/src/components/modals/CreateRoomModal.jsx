@@ -74,7 +74,7 @@ class CreateRoomModal extends React.Component {
     const { onDismiss } = this.props;
     const { name, invitations } = this.state;
 
-    const invites = this.state.invitations.map((element, i) => {
+    const invites = invitations.map((element, i) => {
       const id = "bg-nested-dropdown user-invite"+i;
       return <LabeledUserControl eventKey={i} key={i} value={element} id={id} previlegies={previlegies}
         usernameChange={this.handleUsernameChange} privilegeChange={this.handlePrivilegeChange} />;

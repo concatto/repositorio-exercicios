@@ -44,7 +44,8 @@ export const reducer = (state = initialState, action) => {
   case started(createRoom):
     return {busy: true};
   case succeeded(createRoom):
-    return action.payload;            
+    console.log(action.payload);
+    return action.payload;
   default:
     return state;
   }

@@ -39,17 +39,21 @@ module.exports = {
     // TODO check if the user already belongs to the room.
     return db.insert({user_id: params.id, ...vals}).into(table);
   },
-    
+
   inviteAll(params){
-      console.log('teste2');
+
       const vals = _.pick(params, "room_id", "id", "invitations", "destinationUrl", "tokenKey");
-    
+
       const inviteVals = vals.invitations.map(function(value, index, arr) {
-          arr[index].email = db.select("email").from("reap_user").where({"username": value.username})
+          db.select("email").from("reap_user").where({"username": value.username}).then(row => {
+            arr[index] = _.pick(row, "email");
+          });
+          return arr[index];
       });
 
-      return inviteVals.map(function(value, index, arr) {          
-          const result = {
+      return inviteVals.map(function(value, index, arr) {
+        console.log(value.email);
+          const resultVals = {
               room_id: vals.room_id,
               id: vals.id,
               email: value.email,
@@ -57,7 +61,14 @@ module.exports = {
               destinationUrl: vals.destinationUrl,
               tokenKey: vals.tokenKey
           }
-          arr[index].msg = invite(result);
+          this.invite(resultVals).then(result => {
+            if (result === false) {
+              arr[index].msg = 'Usuário não cadastrado ou Não enviou.';
+            } else {
+              arr[index].msg = 'Enviado.';
+            }
+          });
+          return arr[index];
       });
   },
 
@@ -67,6 +78,7 @@ module.exports = {
   },
 
   invite(params) {
+    console.log('entrei_invite');
     const tokenData = _.pick(params, "room_id", "id", "email", "privilege");
 
     return this.isMorePrivilegedThan(Constants.Student, params.room_id, params.id).then(result => {
