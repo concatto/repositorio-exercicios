@@ -34,14 +34,17 @@ class Lobby extends React.Component {
   
   handleInvite(invitations)
   {
-	  const { rooms, match } = this.props;
+	  const { rooms, match, user } = this.props;
 	  this.setState({
 		 isModalOpen: false 
 	  });
       if(invitations.length > 0){
           const data = {
 			  invitations,
-			  roomId: match.params.id
+			  roomId: match.params.id,
+			  destinationUrl: 'http://localhost:3000/acceptInvitation',
+			  tokenKey: 'token',
+			  id: user.id
 		  }
 		  rooms.invite(data);
       }
