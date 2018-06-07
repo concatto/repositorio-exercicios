@@ -26,7 +26,7 @@ export const handleSubscription = informations => {
     });
   };
 };
-
+/*
 export const handleInvite = (information, callback) => {
     const URL = `http://localhost:4000/api/room/inviteAll/${information.room_id}`;
     const request = axios.post(URL, information);
@@ -44,7 +44,7 @@ export const handleInvite = (information, callback) => {
            });
         });
     }
-}
+}*/
 
 export const handleConfirmationToken = (information, callback) => {
   const URL = 'http://localhost:4000/api/user/verify';

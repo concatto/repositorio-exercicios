@@ -75,14 +75,7 @@ router.post('/invite/:room_id', auth.authenticate(), (req, res) => {
 });
 
 router.post('/inviteAll/:room_id', auth.authenticate(), (req, res) => {
-	console.log(req.body);
-    Membership.invite({...req.params, ...req.body, ...req.user}).then(result => {
-        if (result === false) {
-            res.status(400).send('Could not invite.');
-        } else {
-            res.status(200).send('Invited.');
-        }
-    }).catch(sendError(res));
+	Membership.inviteAll(req.body);
 });
 
 /**

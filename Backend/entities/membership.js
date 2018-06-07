@@ -42,6 +42,8 @@ module.exports = {
 
   inviteAll(params){
 
+	  console.log('se cair aqui, comito e deixo com o halerssandro');
+      console.log(params);
       const vals = _.pick(params, "room_id", "id", "invitations", "destinationUrl", "tokenKey");
 
       const inviteVals = vals.invitations.map(function(value, index, arr) {
