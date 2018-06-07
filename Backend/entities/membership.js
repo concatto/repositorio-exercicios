@@ -41,7 +41,10 @@ module.exports = {
   },
 
   inviteAll(params){
-      const vals = _.pick(params, "room_id", "id", "invitations", "destinationUrl", "tokenKey");
+
+
+  console.log(params);
+      const vals = _.pick(params, "roomId", "id", "invitations", "destinationUrl", "tokenKey");
       console.log(vals);
 
       var promiseM = vals.invitations.map(function(value) {
@@ -49,7 +52,7 @@ module.exports = {
           //  console.log(row[0].email);
             //row[0].email;
             const resultVals = {
-                room_id: vals.room_id,
+                room_id: vals.roomId,
                 id: vals.id,
                 email: row[0].email,
                 privilege: 3,
