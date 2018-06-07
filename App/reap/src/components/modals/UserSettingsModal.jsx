@@ -3,10 +3,21 @@ import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
 class UserSettingsModal extends React.Component {
+  constructor(props){
+    super();
+    this.state={value:1};
+  }
+
+  changeStatus(value){
+    value.
+    this.setState({value});
+    console.log(this.state.value);
+  }
+
   render() {
     const { onDismiss, user, roomId } = this.props;
     const { id, name, experience, privilege, joined_at } = user;
-    var privilegeVerify;
+      var privilegeVerify;
       
       switch({privilege}.privilege){
           case 0:
@@ -22,6 +33,11 @@ class UserSettingsModal extends React.Component {
               privilegeVerify='Aluno';
               break;
       }
+
+
+
+
+
     return (
       <div>
         <Modal.Header closeButton>
@@ -34,17 +50,24 @@ class UserSettingsModal extends React.Component {
                 <br></br>
                
             </div>
-<select id="select">
-  <option value="1">Administrador</option>
+<form>
+            <select id="select">
+  <option value="1" >Administrador</option> 
   <option value="2">Professor</option>
   <option value="3">Aluno</option>
 </select>
-            <button id="userSettingButton" class="atualizar">OK</button>
+
+            <button id="userSettingButton" onClick={this.changeStatus.bind(this)} className="atualizar">OK</button>
+</form>
         </Modal.Body>
       </div>
     );
+       
+
   }
 }
+
+
 
 UserSettingsModal.modalProperties = {
   bsSize: '',
