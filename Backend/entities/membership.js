@@ -41,19 +41,48 @@ module.exports = {
   },
 
   inviteAll(params){
+      const vals = _.pick(params, "room_id", "id", "invitations", "destinationUrl", "tokenKey");
+      console.log(vals);
 
-	  console.log('se cair aqui, comito e deixo com o halerssandro');
+      var promiseM = vals.invitations.map(function(value) {
+          return db.select("email").from("reap_user").where({"username": value.username}).then(row => {
+          //  console.log(row[0].email);
+            //row[0].email;
+            const resultVals = {
+                room_id: vals.room_id,
+                id: vals.id,
+                email: row[0].email,
+                privilege: 3,
+                destinationUrl: vals.destinationUrl,
+                tokenKey: vals.tokenKey
+            }
+
+             return resultVals;
+          });
+      });
+
+      Promise.all(promiseM).then( resultadoAleluia => {
+        console.log(resultadoAleluia);
+        resultadoAleluia.map( value => {
+          this.invite(value);
+        })
+      })
+
+
+	  /*console.log('se cair aqui, comito e deixo com o halerssandro');
       console.log(params);
       const vals = _.pick(params, "room_id", "id", "invitations", "destinationUrl", "tokenKey");
 
-      const inviteVals = vals.invitations.map(function(value, index, arr) {
+      /*const inviteVals = vals.invitations.map(function(value, index, arr) {
           db.select("email").from("reap_user").where({"username": value.username}).then(row => {
-            arr[index] = _.pick(row, "email");
+            arr[index] = row[0].email;
           });
           return arr[index];
       });
 
-      return inviteVals.map(function(value, index, arr) {
+      vals.invitations[0].email = "d@f.com";
+
+      vals.invitations.map(function(value, index, arr) {
         console.log(value.email);
           const resultVals = {
               room_id: vals.room_id,
@@ -63,7 +92,7 @@ module.exports = {
               destinationUrl: vals.destinationUrl,
               tokenKey: vals.tokenKey
           }
-          this.invite(resultVals).then(result => {
+          return this.invite(resultVals).then(result => {
             if (result === false) {
               arr[index].msg = 'Usuário não cadastrado ou Não enviou.';
             } else {
@@ -71,7 +100,7 @@ module.exports = {
             }
           });
           return arr[index];
-      });
+      });*/
   },
 
   leave(params) {

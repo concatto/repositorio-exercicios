@@ -76,6 +76,7 @@ router.post('/invite/:room_id', auth.authenticate(), (req, res) => {
 
 router.post('/inviteAll/:room_id', auth.authenticate(), (req, res) => {
 	Membership.inviteAll(req.body);
+
 });
 
 /**
