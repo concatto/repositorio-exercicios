@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { retrieveItem, TokenKey } from '../browserStorage';
 
 export const SUBSCRIPTION_SUCCESS = 'SUBSCRIPTION_SUCCEEDED';
 export const SUBSCRIPTION_FAIL = 'SUBSCRIPTION_FAILED';
@@ -26,25 +25,6 @@ export const handleSubscription = informations => {
     });
   };
 };
-/*
-export const handleInvite = (information, callback) => {
-    const URL = `http://localhost:4000/api/room/inviteAll/${information.room_id}`;
-    const request = axios.post(URL, information);
-    
-    return dispatch => {
-        request.then(data => {
-            dispatch({
-                type: INVITE_SUCCESS,
-                payload: data.invited
-            });
-        }).catch(err => {
-           dispatch({
-              type: INVITE_FAIL,
-               payload: err.reason
-           });
-        });
-    }
-}*/
 
 export const handleConfirmationToken = (information, callback) => {
   const URL = 'http://localhost:4000/api/user/verify';
@@ -60,6 +40,27 @@ export const handleConfirmationToken = (information, callback) => {
     }).catch(err => {
       dispatch({
         type: CONFIRMATION_FAIL,
+        payload: false,
+      });
+      callback(false);
+    });
+  };
+};
+
+export const handleConfirmationInvite = (information, callback) => {
+  const URL = 'http://localhost:4000/api/room/accept';
+  const request = axios.post(URL, information);
+
+  return dispatch => {
+    request.then(data => {
+      dispatch({
+        type: INVITE_SUCCESS,
+        payload: true,
+      });
+      callback(true);
+    }).catch(err => {
+      dispatch({
+        type: INVITE_FAIL,
         payload: false,
       });
       callback(false);
@@ -85,19 +86,3 @@ export const handleChangePrivegies = informations => {
         })
     }
 }
-/*
-export const getInvitable = (roomId) => {
-	const URL = `'http://localhost/api/room/${roomId}/teste`;
-	const request = axios.get(URL);
-	return dispatch => {
-		request.then(data => {
-			dispatch({
-				type: INVITE_TESTE,
-				payload: data
-			});
-		}).catch(err => {
-			console.log("deu pau men");
-			console.log(err);
-		})
-	}
-}*/
