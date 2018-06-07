@@ -44,19 +44,25 @@ module.exports = {
       return db.insert(vals).into(table).returning('id').transacting(trx)
         .then(result => {
           // Then, join the newly created room with highest privilege
+          const room_id = result[0];
           const joinVals = {id, room_id: result[0], privilege: 0};
-          Membership.join(joinVals).transacting(trx);
+          const join = Membership.join(joinVals).transacting(trx);
+          
           //And, join the users with privilege
           const inviteAllVals = {id, room_id: joinVals.room_id, invitations, destinationUrl, tokenKey };
-          const inviteAll = Membership.inviteAll(inviteAllVals);
-          return Promise.all([inviteAll]);
-        }).then(result => {
-          if (result === false) return false;
-
-          const { inviteAll } = result;
-          console.log(result);
-          return {inviteAll};
+           
+          return Promise.all([join, Membership.inviteAll(inviteAllVals), room_id]);
         })
+//        .then(result => {
+//          if (result === false) return false;
+//            
+//
+//          const { inviteAll , room_id} = result;
+//          console.log(result);
+//          //return {inviteAll};
+//          return room_id;
+//        })
+        .then(trx.commit)
         .catch(trx.rollback);
     });
   },
