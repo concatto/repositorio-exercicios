@@ -35,7 +35,7 @@ module.exports = {
 
   join(params) {
     const vals = _.pick(params, "room_id", "privilege");
-
+    
     // TODO check if the user already belongs to the room.
     return db.insert({user_id: params.id, ...vals}).into(table);
   },
@@ -45,15 +45,14 @@ module.exports = {
 
   console.log(params);
       const vals = _.pick(params, "roomId", "id", "invitations", "destinationUrl", "tokenKey");
-      console.log(vals);
 
       var promiseM = vals.invitations.map(function(value) {
-          return db.select("email").from("reap_user").where({"username": value.username}).then(row => {
-          //  console.log(row[0].email);
+          return db.select("id", "email").from("reap_user").where({"username": value.username}).then(row => {
             //row[0].email;
             const resultVals = {
                 room_id: vals.roomId,
-                id: vals.id,
+                id: row[0].id,
+                inviterId: vals.id,
                 email: row[0].email,
                 privilege: 3,
                 destinationUrl: vals.destinationUrl,
@@ -114,11 +113,12 @@ module.exports = {
   invite(params) {
     console.log('entrei_invite');
     const tokenData = _.pick(params, "room_id", "id", "email", "privilege");
+    console.log(tokenData)
 
-    return this.isMorePrivilegedThan(Constants.Student, params.room_id, params.id).then(result => {
+    return this.isMorePrivilegedThan(Constants.Student, params.room_id, params.inviterId).then(result => {
       if (result === false) return false;
 
-      const user = User.retrieve({id: params.id});
+      const user = User.retrieve({id: params.inviterId});
       const room = db.first("name").from("room").where({id: params.room_id});
 
       return Promise.all([user, room]);
@@ -142,12 +142,17 @@ module.exports = {
   // Clients should handle the registration process if needs be.
   acceptInvitation(params) {
     const { token, id } = params;
-
     return keyring.verifyToken(token).then(data => {
-      return User.retrieve({id}).then(user => {
+      const t = {id: data.id}
+      return User.retrieve(t).then(user => {
+        console.log(user)
+        console.log('emails')
+        console.log(user.email)
+        console.log(data.email) 
+        const b = user.id;
         if (user.email !== data.email) return false;
-
-        return this.join({...data, id});
+        console.log('if i get here, i should be joining it');
+        return this.join({...data, b});
       });
     });
   },

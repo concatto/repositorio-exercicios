@@ -44,7 +44,9 @@ module.exports = {
       return db.insert(vals).into(table).returning('id').transacting(trx)
         .then(result => {
           // Then, join the newly created room with highest privilege
+          
           const room_id = result[0];
+          console.log(room_id);
           const joinVals = {id, room_id: result[0], privilege: 0};
           const join = Membership.join(joinVals).transacting(trx);
           

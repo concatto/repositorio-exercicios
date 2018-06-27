@@ -253,12 +253,3 @@
   outline: none;
   padding: 5px;
   width: 80px; }
-#select{
-  background-color: rgb(46, 46, 46);height: 50px;width: 50%;
-}
-
-#userSettingButton{
-  background-color: rgb(8, 68, 0);border:none;border-radius: 10px;font-size: 18px;padding: 10px;float:right;bottom:30px;
-}
-#alterStatus{float: right;margin-left: 10px;}
-

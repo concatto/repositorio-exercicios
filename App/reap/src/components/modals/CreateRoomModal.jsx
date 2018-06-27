@@ -30,8 +30,8 @@ class CreateRoomModal extends React.Component {
         tokenKey: "token"
     };
     if (name.trim() !== "") {
-      console.log(this.props.rooms.create(name, invitations, redirectionData.destinationUrl, redirectionData.tokenKey));
-      //this.props.history.push('/reap'); atualiza pagina (funciona)
+      this.props.rooms.create(name, invitations, redirectionData.destinationUrl, redirectionData.tokenKey);
+      this.props.history.push('/reap');
       this.props.onDismiss();
     } else {
       alert("Campo nome é obrigatório");

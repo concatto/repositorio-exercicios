@@ -24,6 +24,7 @@ class ConfirmationInvitePage extends React.Component {
   }
 
   render() {
+    console.log('HALERSSON GAY');
     if (this.state.confirmed === true) {
       return <h3>Confirmação do convite realizada com sucesso!</h3>;
     } else if (this.state.confirmed === false) {

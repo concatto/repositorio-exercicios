@@ -42,7 +42,7 @@ class Lobby extends React.Component {
           const data = {
 			  invitations,
 			  roomId: match.params.id,
-			  destinationUrl: 'http://localhost:3000/acceptInvitation',
+			  destinationUrl: 'http://localhost:3000/acceptInvite',
 			  tokenKey: 'token',
 			  id: user.id
 		  }
