@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\App\\reap",
+    "\\App\\reap\\src",
+    "\\App\\reap\\src\\actions",
+    "\\App\\reap\\src\\components",
+    "\\Backend",
+    "\\Backend\\entities",
+    "\\Backend\\routes"
+  ],
+  "SelectedNode": "\\Backend\\routes\\room.js",
+  "PreviewInSolutionExplorer": false
+}

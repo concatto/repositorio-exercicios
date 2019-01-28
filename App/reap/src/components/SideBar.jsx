@@ -3,6 +3,7 @@ import { FormGroup, ListGroup, Panel , PanelGroup } from 'react-bootstrap';
 import SearchInput, {createFilter} from './SearchInput';
 import ListItemTeacher from './ListItemTeacher';
 import ListItemStudent from './ListItemStudent';
+import MemberItem from './MemberItem';
 
 const KEYS_TO_FILTERS = ['name']
 
@@ -14,7 +15,13 @@ class SideBar extends React.Component {
 		}
 		this.searchUpdated = this.searchUpdated.bind(this)
 	}
+
 	render() {
+
+        const result = this.props.users;
+        //console.log(result);
+
+
 		const filterTeacher = ListItemTeacher.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 		const filterStudent = ListItemStudent.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 		return (
@@ -25,21 +32,26 @@ class SideBar extends React.Component {
 						<ListGroup className="member-list-panel">
 							<PanelGroup>
 								<Panel header={"Professores"}>
-									{filterTeacher.map(ListItemTeacher => {
-										return (
-											<div key={ListItemTeacher.name}>
-												{ListItemTeacher.memberitem}
-											</div>
-										)
+									{
+										result.map(ListItemTeacher => {
+										if (ListItemTeacher.privilege < 3) {
+                    	return (
+												<div key={ListItemTeacher.name}>
+                        	<MemberItem name={ListItemTeacher.name} user={ListItemTeacher} online={false}/>
+                        </div>
+										  )
+                                        }
 									})}
 								</Panel>
 								<Panel header={"Alunos"}>
-									{filterStudent.map(ListItemStudent => {
-											return (
-											<div key={ListItemStudent.name}>
-												{ListItemStudent.memberitem}
-											</div>
-										)
+
+									{result.map(ListItemStudent => {
+                    if (ListItemStudent.privilege > 2) {
+                        return (
+                        <div key={ListItemStudent.name}>
+                            <MemberItem name={ListItemStudent.name} user={ListItemStudent} online={false}/>
+                        </div>
+                    )}
 									})}
 								</Panel>
 							</PanelGroup>

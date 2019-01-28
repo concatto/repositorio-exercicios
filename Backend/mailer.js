@@ -7,7 +7,7 @@ let transporter = nodemailer.createTransport({
     pass: "f72bbd280d"
   }
 });
-
+/*
 nodemailer.createTestAccount((err, account) => {
   transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
@@ -18,14 +18,16 @@ nodemailer.createTestAccount((err, account) => {
       pass: account.pass
     }
   });
-});
+});*/
 
 const testCallback = (err, info) => {
   if (err) {
-    return console.log(err);
+    console.log(err);
+    return err;
   }
   console.log('Message sent: %s', info.messageId);
   console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  return 'Message sent';
 };
 
 module.exports = {
@@ -59,7 +61,6 @@ module.exports = {
         " esta mensagem um engano. Você pode simplesmente ignorá-la; sua segurança" +
         " não foi comprometida.",
     };
-
     return transporter.sendMail(mailOptions, testCallback);
   },
 };

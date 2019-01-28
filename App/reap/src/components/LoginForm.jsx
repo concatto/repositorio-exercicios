@@ -40,15 +40,15 @@ class LoginForm extends React.Component {
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
         {failed &&
-          <p className="text-danger">Credenciais inválidas! Tente novamente.</p>
+          <p id="labelInvalido" className="text-danger">Credenciais inválidas! Tente novamente.</p>
         }
 
-        <LabeledControl label="Usuário" type="text" withFeedback
+        <LabeledControl id="loginUsuario" label="Usuário" type="text" withFeedback
           value={user}
           onChange={e => this.handleChange("user", e)}
           validationState={failed ? "error" : null}
         />
-        <LabeledControl label="Senha" type="password" withFeedback
+        <LabeledControl id="loginSenha" label="Senha" type="password" withFeedback
           value={password}
           onChange={e => this.handleChange("password", e)}
           validationState={failed ? "error" : null}
@@ -57,7 +57,7 @@ class LoginForm extends React.Component {
           <Checkbox inline checked={persistLogin} onChange={() => this.handlePersist()}>
             Permanecer conectado
           </Checkbox>
-          <Button type="submit" className="no-top-margin flex-right" disabled={logging}>
+          <Button id="loginEntrar" type="submit" className="no-top-margin flex-right" disabled={logging}>
             Entrar
           </Button>
         </div>

@@ -23,16 +23,45 @@ class TextAreaCode extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.output && nextProps.output) {
-      if (nextProps.output.failed === true) {
-        const errors = nextProps.output.errors.split('\n').filter(val => val !== '');
+  handleCheckChange(nextProps) {
+    if (!this.props.checkResult && nextProps.checkResult) {
+      if (nextProps.checkResult.failed === true) {
+        const errors = nextProps.checkResult.errors.split('\n').filter(val => val !== '');
 
         this.props.modal.push(BuildErrorModal, {errors});
       } else {
         alert('Ok!');
       }
     }
+  }
+
+  handleExecuteChange(nextProps) {
+    if (!this.props.executeResult && nextProps.executeResult) {
+      const content = nextProps.executeResult.map(el => ({
+        input: el.testCase.input,
+        output: el.output || 'N/A',
+        ok: el.passed || false,
+      }));
+
+      if (nextProps.executeResult.every(el => el.passed === true)) {
+        this.notifySuccess(content);
+      } else {
+        this.notifyFailure(content);
+      }
+
+      // if (nextProps.executeResult.failed === true) {
+      //   const errors = nextProps.executeResult.errors.split('\n').filter(val => val !== '');
+
+      //   this.props.modal.push(BuildErrorModal, {errors});
+      // } else {
+      //   alert('Ok!');
+      // }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.handleCheckChange(nextProps);
+    this.handleExecuteChange(nextProps);
   }
 
   countLine(e) {
@@ -64,15 +93,19 @@ class TextAreaCode extends React.Component {
     );
   }
 
-  notifySuccess() {
-    this.props.modal.push(SuccessModal, {}, () => {
+  notifySuccess(content) {
+    const { exercise } = this.props;
+
+    this.props.modal.push(SuccessModal, {content, exercise}, () => {
       this.props.modal.pop();
-      this.props.modal.push(RewardModal, {});
+      this.props.modal.push(RewardModal, {value: exercise.baseReward});
     });
   }
 
-  notifyFailure() {
-    this.props.modal.push(FailureModal, {}, () => {
+  notifyFailure(content) {
+    const { exercise } = this.props;
+
+    this.props.modal.push(FailureModal, {content, exercise}, () => {
       this.props.modal.pop();
       this.props.modal.push(TipOfferModal, {}, () => {
         this.props.modal.pop();
@@ -134,5 +167,8 @@ class TextAreaCode extends React.Component {
 }
 
 export default connect(state => {
-  return {output: state.exercises.output};
+  return {
+    checkResult: state.exercises.checkResult,
+    executeResult: state.exercises.executeResult,
+  };
 }, withEntities(Modal, Exercises))(TextAreaCode);

@@ -5,6 +5,7 @@ import { reducer as authReducer } from './entities/auth';
 import { reducer as roomReducer } from './entities/rooms';
 import { reducer as modalReducer } from './entities/modal';
 import { reducer as exerciseReducer } from './entities/exercises';
+import { reducer as registrationReducer} from './entities/reg';
 
 const middleware = applyMiddleware(thunk, createLogger());
 
@@ -34,4 +35,5 @@ export const store = createStore(combineReducers({
   users: __mockUsersReducer,
   auth: authReducer,
   room: roomReducer,
+  registration: registrationReducer,
 }), middleware);

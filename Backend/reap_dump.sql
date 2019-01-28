@@ -15,14 +15,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -1053,12 +1053,12 @@ ALTER TABLE ONLY user_room
 ALTER TABLE ONLY user_room
     ADD CONSTRAINT user_room_user FOREIGN KEY (user_id) REFERENCES reap_user(id);
 
-	
+
 -- *** >===< *** >===< *** TEST DATA *** >===< *** >===< *** --
 
 INSERT INTO reap_user(id, name, username, email, password, verified)
 	VALUES (1001, 'REAP', 'reap', 'test@test.test', '$2a$10$y9N3cJ/tDngQFwuwskm7f./5Y8mFOp4W0d.eOBUMgF8pcrP/0qDt.', true);
-	
+
     INSERT INTO user_room(room_id, user_id) VALUES (9, 1001);
 INSERT INTO language(id, name) VALUES (1, 'C++');
 INSERT INTO language(id, name) VALUES (2, 'C');
@@ -1067,8 +1067,7 @@ INSERT INTO category(id, name, room_id) VALUES (2, 'Vetores', 9);
 
 --Exercicio 1
 
-INSERT INTO exercise(id, name, difficulty, base_reward, description, room_id, created_at, visible, creator_id)
-			 VALUES (1001, 'Fatorial', 2, 10, 'Crie uma função que receba um número inteiro menor que 100, e retorne como resultado o seu fatorial!', 9, localtimestamp, true, 1001);	
+INSERT INTO exercise(id, name, difficulty, base_reward, description, room_id, created_at, visible, creator_id) VALUES (1001, 'Fatorial', 2, 10, 'Crie uma função que receba um número inteiro menor que 100, e retorne como resultado o seu fatorial!', 9, localtimestamp, true, 1001);
 INSERT INTO exercise_category(exercise_id, category_id) VALUES (1001, 1);
 INSERT INTO language_availability(exercise_id, language_id) VALUES (1001, 1);
 INSERT INTO language_availability(exercise_id, language_id) VALUES (1001, 2);
@@ -1080,18 +1079,17 @@ INSERT INTO test_case(id, exercise_id, input, output) VALUES (102, 1001, '7', '5
 INSERT INTO test_case(id, exercise_id, input, output) VALUES (103, 1001, '8', '40320');
 
 --Exercicio 2
-	
-INSERT INTO exercise(id, name, difficulty, base_reward, description, room_id, created_at, visible, creator_id)
-			 VALUES (1002, 'Soma de Vetor', 2, 5, 'Crie uma função que receba um vetor e retone a soma de todos os elementos do mesmo!', 9, localtimestamp, true, 1001);	
+
+INSERT INTO exercise(id, name, difficulty, base_reward, description, room_id, created_at, visible, creator_id) VALUES (1002, 'Número Triangular', 2, 5, 'Crie uma função que receba um número inteiro, e retorne como resultado o seu número triangular!', 9, localtimestamp, true, 1001);
 INSERT INTO exercise_category(exercise_id, category_id) VALUES (1002, 2);
 INSERT INTO language_availability(exercise_id, language_id) VALUES (1002, 1);
 INSERT INTO language_availability(exercise_id, language_id) VALUES (1002, 2);
-INSERT INTO tip(id, content, exercise_id, penalty) VALUES (3, 'Exemplo: input: int vet[5]={0,1,2,3,4}, output: 10', 1002, 1);
-INSERT INTO tip(id, content, exercise_id, penalty) VALUES (4, 'Pode ser declarado um laço de repeticao para percorrer o vetor ate n-1, exemplo for(int x=0;x<vet.length-1;x++)', 1002, 3);
-INSERT INTO test_case(id, exercise_id, input, output) VALUES (104, 1002, 'vet[5]={0,1,2,3,4}', '10');
-INSERT INTO test_case(id, exercise_id, input, output) VALUES (105, 1002, 'vet[3]={2,3,5}', '10');
-INSERT INTO test_case(id, exercise_id, input, output) VALUES (106, 1002, 'vet[2]={8,1}', '9');
-INSERT INTO test_case(id, exercise_id, input, output) VALUES (107, 1002, 'vet[5]={2,2,2,2,2}', '10');
+INSERT INTO tip(id, content, exercise_id, penalty) VALUES (3, 'Exemplo: 2 == 2x3/2 = 3 ', 1002, 1);
+INSERT INTO tip(id, content, exercise_id, penalty) VALUES (4, 'Fórmula matemática do fatorial: n(n+1)/2', 1002, 3);
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (104, 1002, '5', '15');
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (105, 1002, '11', '66');
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (106, 1002, '19', '190');
+INSERT INTO test_case(id, exercise_id, input, output) VALUES (107, 1002, '27', '378');
 
 -- *** >===< *** >===< *** END TEST DATA *** >===< *** >===< *** --
 

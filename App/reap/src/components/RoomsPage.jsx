@@ -3,17 +3,27 @@ import { connect } from 'react-redux';
 import { Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { withEntities } from '../utils';
 import Rooms from '../entities/rooms';
+import Modal from '../entities/modal';
+import CreateRoomModal from './modals/CreateRoomModal';
 import Privileged from './Privileged';
 import LinkGroupItem from './LinkGroupItem';
 
 class RoomsPage extends React.Component {
+  
   componentDidMount() {
     this.props.rooms.clear();
   }
-
+  
+  refresh() {
+    this.setState({ state: this.state });
+    this.forceUpdate();
+  }
+  
   handleCreateRoom() {
-    const name = prompt('Digite o nome da sala:');
-    this.props.rooms.create(name);
+    this.props.modal.push(CreateRoomModal, {}, () => {
+      this.props.modal.pop();
+      this.refresh();      
+    });    
   }
 
   createItems() {
@@ -49,4 +59,4 @@ export default connect(state => {
     authenticated: state.auth.authenticated,
     roomData: state.auth.user ? state.auth.user.rooms : [],
   };
-}, withEntities(Rooms))(RoomsPage);
+}, withEntities(Modal, Rooms))(RoomsPage);

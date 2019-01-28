@@ -8,6 +8,7 @@ import Loading from './components/Loading';
 import MainPage from './components/MainPage';
 import WelcomePage from './components/WelcomePage';
 import ConfirmationTokenPage from './components/ConfirmationTokenPage';
+import ConfirmationInvitePage from './components/ConfirmationInvitePage';
 import './css/App.css';
 import './css/stylesheets/bootswatch.css';
 
@@ -33,6 +34,7 @@ class App extends React.Component {
         <Route exact path="/" component={WelcomePage}/>
         <Route path="/reap" component={MainPage}/>
         <Route path="/confirmation" component={ConfirmationTokenPage}/>
+        <Route path="/acceptInvite" component={ConfirmationInvitePage}/>
       </Switch>
     );
   }

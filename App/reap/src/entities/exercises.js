@@ -34,8 +34,8 @@ const Exercises = {
       loadAll(dispatch, Exercises, inRoom(roomId));
     },
 
-    create: (roomId, name, difficulty, reward, description) => dispatch => {
-      create(dispatch, Exercises, inRoom(roomId), {name, difficulty, reward, description});
+    create: (roomId, name, difficulty, reward, description, tags, testCase) => dispatch => {
+      create(dispatch, Exercises, inRoom(roomId), {name, difficulty, reward, description, tags, testCase});
     },
   },
   actionNames: {
@@ -55,9 +55,13 @@ export const reducer = (state = initialState, action) => {
   case succeeded(Exercises.actionNames.loadAll):
     return {data: toObject(action.payload)};
   case started(Exercises.actionNames.check):
-    return {...state, output: undefined};
+    return {...state, checkResult: undefined};
   case succeeded(Exercises.actionNames.check):
-    return {...state, output: action.payload};
+    return {...state, checkResult: action.payload};
+  case started(Exercises.actionNames.execute):
+    return {...state, executeResult: undefined};
+  case succeeded(Exercises.actionNames.execute):
+    return {...state, executeResult: action.payload};
   default:
     return state;
   }

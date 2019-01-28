@@ -36,8 +36,7 @@ module.exports = {
   },
 
   create(params) {
-    const { id, name } = params;
-
+    const { id, name, invitations, destinationUrl, tokenKey } = params;
     return db.transaction(trx => {
       const vals = {creator_id: id, name};
 
@@ -45,12 +44,33 @@ module.exports = {
       return db.insert(vals).into(table).returning('id').transacting(trx)
         .then(result => {
           // Then, join the newly created room with highest privilege
+          
+          const room_id = result[0];
+          console.log(room_id);
           const joinVals = {id, room_id: result[0], privilege: 0};
-
-          return Membership.join(joinVals).transacting(trx);
+          const join = Membership.join(joinVals).transacting(trx);
+          
+          //And, join the users with privilege
+          const inviteAllVals = {id, room_id: joinVals.room_id, invitations, destinationUrl, tokenKey };
+           
+          return Promise.all([join, Membership.inviteAll(inviteAllVals), room_id]);
         })
+//        .then(result => {
+//          if (result === false) return false;
+//            
+//
+//          const { inviteAll , room_id} = result;
+//          console.log(result);
+//          //return {inviteAll};
+//          return room_id;
+//        })
         .then(trx.commit)
         .catch(trx.rollback);
     });
   },
+
+  teste(params)
+  {
+	  const {room_id} = params;
+  }
 };
